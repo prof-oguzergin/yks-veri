@@ -13,6 +13,11 @@
   /* Bolum renkleri: gozun bolumu tanimasi icin, dokuzu da birbirinden ayirt edilir. */
   --b1:#B23C0B; --b2:#8A6D1F; --b3:#2A78D6; --b4:#17708F; --b5:#5E4CA8;
   --b6:#137A55; --b7:#C2185B; --b8:#4A6572; --b9:#6B7280;
+  /* Obek renkleri: on alti obegin her birine bir ton. */
+  --o1:#C0392B; --o2:#C4551F; --o3:#A87813; --o4:#6E7A2E; --o5:#2E7D32;
+  --o6:#0E7C5A; --o7:#10808C; --o8:#4A6572; --o9:#2A78D6; --o10:#1E4E9C;
+  --o11:#4C46A8; --o12:#7A4FC7; --o13:#A0439E; --o14:#C2185B; --o15:#8A5A2B;
+  --o16:#7C7C76;
   --serif:ui-serif,Georgia,"Iowan Old Style","Times New Roman",serif;
   --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
 }
@@ -21,13 +26,21 @@
   --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
   --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
   --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
-  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;}}
+  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;
+  --o1:#EF7062; --o2:#F07440; --o3:#D9A63C; --o4:#A8B457; --o5:#62BE67;
+  --o6:#22B481; --o7:#3FB6C4; --o8:#8FA6B4; --o9:#5FA3E8; --o10:#7A9FE8;
+  --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
+  --o16:#A5A59E;}}
 :root[data-tema="koyu"]{
   --paper:#0E1216; --card:#161B21; --ink:#E9EBE8; --ink-2:#A9B2BC; --ink-3:#79838E;
   --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
   --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
   --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
-  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;}
+  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;
+  --o1:#EF7062; --o2:#F07440; --o3:#D9A63C; --o4:#A8B457; --o5:#62BE67;
+  --o6:#22B481; --o7:#3FB6C4; --o8:#8FA6B4; --o9:#5FA3E8; --o10:#7A9FE8;
+  --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
+  --o16:#A5A59E;}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:64px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
@@ -140,6 +153,7 @@ td.dip{color:var(--iyi);font-weight:600}
 td.bos{color:var(--ink-3)}
 .sr{color:var(--ink-3);display:inline-block;min-width:1.9em}
 .alt{color:var(--ink-3);font-size:.85em}
+tbody th .ikon{width:17px;height:17px;vertical-align:-3.6px;margin-right:8px}
 
 /* ---- seçim düğmeleri ---- */
 .secim{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 0}
@@ -251,8 +265,9 @@ footer p{color:var(--ink-3);max-width:76ch}
       <g opacity=".55"><line x1="14.5" y1="3" x2="14.5" y2="16"/>
         <polyline points="11.6,13 14.5,16 17.4,13"/></g>
     </g></symbol>
-  <symbol id="i-tip" viewBox="0 0 20 20"><!-- hac -->
-    <path fill="currentColor" d="M8 2h4v6h6v4h-6v6H8v-6H2V8h6z"/></symbol>
+  <symbol id="i-tip" viewBox="0 0 20 20"><!-- hilal: saglik isareti Kizilay -->
+    <path fill="currentColor"
+      d="M13.7 2.6a8 8 0 1 0 0 14.8 6.8 6.8 0 1 1 0-14.8z"/></symbol>
   <symbol id="i-harita" viewBox="0 0 20 20"><!-- igne -->
     <path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"
       d="M10 18s-6-6.6-6-10a6 6 0 1 1 12 0c0 3.4-6 10-6 10z"/>
@@ -265,6 +280,95 @@ footer p{color:var(--ink-3);max-width:76ch}
       <line x1="8.5" y1="15.5" x2="17.5" y2="15.5" opacity=".5"/>
       <polyline points="2.5,4.5 4,6 6.2,3"/><polyline points="2.5,10 4,11.5 6.2,8.5"/>
     </g></symbol>
+  <symbol id="o-gastronomi" viewBox="0 0 20 20"><!-- catal bicak -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+       stroke-linejoin="round">
+      <path d="M4.6 2.5v4.2a2.1 2.1 0 0 0 4.2 0V2.5"/><path d="M6.7 2.5v6.6"/>
+      <path d="M6.7 9.1v8.4"/>
+      <path d="M15.6 2.5c1.5 2.3 1.6 5.4.2 7.6h-2.1v7.4"/>
+    </g></symbol>
+  <symbol id="o-muhendislik" viewBox="0 0 20 20"><!-- somun -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+      <path d="M10 2.2 16.8 6v8L10 17.8 3.2 14V6z"/><circle cx="10" cy="10" r="3"/>
+    </g></symbol>
+  <symbol id="o-ogretmenlik" viewBox="0 0 20 20"><!-- mezuniyet kepi -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
+       stroke-linecap="round">
+      <path d="M10 3 18.4 6.9 10 10.8 1.6 6.9z"/>
+      <path d="M5.2 8.7v4.1c0 1.6 2.2 2.7 4.8 2.7s4.8-1.1 4.8-2.7V8.7"/>
+    </g></symbol>
+  <symbol id="o-ilahiyat" viewBox="0 0 20 20"><!-- kemer: yapinin kendisi, mezhep isareti degil -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
+       stroke-linecap="round">
+      <path d="M4.3 17.3V9a5.7 5.7 0 0 1 11.4 0v8.3"/><path d="M2.3 17.3h15.4"/>
+    </g></symbol>
+  <symbol id="o-isletme" viewBox="0 0 20 20"><!-- yukselen sutunlar -->
+    <g fill="currentColor">
+      <rect x="2.6" y="11.6" width="3.8" height="5.8" rx="1.1" opacity=".5"/>
+      <rect x="8.1" y="8" width="3.8" height="9.4" rx="1.1" opacity=".75"/>
+      <rect x="13.6" y="3.4" width="3.8" height="14" rx="1.1"/>
+    </g></symbol>
+  <symbol id="o-saglik" viewBox="0 0 20 20"><!-- hilal -->
+    <path fill="currentColor" d="M13.7 2.6a8 8 0 1 0 0 14.8 6.8 6.8 0 1 1 0-14.8z"/></symbol>
+  <symbol id="o-medya" viewBox="0 0 20 20"><!-- yayin -->
+    <circle cx="10" cy="10" r="2.2" fill="currentColor"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M6.1 6.1a5.5 5.5 0 0 0 0 7.8"/><path d="M13.9 13.9a5.5 5.5 0 0 0 0-7.8"/>
+      <g opacity=".5"><path d="M3.3 3.3a9.5 9.5 0 0 0 0 13.4"/>
+        <path d="M16.7 16.7a9.5 9.5 0 0 0 0-13.4"/></g>
+    </g></symbol>
+  <symbol id="o-pilotaj" viewBox="0 0 20 20"><!-- ucak -->
+    <path fill="currentColor" d="M10 1.8c.95 0 1.6 1.1 1.6 2.6v3.3l6.6 3.9v2.2l-6.6-2v3.5l2.2
+      1.6v1.5L10 17.5l-3.8.9v-1.5l2.2-1.6v-3.5l-6.6 2v-2.2l6.6-3.9V4.4c0-1.5.65-2.6 1.6-2.6z"/>
+    </symbol>
+  <symbol id="o-bilisim" viewBox="0 0 20 20"><!-- yonga -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
+       stroke-linecap="round">
+      <rect x="5.4" y="5.4" width="9.2" height="9.2" rx="1.7"/>
+      <path d="M8.2 2.4v3M11.8 2.4v3M8.2 14.6v3M11.8 14.6v3M2.4 8.2h3M2.4 11.8h3M14.6
+        8.2h3M14.6 11.8h3"/>
+    </g>
+    <rect x="8.4" y="8.4" width="3.2" height="3.2" rx=".8" fill="currentColor"/></symbol>
+  <symbol id="o-siyaset" viewBox="0 0 20 20"><!-- kure -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="10" cy="10" r="7.6"/><ellipse cx="10" cy="10" rx="3.4" ry="7.6"/>
+      <path d="M2.4 10h15.2"/>
+    </g></symbol>
+  <symbol id="o-hukuk" viewBox="0 0 20 20"><!-- terazi -->
+    <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+       stroke-linejoin="round">
+      <path d="M10 3.4v13.2M3.6 5.4h12.8M6.4 17.4h7.2"/>
+      <path d="M1.6 10.4 3.6 5.4l2 5z"/><path d="M14.4 10.4l2-5 2 5z"/>
+    </g></symbol>
+  <symbol id="o-temelbilim" viewBox="0 0 20 20"><!-- erlenmayer -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+       stroke-linejoin="round">
+      <path d="M7.4 2.6h5.2"/><path d="M8.4 2.6v5.2L3.3 16.2a1 1 0 0 0 .9 1.5h11.6a1 1 0 0 0
+        .9-1.5L11.6 7.8V2.6"/>
+    </g></symbol>
+  <symbol id="o-psikoloji" viewBox="0 0 20 20"><!-- profil -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+       stroke-linejoin="round">
+      <path d="M6.6 17.4v-3.1A6.7 6.7 0 1 1 16.4 8.7l1.2 2.7a.9.9 0 0 1-.8 1.3h-1.5v1.7a1.6
+        1.6 0 0 1-1.6 1.6h-1.9v1.4"/>
+    </g></symbol>
+  <symbol id="o-yapayzeka" viewBox="0 0 20 20"><!-- dugum agi -->
+    <g fill="none" stroke="currentColor" stroke-width="1.5" opacity=".65">
+      <path d="M4.4 5.2 10.6 10M4.4 14.8 10.6 10M10.6 10 16 6.4M10.6 10 16 13.6"/></g>
+    <g fill="currentColor">
+      <circle cx="3.6" cy="4.8" r="2.1"/><circle cx="3.6" cy="15.2" r="2.1"/>
+      <circle cx="10.6" cy="10" r="2.3"/><circle cx="16.6" cy="6" r="1.8"/>
+      <circle cx="16.6" cy="14" r="1.8"/></g></symbol>
+  <symbol id="o-tarih" viewBox="0 0 20 20"><!-- acik kitap -->
+    <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+       stroke-linejoin="round">
+      <path d="M10 5.6C8 4 5 3.5 2.4 3.9v10.4C5 13.9 8 14.4 10 16"/>
+      <path d="M10 5.6C12 4 15 3.5 17.6 3.9v10.4C15 13.9 12 14.4 10 16"/>
+      <path d="M10 5.6V16"/>
+    </g></symbol>
+  <symbol id="o-oteki" viewBox="0 0 20 20"><!-- uc nokta -->
+    <g fill="currentColor"><circle cx="4" cy="10" r="1.9"/><circle cx="10" cy="10" r="1.9"/>
+      <circle cx="16" cy="10" r="1.9"/></g></symbol>
 </defs></svg>
 
 <button id="tema" aria-label="Temayı değiştir">tema</button>
@@ -498,6 +602,14 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p><strong>Başarı sırası.</strong> 2018-2025 için ÖSYM tercih kılavuzlarının Tablo-4'ündeki
   "bir önceki yıl başarı sırası" sütunu; kılavuz N yılı, N−1 yılının sırasını taşıyor.
   2026 için YÖK Atlas. ÖSYM 2026 sırasını henüz yayımlamadı, 2027 kılavuzuyla gelecek.</p>
+  <p><strong>Sıra çizelgesinin dışında bıraktıklarımız.</strong> Ortak diploma programları
+  (UOLP) ile KKTC yerleşkeleri, üniversitenin kendi adıyla listelendikleri hâlde ana
+  yerleşkedeki programla aynı şey değil. ÖSYM ortak programların adına "(Ücretli)" eklediği
+  için bir devlet üniversitesinin ortak programı vakıf üniversitelerinin ücretli koluyla aynı
+  çizelgeye düşüyordu; 2026'da 92 satır da anakara adıyla listelenen bir KKTC yerleşkesine
+  ait. İkisi de çıkarıldı. Kendi adında KKTC geçen üniversiteler duruyor. Ücretli bloğunda
+  ayrıca ÖSYM'nin başarı sırası vermediği programlar yok: kontenjanını dolduramayan programa
+  sıra atanmıyor, satır dokuz yıl boyunca boş çiziliyordu.</p>
   <p><strong>Hekim sayıları.</strong> T.C. Sağlık Bakanlığı, Sağlık İstatistikleri Yıllığı 2024;
   hekim Tablo 10.12, nüfus Tablo 1.3. İkisi de aynı yıllıkta olduğu için kişi başı oran iç
   tutarlı. Hekim sayısı uzman, pratisyen ve asistan hekimin toplamı, tüm sektörler.
@@ -566,8 +678,30 @@ function ilk100(c){
 }
 
 /* ---------- 2 · öbek ---------- */
+// Obek adi -> [simge, renk numarasi]. Ad verinin kendisinden geliyor; listede olmayan bir ad
+// cikarsa gri "oteki" simgesine dusuyor ve konsola yaziyor. Sessizce dusmesin, yeni bir obek
+// eklendiginde fark edilsin.
+const OBEK_IK = {
+  "Gastronomi":["gastronomi",1], "Öteki mühendislikler":["muhendislik",2],
+  "Öğretmenlik":["ogretmenlik",3], "İlahiyat":["ilahiyat",4],
+  "İşletme ve ekonomi":["isletme",5], "Sağlık":["saglik",6],
+  "İletişim ve medya":["medya",7], "Pilotaj":["pilotaj",8],
+  "Bilişim":["bilisim",9], "Siyaset ve UI":["siyaset",10],
+  "Hukuk":["hukuk",11], "Temel bilimler":["temelbilim",12],
+  "Psikoloji":["psikoloji",13], "Yapay zeka ortak programı":["yapayzeka",14],
+  "Tarih ve edebiyat":["tarih",15], "Öteki":["oteki",16]};
+const uyarilan = new Set();
+function obek_ikon(ad){
+  let k = OBEK_IK[ad];
+  if(!k){
+    if(!uyarilan.has(ad)){ uyarilan.add(ad); console.warn("Simgesiz öbek: " + ad); }
+    k = OBEK_IK["Öteki"];
+  }
+  return `<svg class="ikon" style="--br:var(--o${k[1]})" aria-hidden="true">`
+       + `<use href="#o-${k[0]}"/></svg>`;
+}
 function obek(c){
-  const gov = c.obek.map(o => "<tr><th>" + esc(o.ad) + "</th>"
+  const gov = c.obek.map(o => "<tr><th>" + obek_ikon(o.ad) + esc(o.ad) + "</th>"
     + o.program.map((p,i) =>
         `<td>${p}<br><span class="alt">${tr(o.kontenjan[i])}</span></td>`).join("")
     + "</tr>").join("");
@@ -963,16 +1097,21 @@ function haritaCiz(o){
     + " İlin üzerine gelince değeri çıkıyor.";
 }
 
+// Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
+// degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
+// okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
+const SURUM = "?v=c71cda0c80";
+
 async function basla(){
   [D, B, A, G, H] = await Promise.all([
-    fetch("veri/cizelge.json").then(r => r.json()),
-    fetch("veri/bump.json").then(r => r.json()),
-    fetch("veri/bolum.json").then(r => r.json()),
-    fetch("veri/degisim.json").then(r => r.json()),
-    fetch("veri/harita.json").then(r => r.json()),
+    fetch("veri/cizelge.json" + SURUM).then(r => r.json()),
+    fetch("veri/bump.json" + SURUM).then(r => r.json()),
+    fetch("veri/bolum.json" + SURUM).then(r => r.json()),
+    fetch("veri/degisim.json" + SURUM).then(r => r.json()),
+    fetch("veri/harita.json" + SURUM).then(r => r.json()),
   ]);
   YIL = D.yil;
-  const o = await (await fetch("veri/ozet.json")).json();
+  const o = await (await fetch("veri/ozet.json" + SURUM)).json();
   document.getElementById("ozet").innerHTML = [
     ["Lisans programı", tr(o.program)],
     ["2026 kontenjanı", tr(o.kontenjan)],
