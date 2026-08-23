@@ -640,7 +640,9 @@ const basliklar = ek => "<thead><tr><th>" + ek[0] + "</th>"
 /* ---------- 1 · ilk 100 ---------- */
 function ilk100(c){
   const s = c.satir, enb = Math.max(...s.flatMap(r => r.slice(1)));
-  const gov = s.map(r => "<tr><th>" + esc(r[0]) + "</th>" + r.slice(1).map(v => {
+  // Her satirin basinda obeginin simgesi: sozelde sekiz ayri iletisim programi ayni
+  // simgeyle gorununce aile goz taramasiyla secilebiliyor.
+  const gov = s.map((r, i) => "<tr><th>" + obek_ikon(c.satir_obek[i]) + esc(r[0]) + "</th>" + r.slice(1).map(v => {
     // Karekök ölçek: doğrusal ölçekte tıp satırı ötekileri görünmez kılıyor.
     const a = v ? 0.10 + 0.80 * Math.sqrt(v / enb) : 0;
     return `<td style="background:color-mix(in srgb, var(--vurgu) ${Math.round(a*100)}%, transparent);
@@ -945,17 +947,21 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=29638b7268";
+const SURUM = "?v=6f285371ec";
+// Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
+// bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
+const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
+const surum = SURUM || (yerel ? "?t=" + Date.now() : "");
 
 async function basla(){
   [D, B, G, H] = await Promise.all([
-    fetch("veri/cizelge.json" + SURUM).then(r => r.json()),
-    fetch("veri/bump.json" + SURUM).then(r => r.json()),
-    fetch("veri/degisim.json" + SURUM).then(r => r.json()),
-    fetch("veri/harita.json" + SURUM).then(r => r.json()),
+    fetch("veri/cizelge.json" + surum).then(r => r.json()),
+    fetch("veri/bump.json" + surum).then(r => r.json()),
+    fetch("veri/degisim.json" + surum).then(r => r.json()),
+    fetch("veri/harita.json" + surum).then(r => r.json()),
   ]);
   YIL = D.yil;
-  const o = await (await fetch("veri/ozet.json" + SURUM)).json();
+  const o = await (await fetch("veri/ozet.json" + surum)).json();
   document.getElementById("ozet").innerHTML = [
     ["Lisans programı", tr(o.program)],
     ["2026 kontenjanı", tr(o.kontenjan)],
