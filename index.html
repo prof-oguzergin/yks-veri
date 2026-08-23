@@ -112,9 +112,21 @@ h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6.2vw,66px);lin
 /* ---- gezinme ---- */
 nav{position:sticky;top:0;z-index:8;background:color-mix(in srgb,var(--paper) 88%,transparent);
   backdrop-filter:blur(10px);border-bottom:1px solid var(--rule-soft);margin-top:34px}
-nav .ic{display:flex;gap:5px;overflow-x:auto;padding:11px 0;scrollbar-width:none}
+/* Gezinme METIN SUTUNUNA KILITLENMIYOR. `.sar` 1060 piksellik yazi sutunu; dokuz
+   baglanti 1334 piksel tutuyor ve sagdan kirpiliyordu. Cubuk zaten tam genislikte,
+   hizalamasi da yazi sutununa borclu degil. Sagda tema dugmesi icin yer ayriliyor
+   (dugme fixed ve ayni bantta duruyor, yoksa son baglantinin ustune biniyor). */
+nav .ic{display:flex;gap:5px;overflow-x:auto;padding:11px 0;scrollbar-width:none;
+  max-width:none;padding-right:118px}
 nav .ic::-webkit-scrollbar{display:none}
-nav a{font-size:13.5px;padding:6px 13px;border-radius:999px;text-decoration:none;white-space:nowrap;
+/* Dar ekranda yine kaydiriliyor; sag kenardaki solma kaydirilabildigini gosteriyor.
+   Maske CUBUGA DEGIL kaydirilan kaba uygulaniyor; cubuga uygulanirsa zemini ve alt
+   cizgisi de sagdan siliniyor. Solma 56 piksel: sagdaki 118 piksellik pay son baglantinin
+   dugmenin altina dusmesini zaten onluyor, solma yalnizca kaydirma ipucu. Genis tutulunca
+   telefonda sona kaydirildiginda "Yöntem" soluk kaliyordu. */
+nav .ic{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 56px),transparent 100%);
+  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 56px),transparent 100%)}
+nav a{font-size:13.5px;padding:6px 11px;border-radius:999px;text-decoration:none;white-space:nowrap;
   color:var(--ink-2);border:1px solid transparent}
 nav a:hover{border-color:var(--rule);color:var(--ink)}
 
@@ -403,9 +415,9 @@ footer p{color:var(--ink-3);max-width:76ch}
 <nav><div class="sar ic">
   <a href="#ilk100" style="--br:var(--b1)"><svg class="ikon"><use href="#i-ilk100"/></svg>İlk 100 program</a>
   <a href="#obek" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Program mı, koltuk mu</a>
-  <a href="#cizgi" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Üniversiteler yer değiştirdi mi</a>
-  <a href="#sira" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Başarı sırası çizelgeleri</a>
-  <a href="#degisim" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Yükselen ve düşen bölümler</a>
+  <a href="#cizgi" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Yer değiştirdi mi</a>
+  <a href="#sira" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Başarı sırası</a>
+  <a href="#degisim" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Yükselen ve düşen</a>
   <a href="#tip" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Tıp</a>
   <a href="#harita" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Haritalar</a>
   <a href="#hukuk" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Hukuk</a>
