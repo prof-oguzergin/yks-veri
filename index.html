@@ -10,17 +10,24 @@
   --paper:#F1F2EF; --card:#FAFAF8; --ink:#141A20; --ink-2:#4A535E; --ink-3:#7C8590;
   --rule:rgba(20,26,32,.13); --rule-soft:rgba(20,26,32,.06);
   --iyi:#137a55; --kotu:#b23c0b; --vurgu:#4a3aa7; --gri:#B9B7B0;
+  /* Bolum renkleri: gozun bolumu tanimasi icin, dokuzu da birbirinden ayirt edilir. */
+  --b1:#B23C0B; --b2:#8A6D1F; --b3:#2A78D6; --b4:#17708F; --b5:#5E4CA8;
+  --b6:#137A55; --b7:#C2185B; --b8:#4A6572; --b9:#6B7280;
   --serif:ui-serif,Georgia,"Iowan Old Style","Times New Roman",serif;
   --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-tema="acik"]){
   --paper:#0E1216; --card:#161B21; --ink:#E9EBE8; --ink-2:#A9B2BC; --ink-3:#79838E;
   --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
-  --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;}}
+  --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
+  --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
+  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;}}
 :root[data-tema="koyu"]{
   --paper:#0E1216; --card:#161B21; --ink:#E9EBE8; --ink-2:#A9B2BC; --ink-3:#79838E;
   --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
-  --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;}
+  --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
+  --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
+  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:64px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
@@ -101,7 +108,14 @@ nav a:hover{border-color:var(--rule);color:var(--ink)}
 /* ---- bölümler ---- */
 section{padding:clamp(44px,8vh,80px) 0;border-bottom:1px solid var(--rule-soft)}
 .sb{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
-  margin-bottom:10px}
+  margin-bottom:10px;display:flex;align-items:center;gap:9px}
+/* Ikon rengi bolumden geliyor; kutu olcusu iki yerde de ayni kalsin diye sabit. */
+.ikon{width:19px;height:19px;flex:none;color:var(--br,var(--ink-3))}
+.sb .ikon{width:22px;height:22px}
+nav a .ikon{width:15px;height:15px;opacity:.85}
+nav a{display:inline-flex;align-items:center;gap:6px}
+nav a:hover .ikon,nav a[aria-current] .ikon{opacity:1}
+.kutuk{position:absolute;width:0;height:0;overflow:hidden}
 h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.8vw,42px);line-height:1.1;
   margin:0 0 14px;letter-spacing:-.015em}
 h3{font-size:16.5px;margin:34px 0 8px;font-weight:600}
@@ -189,6 +203,70 @@ footer p{color:var(--ink-3);max-width:76ch}
 </style>
 </head>
 <body>
+<svg class="kutuk" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-ilk100" viewBox="0 0 20 20"><!-- isi izgarasi -->
+    <g fill="currentColor">
+      <rect x="2" y="2" width="4.6" height="4.6" rx="1" opacity=".35"/>
+      <rect x="7.7" y="2" width="4.6" height="4.6" rx="1" opacity=".7"/>
+      <rect x="13.4" y="2" width="4.6" height="4.6" rx="1"/>
+      <rect x="2" y="7.7" width="4.6" height="4.6" rx="1" opacity=".7"/>
+      <rect x="7.7" y="7.7" width="4.6" height="4.6" rx="1"/>
+      <rect x="13.4" y="7.7" width="4.6" height="4.6" rx="1" opacity=".35"/>
+      <rect x="2" y="13.4" width="4.6" height="4.6" rx="1"/>
+      <rect x="7.7" y="13.4" width="4.6" height="4.6" rx="1" opacity=".35"/>
+      <rect x="13.4" y="13.4" width="4.6" height="4.6" rx="1" opacity=".7"/>
+    </g></symbol>
+  <symbol id="i-obek" viewBox="0 0 20 20"><!-- iki farkli uzunlukta cubuk -->
+    <g fill="currentColor">
+      <rect x="2" y="4" width="16" height="4.4" rx="1.6"/>
+      <rect x="2" y="11.6" width="7.5" height="4.4" rx="1.6" opacity=".55"/>
+    </g></symbol>
+  <symbol id="i-cizgi" viewBox="0 0 20 20"><!-- kesisen iki seri -->
+    <g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+       stroke-linejoin="round">
+      <polyline points="2,15.5 7,9.5 13,11.5 18,4"/>
+      <polyline points="2,5 7,11 13,7.5 18,15.5" opacity=".5"/>
+    </g></symbol>
+  <symbol id="i-sira" viewBox="0 0 20 20"><!-- inen basamak -->
+    <g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+       stroke-linejoin="round">
+      <polyline points="2.5,3.5 7,3.5 7,9.5 12,9.5 12,15.5 17.5,15.5"/>
+    </g></symbol>
+  <symbol id="i-alan" viewBox="0 0 20 20"><!-- nokta grafigi -->
+    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <line x1="2.5" y1="4.5" x2="17.5" y2="4.5" opacity=".28"/>
+      <line x1="2.5" y1="10" x2="17.5" y2="10" opacity=".28"/>
+      <line x1="2.5" y1="15.5" x2="17.5" y2="15.5" opacity=".28"/>
+    </g>
+    <g fill="currentColor">
+      <circle cx="14" cy="4.5" r="2.3"/><circle cx="7" cy="10" r="2.3"/>
+      <circle cx="11" cy="15.5" r="2.3"/>
+    </g></symbol>
+  <symbol id="i-degisim" viewBox="0 0 20 20"><!-- biri yukari biri asagi ok.
+    Ilk tasarim iki kirik cizgiydi, kutusu 17x9 cikiyordu; oteki ikonlar 17-18
+    yuksekliginde oldugu icin yaninda basik duruyordu. Iki duz ok tuvali doldurdu. -->
+    <g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+       stroke-linejoin="round">
+      <line x1="5.5" y1="17" x2="5.5" y2="4"/><polyline points="2.6,7 5.5,4 8.4,7"/>
+      <g opacity=".55"><line x1="14.5" y1="3" x2="14.5" y2="16"/>
+        <polyline points="11.6,13 14.5,16 17.4,13"/></g>
+    </g></symbol>
+  <symbol id="i-tip" viewBox="0 0 20 20"><!-- hac -->
+    <path fill="currentColor" d="M8 2h4v6h6v4h-6v6H8v-6H2V8h6z"/></symbol>
+  <symbol id="i-harita" viewBox="0 0 20 20"><!-- igne -->
+    <path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"
+      d="M10 18s-6-6.6-6-10a6 6 0 1 1 12 0c0 3.4-6 10-6 10z"/>
+    <circle cx="10" cy="8" r="2.2" fill="currentColor"/></symbol>
+  <symbol id="i-yontem" viewBox="0 0 20 20"><!-- liste ve onay -->
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+       stroke-linejoin="round">
+      <line x1="8.5" y1="4.5" x2="17.5" y2="4.5"/>
+      <line x1="8.5" y1="10" x2="17.5" y2="10"/>
+      <line x1="8.5" y1="15.5" x2="17.5" y2="15.5" opacity=".5"/>
+      <polyline points="2.5,4.5 4,6 6.2,3"/><polyline points="2.5,10 4,11.5 6.2,8.5"/>
+    </g></symbol>
+</defs></svg>
+
 <button id="tema" aria-label="Temayı değiştir">tema</button>
 
 <div class="sar">
@@ -224,21 +302,21 @@ footer p{color:var(--ink-3);max-width:76ch}
 </div>
 
 <nav><div class="sar ic">
-  <a href="#ilk100">İlk 100 program</a>
-  <a href="#obek">Program mı, koltuk mu</a>
-  <a href="#cizgi">Üniversiteler yer değiştirdi mi</a>
-  <a href="#sira">Başarı sırası çizelgeleri</a>
-  <a href="#alan">Bölüm bölüm üniversiteler</a>
-  <a href="#degisim">Yükselen ve düşen bölümler</a>
-  <a href="#tip">Tıp</a>
-  <a href="#harita">Haritalar</a>
-  <a href="#yontem">Yöntem</a>
+  <a href="#ilk100" style="--br:var(--b1)"><svg class="ikon"><use href="#i-ilk100"/></svg>İlk 100 program</a>
+  <a href="#obek" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Program mı, koltuk mu</a>
+  <a href="#cizgi" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Üniversiteler yer değiştirdi mi</a>
+  <a href="#sira" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Başarı sırası çizelgeleri</a>
+  <a href="#alan" style="--br:var(--b5)"><svg class="ikon"><use href="#i-alan"/></svg>Bölüm bölüm üniversiteler</a>
+  <a href="#degisim" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Yükselen ve düşen bölümler</a>
+  <a href="#tip" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Tıp</a>
+  <a href="#harita" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Haritalar</a>
+  <a href="#yontem" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Yöntem</a>
 </div></nav>
 
 <div class="sar">
 
 <section id="ilk100">
-  <div class="sb">Bölüm 1</div>
+  <div class="sb" style="--br:var(--b1)"><svg class="ikon"><use href="#i-ilk100"/></svg>Bölüm 1</div>
   <h2>İlk 100 programda hangi bölümler var?</h2>
   <p>Her yıl seçili puan türündeki bütün lisans programları taban puanına göre sıralanıyor,
   ilk 100'ü bölüm bölüm sayılıyor. Koyuluk program sayısıyla orantılı.</p>
@@ -249,7 +327,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="obek">
-  <div class="sb">Bölüm 2</div>
+  <div class="sb" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Bölüm 2</div>
   <h2>Program sayısı mı, koltuk sayısı mı?</h2>
   <p>Üstteki çizelge <strong>program</strong> sayıyor, oysa programlar boyut olarak çok farklı.
   Aynı listeyi kontenjanla ağırlıklandırınca tablo değişiyor: bir öbek listede çok yer kaplarken
@@ -260,7 +338,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="cizgi">
-  <div class="sb">Bölüm 3</div>
+  <div class="sb" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Bölüm 3</div>
   <h2>Üniversiteler yer değiştirdi mi?</h2>
   <p>Her bölümde taban puanına göre ilk 20 üniversite, 2018'den 2026'ya. Her çizgi bir
   üniversite; dikey eksen sıra, en üstte birinci. <strong>Soldaki sütun 2018 sıralaması,
@@ -282,7 +360,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="sira">
-  <div class="sb">Bölüm 4</div>
+  <div class="sb" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Bölüm 4</div>
   <h2>Başarı sırası: dokuz yılın tam çizelgesi</h2>
   <p>Aynı ilk 20, bu kez sayılarla. <strong>Yeşil hücre programın en iyi yılı.</strong>
   "Zirveden" sütunu 2026 sırasının o yıla göre kaç katı olduğunu gösterir; asıl soru bu, çünkü
@@ -294,7 +372,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="alan">
-  <div class="sb">Bölüm 5</div>
+  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#i-alan"/></svg>Bölüm 5</div>
   <h2>Bölüm bölüm üniversiteler</h2>
   <p>Önceki çizelgeler ilk 20 üniversiteyi sıra numarasıyla veriyordu. Bu bölüm aynı soruyu
   bütün ülkeye açıyor: <strong>bir bölümü sunan yüzlerce üniversite arasında hangisi ne kadar
@@ -321,7 +399,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="degisim">
-  <div class="sb">Bölüm 6</div>
+  <div class="sb" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Bölüm 6</div>
   <h2>Hangi bölümler yükseldi, hangileri düştü?</h2>
   <p>Ölçü, programa giren en düşük puanlı öğrencinin <strong>Türkiye başarı sırası</strong>.
   Her yıl bir öncekiyle ayrı ayrı eşleştiriliyor (aynı program kodu, kendisiyle
@@ -345,7 +423,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="tip">
-  <div class="sb">Bölüm 7</div>
+  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 7</div>
   <h2>Tıp: kontenjan ve ilk sıralar</h2>
   <p>Devlet üniversitelerinin tıp kontenjanı dokuz yılda büyüdü ama <strong>2024'ten beri
   yerinde sayıyor</strong>. Altta, 2026'da en yüksek sıraları kimin aldığı.</p>
@@ -361,7 +439,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="harita">
-  <div class="sb">Bölüm 8</div>
+  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 8</div>
   <h2>Haritada: tıp, hekim, avukat</h2>
   <p>Üç ayrı soru, aynı harita. <strong>Koltuk nerede</strong>,
   <strong>meslek sahibi nerede</strong>, ve nüfusa göre <strong>ne kadar.</strong>
@@ -412,7 +490,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="yontem">
-  <div class="sb">Bölüm 9</div>
+  <div class="sb" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Bölüm 9</div>
   <h2>Yöntem ve kaynaklar</h2>
   <p><strong>Kontenjan, yerleşen, taban puan.</strong> ÖSYM Tablo-4 merkezi yerleştirme
   sonuçları, 2018-2026. Doluluk = (genel + okul birinciliği yerleşen) / (genel + okul birinciliği
