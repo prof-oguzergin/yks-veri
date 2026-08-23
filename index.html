@@ -537,7 +537,9 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p>Avukatta eşitsizlik hekimdekinden sert. Ankara 100 binde 481, Muş 52, arada
   <strong>9,3 kat</strong> var; hekimde bu fark 3,8 katta kalıyor.</p>
   <p>Asıl hikâye ise haritada değil, arz tarafında. 2015'ten 2025'e baroya kayıtlı avukat
-  sayısı <strong>93.573'ten 206.678'e</strong> çıktı, 2,21 kat. Aynı dönemde hukuk
+  sayısı <strong>93.573'ten 206.678'e</strong> çıktı, 2,21 kat. Nüfus artışı bunun küçük bir
+  kısmını açıklıyor: aynı dönemde Türkiye nüfusu %9,3 büyüdü, <strong>100 bin kişiye düşen
+  avukat sayısı 118,8'den 240,1'e çıktı</strong>, yine iki katından fazla. Aynı dönemde hukuk
   mahkemelerine gelen dosya 1,54 kat arttı, avukattan yavaş; <strong>avukat başına düşen
   dosya 36,3'ten 25,3'e indi.</strong></p>
   <p>2025 iki yönden birden ayrışıyor. Avukat sayısı büyümeyi sürdürürken <strong>gelen dosya
@@ -896,13 +898,16 @@ function hukukSeri(){
     + sat("Kontenjan", h.kontenjan, tr)
     + sat("Yerleşen", h.yerlesen, tr)
     + sat("Baroya kayıtlı avukat", h.avukat, tr)
+    + sat("100 binde avukat", h.avukat_100bin, vg)
     + sat("Avukat başına gelen dosya", h.gelen, vg)
     + sat("Avukat başına açılan dosya", h.acilan, vg)
     + "</tbody></table>";
   document.getElementById("n-hukuk-seri").innerHTML =
     "Kontenjan ÖSYM'den (2018-2026), avukat ve dosya sayısı Adalet İstatistikleri'nden "
     + "(2025'te bitiyor, 2026 yıllığı henüz yayımlanmadı); 2025 toplamı Türkiye Barolar "
-    + "Birliği'nin 31.12.2025 listesiyle birebir tutuyor. <strong>Gelen</strong> dosya geçen yıldan "
+    + "Birliği'nin 31.12.2025 listesiyle birebir tutuyor. Nüfus TÜİK'in adrese dayalı "
+    + "kayıt sisteminden, 31 Aralık nüfusu; avukat sayısı da 31 Aralık itibarıyla, iki "
+    + "ölçüm aynı güne denk geliyor. <strong>Gelen</strong> dosya geçen yıldan "
     + "devredeni de sayar, mahkemenin önündeki toplam iştir; <strong>açılan</strong> yalnız "
     + "o yıl açılanı, talebin kendisidir. İkisi aynı yönde hareket ediyor, düzeyleri farklı.";
 }
@@ -985,7 +990,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=81231ddb3d";
+const SURUM = "?v=a58449bd53";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
