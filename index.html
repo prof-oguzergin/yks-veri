@@ -12,7 +12,7 @@
   --iyi:#137a55; --kotu:#b23c0b; --vurgu:#4a3aa7; --gri:#B9B7B0;
   /* Bolum renkleri: gozun bolumu tanimasi icin, dokuzu da birbirinden ayirt edilir. */
   --b1:#B23C0B; --b2:#8A6D1F; --b3:#2A78D6; --b4:#17708F; --b5:#5E4CA8;
-  --b6:#137A55; --b7:#C2185B; --b8:#4A6572; --b9:#6B7280;
+  --b6:#137A55; --b7:#C2185B; --b8:#4A6572; --b9:#6B7280; --b10:#8E2F8E;
   /* Obek renkleri: on alti obegin her birine bir ton. */
   --o1:#C0392B; --o2:#C4551F; --o3:#A87813; --o4:#6E7A2E; --o5:#2E7D32;
   --o6:#0E7C5A; --o7:#10808C; --o8:#4A6572; --o9:#2A78D6; --o10:#1E4E9C;
@@ -26,7 +26,7 @@
   --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
   --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
   --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
-  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;
+  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE; --b10:#D07FD0;
   --o1:#EF7062; --o2:#F07440; --o3:#D9A63C; --o4:#A8B457; --o5:#62BE67;
   --o6:#22B481; --o7:#3FB6C4; --o8:#8FA6B4; --o9:#5FA3E8; --o10:#7A9FE8;
   --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
@@ -36,7 +36,7 @@
   --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
   --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
   --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
-  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE;
+  --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE; --b10:#D07FD0;
   --o1:#EF7062; --o2:#F07440; --o3:#D9A63C; --o4:#A8B457; --o5:#62BE67;
   --o6:#22B481; --o7:#3FB6C4; --o8:#8FA6B4; --o9:#5FA3E8; --o10:#7A9FE8;
   --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
@@ -164,6 +164,10 @@ td.son{font-weight:700;color:var(--ink)}
 td.dip{color:var(--iyi);font-weight:600}
 td.bos{color:var(--ink-3)}
 .sr{color:var(--ink-3);display:inline-block;min-width:1.9em}
+/* Cizelgede one cikarilan satir (tip toplami gibi). */
+tbody tr.ana th,tbody tr.ana td{font-weight:700;color:var(--ink)}
+/* Ustteki bloktan ayri okunacak satir: ince bir cizgiyle ayriliyor. */
+tbody tr.ayrik th,tbody tr.ayrik td{border-top:1px solid var(--rule)}
 .alt{color:var(--ink-3);font-size:.85em}
 tbody th .ikon{width:17px;height:17px;vertical-align:-3.6px;margin-right:8px}
 
@@ -201,6 +205,14 @@ svg.bump g.seri{cursor:pointer}
 .efsane{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0 0;font-size:13px;color:var(--ink-3)}
 .efsane b{font-weight:600}
 
+/* Paylasilan kart: kucuk onizleme + indirme baglantisi. Kart 1080x1350, sayfada
+   240 piksele iniyor; tiklayinca tam boy aciliyor. Cizelgenin yerini almiyor, sayilar
+   yine HTML cizelgeden okunuyor. */
+.paylasim{display:flex;gap:16px;align-items:flex-start;margin-top:22px;flex-wrap:wrap}
+.paylasim img{width:240px;max-width:44vw;height:auto;border:1px solid var(--rule-soft);
+  border-radius:10px;display:block}
+.paylasim-yazi{flex:1;min-width:220px}
+.paylasim-yazi p{font-size:13px;color:var(--ink-3);margin:0 0 10px;line-height:1.6}
 .indir{display:inline-block;margin-top:16px;font-size:13.5px;color:var(--ink-2);
   border:1px solid var(--rule);border-radius:999px;padding:7px 15px;text-decoration:none}
 .indir:hover{border-color:var(--ink-3);color:var(--ink)}
@@ -376,6 +388,12 @@ footer p{color:var(--ink-3);max-width:76ch}
     <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
       <path d="M10 1.6v2.1M10 16.3v2.1M1.6 10h2.1M16.3 10h2.1M4.1 4.1l1.5 1.5M14.4
         14.4l1.5 1.5M15.9 4.1l-1.5 1.5M5.6 14.4l-1.5 1.5"/></g></symbol>
+  <symbol id="i-ustdilim" viewBox="0 0 20 20"><!-- ust dilim: en ustteki bant dolu -->
+    <g fill="currentColor">
+      <rect x="2" y="2.6" width="16" height="4.2" rx="1.4"/>
+      <rect x="2" y="8.4" width="16" height="4.2" rx="1.4" opacity=".38"/>
+      <rect x="2" y="14.2" width="16" height="4.2" rx="1.4" opacity=".18"/>
+    </g></symbol>
 </defs></svg>
 
 <button id="tema"><svg class="ikon" aria-hidden="true"><use href="#i-ay"/></svg><span>Karanlık</span></button>
@@ -418,6 +436,7 @@ footer p{color:var(--ink-3);max-width:76ch}
   <a href="#cizgi" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Yer değiştirdi mi</a>
   <a href="#sira" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Başarı sırası</a>
   <a href="#degisim" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Yükselen ve düşen</a>
+  <a href="#ilk20bin" style="--br:var(--b10)"><svg class="ikon"><use href="#i-ustdilim"/></svg>İlk 20 bin</a>
   <a href="#tip" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Tıp</a>
   <a href="#harita" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Haritalar</a>
   <a href="#hukuk" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Hukuk</a>
@@ -434,7 +453,15 @@ footer p{color:var(--ink-3);max-width:76ch}
   <div class="secim" id="s-ilk100"></div>
   <div class="tw" id="t-ilk100"></div>
   <p class="not" id="n-ilk100"></p>
-  <a class="indir" id="i-ilk100" href="gorsel/ilk100_isi.png" download>Görseli indir</a>
+  <div class="paylasim">
+    <a id="ac-ilk100" href="#" target="_blank" rel="noopener">
+      <img id="on-ilk100" src="" alt="Paylaşım kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: seçili puan türünün ilk 100 program çizelgesi.</p>
+      <a class="indir" id="ind-ilk100" href="#" download>Görseli indir</a>
+    </div>
+  </div>
 </section>
 
 <section id="obek">
@@ -467,7 +494,15 @@ footer p{color:var(--ink-3);max-width:76ch}
     <span><b style="color:var(--gri)">Soluk</b> ilk 20'den düşen</span>
   </div>
   <p class="not" id="n-bump"></p>
-  <a class="indir" id="i-bump" href="#" download>Görseli indir</a>
+  <div class="paylasim">
+    <a id="ac-bump" href="#" target="_blank" rel="noopener">
+      <img id="on-bump" src="" alt="Paylaşım kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: seçili bölümün ilk 20 üniversitesi, 2018-2026.</p>
+      <a class="indir" id="ind-bump" href="#" download>Görseli indir</a>
+    </div>
+  </div>
 </section>
 
 <section id="sira">
@@ -479,7 +514,15 @@ footer p{color:var(--ink-3);max-width:76ch}
   <div class="secim" id="s-bolum"></div>
   <div class="tw" id="t-sira"></div>
   <p class="not" id="n-sira"></p>
-  <a class="indir" id="i-sira" href="#" download>Görseli indir</a>
+  <div class="paylasim">
+    <a id="ac-sira" href="#" target="_blank" rel="noopener">
+      <img id="on-sira" src="" alt="Paylaşım kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: seçili bölümün başarı sırası çizelgesi.</p>
+      <a class="indir" id="ind-sira" href="#" download>Görseli indir</a>
+    </div>
+  </div>
 </section>
 
 <section id="degisim">
@@ -506,24 +549,61 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p class="not" id="n-degisim"></p>
 </section>
 
+<section id="ilk20bin">
+  <div class="sb" style="--br:var(--b10)"><svg class="ikon"><use href="#i-ustdilim"/></svg>Bölüm 6</div>
+  <h2>İlk 20 bini kim aldı?</h2>
+  <p>Buraya kadarki bölümler <strong>programları</strong> saydı. Bu bölüm öğrenci tarafına
+  bakıyor: sayısalda en iyi 20 bin adayın kaçı hangi bölüme gitti, dokuz yılda bu nasıl
+  değişti?</p>
+  <p>Ölçüt bölüm 7'dekiyle aynı mantıkta ve yine <strong>alt sınır</strong>: taban başarı
+  sırası 20.000'den iyi olan programların yerleşen toplamı sayılıyor. Tabanı 20.000'den kötü
+  programlardaki iyi sıralı öğrenciler bu sayıya girmiyor, o yüzden gerçek pay buradakinden
+  yüksek olabilir. <strong>Yalnız sayısal</strong>, çünkü başarı sırası puan türü içinde
+  hesaplanıyor; sayısalda 15.000. sıra ile eşit ağırlıkta 15.000. sıra aynı öğrenci değil.</p>
+  <div class="tw" id="t-ilk20bin"></div>
+  <p class="not" id="n-ilk20bin"></p>
+  <div class="paylasim">
+    <a href="gorsel/ilk20bin_dagilim.png" target="_blank" rel="noopener">
+      <img src="gorsel/ilk20bin_dagilim.png" alt="Sayısalın tepesi tıbba geri döndü kartı"
+           loading="lazy" width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı. Aynı sayılar, tek görselde. Tıklayınca tam boy açılır.</p>
+      <a class="indir" href="gorsel/ilk20bin_dagilim.png" download>Görseli indir</a>
+    </div>
+  </div>
+</section>
+
 <section id="tip">
-  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 6</div>
+  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 7</div>
   <h2>Tıp: kontenjan ve ilk sıralar</h2>
   <p>Devlet üniversitelerinin tıp kontenjanı dokuz yılda büyüdü ama <strong>2024'ten beri
-  yerinde sayıyor</strong>. Altta, 2026'da en yüksek sıraları kimin aldığı.</p>
+  yerinde sayıyor</strong>. Çizelgenin son satırı aynı yıl ekseninde <strong>100 bin kişiye
+  düşen hekimi</strong> veriyor: 2018'de 187, 2024'te 258. Kontenjanın stoka yansıması
+  gecikmeli, ikisi yan yana okunmalı. Altta da 2026'da en yüksek sıraları kimin aldığı.</p>
   <div class="tw" id="t-tipk"></div>
   <h3>İlk sıraları kim aldı? (2026)</h3>
   <p>Bir programın taban sırası X'ten iyiyse o programdaki herkesin sırası da X'ten iyidir.
   Öyleyse aşağıdaki sayılar, ilk X aday içinde o bölümlere gidenlerin <strong>alt
   sınırıdır</strong>; tabanı X'ten kötü programlardaki iyi sıralı öğrenciler sayıya girmiyor.</p>
   <div class="tw" id="t-tipb"></div>
-  <p class="not">Son devlet tıp programı 21.670. sırayı gördü. İlk 21.670 adayın en az %69,8'i
-  tıpta, %89,1'i ise bu dört öbeğin toplamında.</p>
-  <a class="indir" href="gorsel/devlet_tip_kontenjan.png" download>Görseli indir</a>
+  <p class="not">Son devlet tıp programı 21.670. sırayı gördü. <strong>Tıbbın payı bantla
+  birlikte artıyor:</strong> ilk 2.000'de %29,1, ilk 5.000'de %47,6, ilk 10.000'de %54,0,
+  ilk 21.670'te %69,8. Tepedeki iki binde mühendislik tıbba yakın; tıbbın ağırlığı 5.000'den
+  sonra kuruluyor. 30.000'e çıkınca pay %54,4'e iniyor, orada diş hekimliği ve eczacılık
+  devreye giriyor.</p>
+  <div class="paylasim">
+    <a href="gorsel/devlet_tip_kontenjan.png" target="_blank" rel="noopener">
+      <img src="gorsel/devlet_tip_kontenjan.png" alt="Devlet tıp kontenjanı kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: devlet ve vakıf tıp kontenjanı, ilk sıraların dağılımı.</p>
+      <a class="indir" href="gorsel/devlet_tip_kontenjan.png" download>Görseli indir</a>
+    </div>
+  </div>
 </section>
 
 <section id="harita">
-  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 7</div>
+  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 8</div>
   <h2>Haritada: tıp kontenjanı ve hekim</h2>
   <p>Üç ayrı soru, aynı harita. <strong>Koltuk nerede</strong>,
   <strong>meslek sahibi nerede</strong>, ve nüfusa göre <strong>ne kadar.</strong>
@@ -539,12 +619,28 @@ footer p{color:var(--ink-3);max-width:76ch}
   <div class="grafik" id="g-harita"></div>
   <div id="e-harita"></div>
   <p class="not" id="n-harita"></p>
-  <a class="indir" href="gorsel/tip_harita.png" download>Tıp haritasını indir</a>
-  <a class="indir" href="gorsel/hekim_harita.png" download>Hekim haritasını indir</a>
+  <div class="paylasim">
+    <a href="gorsel/tip_harita.png" target="_blank" rel="noopener">
+      <img src="gorsel/tip_harita.png" alt="Tıp kontenjanı haritası kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: tıp kontenjanı ve ortanca taban sırası, il il.</p>
+      <a class="indir" href="gorsel/tip_harita.png" download>Tıp haritasını indir</a>
+    </div>
+  </div>
+  <div class="paylasim">
+    <a href="gorsel/hekim_harita.png" target="_blank" rel="noopener">
+      <img src="gorsel/hekim_harita.png" alt="Hekim haritası kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: hekim sayısı ve 100 binde hekim, il il.</p>
+      <a class="indir" href="gorsel/hekim_harita.png" download>Hekim haritasını indir</a>
+    </div>
+  </div>
 </section>
 
 <section id="hukuk">
-  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Bölüm 8</div>
+  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Bölüm 9</div>
   <h2>Hukuk: avukat sayısı ve iş yükü</h2>
   <p>Avukatta eşitsizlik hekimdekinden sert. Ankara 100 binde 481, Muş 52, arada
   <strong>9,3 kat</strong> var; hekimde bu fark 3,8 katta kalıyor.</p>
@@ -571,7 +667,15 @@ footer p{color:var(--ink-3);max-width:76ch}
   <div class="grafik" id="g-hukuk"></div>
   <div id="e-hukuk"></div>
   <p class="not" id="n-hukuk"></p>
-  <a class="indir" href="gorsel/hukuk_arz_talep.png" download>Hukukta arz ve talep</a>
+  <div class="paylasim">
+    <a href="gorsel/hukuk_arz_talep.png" target="_blank" rel="noopener">
+      <img src="gorsel/hukuk_arz_talep.png" alt="Hukukta arz ve talep kartı" loading="lazy"
+           width="1080" height="1350"></a>
+    <div class="paylasim-yazi">
+      <p>Paylaşım kartı: avukat, dava ve hukuk kontenjanı tek görselde.</p>
+      <a class="indir" href="gorsel/hukuk_arz_talep.png" download>Görseli indir</a>
+    </div>
+  </div>
 </section>
 
 <section id="hazirlayan">
@@ -598,7 +702,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="yontem">
-  <div class="sb" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Bölüm 9</div>
+  <div class="sb" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Bölüm 10</div>
   <h2>Yöntem ve kaynaklar</h2>
   <p><strong>Kontenjan, yerleşen, taban puan.</strong> ÖSYM Tablo-4 merkezi yerleştirme
   sonuçları, 2018-2026. Doluluk = (genel + okul birinciliği yerleşen) / (genel + okul birinciliği
@@ -617,6 +721,9 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p><strong>Hekim sayıları.</strong> T.C. Sağlık Bakanlığı, Sağlık İstatistikleri Yıllığı 2024;
   hekim Tablo 10.12, nüfus Tablo 1.3. İkisi de aynı yıllıkta olduğu için kişi başı oran iç
   tutarlı. Hekim sayısı uzman, pratisyen ve asistan hekimin toplamı, tüm sektörler.
+  Yıl serisi (100 binde hekim, 2002-2024) aynı yıllığın Şekil 10.1'inden; değerler
+  yıllığın kendi yuvarlamasıyla tam sayı. Şeklin 2020-2024 değerleri, Tablo 10.1'in hekim
+  sayısı TÜİK nüfusuna bölündüğünde çıkan sonuçla en fazla 0,3 sapıyor.
   <strong>Hekim çalıştığı ilde sayılıyor, mezun olduğu ilde değil.</strong> Stokun %26,8'i
   asistan hekim; asistansız Türkiye 100 binde 258 değil 189 olur, uluslararası karşılaştırmada
   bu ayrım belirleyici.</p>
@@ -680,7 +787,7 @@ function ilk100(c){
     `${bas(c.uzun_ad)} puan türünde 100. programın taban puanı: `
     + `${YIL.map((y,i) => y + " · " + e[i]).join("   ")}. `
     + "Hiçbir yıl iki programa ulaşmayan bölümler tek satırda toplandı.";
-  document.getElementById("i-ilk100").href = "gorsel/" + c.gorsel;
+  kartKur("ilk100", "gorsel/" + c.gorsel);
 }
 
 /* ---------- 2 · öbek ---------- */
@@ -821,8 +928,8 @@ function bump(c){
     + `Puan türü ${c.pt}; 2026'da havuzda ${tr(c.havuz[c.havuz.length-1])} program var `
     + `(2018'de ${tr(c.havuz[0])}). Sağdaki sayı o programın 2026 kontenjanı: vakıfların burslu `
     + "programları listeye küçük kontenjanlarla girer, sıra tek başına okunmamalı.";
-  document.getElementById("i-bump").href =
-    c.slug === "bilgisayar" ? "gorsel/bilgisayar_ilk20.png" : `gorsel/ilk20_${c.slug}.png`;
+  kartKur("bump", c.slug === "bilgisayar"
+    ? "gorsel/bilgisayar_ilk20.png" : `gorsel/ilk20_${c.slug}.png`);
 }
 
 /* ---------- 6 · beş yılda yükselen ve düşen ---------- */
@@ -890,8 +997,8 @@ function siraTablo(c){
     (c.not ? c.not + " " : "")
     + "Alt tablo bu bölümün en yüksek tabanlı ücretli programları. "
     + (c.kat_var ? "" : "Tıpta sıralar çok küçük sayılar olduğu için oran sütunu gösterilmiyor. ");
-  document.getElementById("i-sira").href =
-    c.slug === "bilgisayar" ? "gorsel/bilgisayar_sira.png" : `gorsel/sira_${c.slug}.png`;
+  kartKur("sira", c.slug === "bilgisayar"
+    ? "gorsel/bilgisayar_sira.png" : `gorsel/sira_${c.slug}.png`);
 }
 
 /* ---------- 8 · hukuk ---------- */
@@ -924,6 +1031,50 @@ function hukukSeri(){
     + "o yıl açılanı, talebin kendisidir. İkisi aynı yönde hareket ediyor, düzeyleri farklı.";
 }
 
+// Kart onizlemesi ile indirme baglantisi ayni adresi kullaniyor. Tek yerden kurulmazsa
+// secim degistiginde biri guncellenip oteki eski gorselde kaliyor.
+function kartKur(on, adres){
+  // ONEK "ind-/ac-/on-", "i-" DEGIL. Simge kutugundeki <symbol> kimlikleri de i- ile
+  // basliyor (i-ilk100, i-sira); getElementById onlari donduruyor ve baglanti sessizce
+  // kurulmuyordu. Kutuk eklendiginde bu iki indirme baglantisi bozulmustu.
+  document.getElementById("ind-" + on).href = adres;
+  document.getElementById("ac-" + on).href = adres;
+  document.getElementById("on-" + on).src = adres;
+}
+
+/* ---------- 6 · ilk 20 bin ---------- */
+function ilk20bin(){
+  const d = D.ilk20bin, Y = d.yil;
+  const bas = "<thead><tr><th>Bölüm</th>"
+    + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+  // Sayi ve altinda bandin yuzdesi. Esik dokuz yil boyunca 20.000, ama yine de
+  // veriden okunuyor; sabit yazilirsa esik degisince yalan olur.
+  const sat = (ad, dizi, sinif) => `<tr class="${sinif || ""}"><th>${ad}</th>`
+    + dizi.map((v, i) => `<td>${tr(v)}<br><span class="alt">%${vg(100*v/d.esik[i])}</span></td>`)
+        .join("") + "</tr>";
+  document.getElementById("t-ilk20bin").innerHTML = `<table>${bas}<tbody>`
+    + sat("Tıp", d.tip, "ana")
+    + sat("Mühendislik ve pilotaj", d.muhendislik)
+    + sat("bunun bilişimi", d.bilisim)
+    + sat("Diş hekimliği", d.dis)
+    + sat("Öteki sayısal bölümler", d.oteki)
+    + '<tr class="ayrik"><th>Toplam</th>'
+    + d.toplam.map(v => `<td>${tr(v)}</td>`).join("") + "</tr>"
+    + "</tbody></table>";
+  const s0 = 100*d.tip[0]/d.esik[0], sd = 100*Math.min(...d.tip)/d.esik[0],
+        ss = 100*d.tip[d.tip.length-1]/d.esik[d.esik.length-1];
+  const dipYil = Y[d.tip.indexOf(Math.min(...d.tip))];
+  document.getElementById("n-ilk20bin").innerHTML =
+    // Yuzdeye ek getirilmiyor: "%46,6'ye" yanlis, dogrusu "%46,6'ya" ve ek son rakamin
+    // Turkce okunusuna gore degisiyor (alti->ya, uc->e, iki->ye). Cumle eksiz kuruldu.
+    `Tıbbın payı ${Y[0]}'de %${vg(s0)} idi, ${dipYil}'te %${vg(sd)} ile dibi gördü, `
+    + `${Y[Y.length-1]}'da %${vg(ss)}. <strong>Mühendislik bunun aynadaki görüntüsü;</strong> `
+    + "yükselişin ve düşüşün büyük kısmını bilişim taşıyor, o yüzden ayrı satır olarak "
+    + "verildi (bilişim mühendisliğin İÇİNDE, toplama iki kez girmiyor). "
+    + `Eşik dokuz yıl boyunca ${tr(d.esik[0])}. sıra. Diş hekimliği bandın dışına çıktı: `
+    + `${tr(d.dis[0])} kişiden ${tr(d.dis[d.dis.length-1])} kişiye.`;
+}
+
 /* ---------- 5 · tıp ---------- */
 function tip(){
   const k = D.tip.kontenjan;
@@ -933,7 +1084,13 @@ function tip(){
   document.getElementById("t-tipk").innerHTML = `<table>${basliklar(["Kontenjan"])}<tbody>`
     + sat("Devlet", k.devlet_kont, tr) + sat("Vakıf", k.vakif_kont, tr)
     + sat("KKTC ve yurt dışı", k.disi_kont, tr)
-    + sat("Doluluk", k.doluluk, v => "%" + vg(v)) + "</tbody></table>";
+    + sat("Doluluk", k.doluluk, v => "%" + vg(v))
+    // Hekim satiri kontenjanin ALTINDA ve ayni yil ekseninde: kontenjan ile stokun
+    // birlikte okunmasi icin. Seri 2024'te bitiyor, son iki yil bos.
+    + '<tr class="ayrik"><th>100 binde hekim</th>'
+    + k.hekim_100bin.map(v => v === null
+        ? '<td class="bos">–</td>' : `<td>${tr(v)}</td>`).join("")
+    + "</tr></tbody></table>";
 
   const b = D.tip.bant, esik = D.tip.esik;
   const hedef = [2000, 5000, 10000, 15000, esik, 30000];
@@ -945,12 +1102,24 @@ function tip(){
               muhendislik:"Mühendislik ve pilotaj", oteki:"Öteki sayısal bölümler"};
   const bas = "<thead><tr><th>Öbek</th>"
     + hedef.map(h => `<th>ilk ${tr(h)}</th>`).join("") + "</tr></thead>";
-  let gov = kol.map(c => "<tr><th>" + ad[c] + "</th>"
-    + hedef.map(h => `<td>${tr(deger(c,h))}</td>`).join("") + "</tr>").join("");
-  gov += "<tr><th>Toplam</th>" + hedef.map(h => {
-    const t = kol.reduce((a,c) => a + deger(c,h), 0);
-    return `<td class="son">${tr(t)}<br><span class="alt">%${vg(100*t/h)}</span></td>`;
-  }).join("") + "</tr>";
+  // YUZDE HER SATIRDA, TOPLAMDA DEGIL. Onceki surumde yalniz "Toplam" satirinda yuzde
+  // vardi; dort obegin bandin yuzde kacini tuttugu bu bolumun sorusu degil ve tanimi
+  // geregi zaten yuksek cikiyor. Bolum tibbi anlatiyor, okunacak sayi tibbin payi.
+  const yuzdeli = (v, h) => `<td>${tr(v)}<br><span class="alt">%${vg(100*v/h)}</span></td>`;
+  const satirlar = [
+    ["tip_devlet", false], ["tip_vakif", false], ["TIP", true],
+    ["muhendislik", false], ["oteki", false],
+  ];
+  let gov = satirlar.map(([c, ana]) => {
+    const al = h => c === "TIP" ? deger("tip_devlet", h) + deger("tip_vakif", h) : deger(c, h);
+    const et = c === "TIP" ? "Tıp toplamı" : ad[c];
+    return `<tr class="${ana ? "ana" : ""}"><th>${et}</th>`
+      + hedef.map(h => yuzdeli(al(h), h)).join("") + "</tr>";
+  }).join("");
+  // Toplam satirinda yuzde YOK, yalnizca sayi: bandin kac adayinin bu dort obekte
+  // toplandigini gosteriyor, oran olarak okunacak bir sey degil.
+  gov += "<tr><th>Dört öbeğin toplamı</th>" + hedef.map(h =>
+    `<td>${tr(kol.reduce((a, c) => a + deger(c, h), 0))}</td>`).join("") + "</tr>";
   document.getElementById("t-tipb").innerHTML = `<table>${bas}<tbody>${gov}</tbody></table>`;
 }
 
@@ -1002,7 +1171,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=a58449bd53";
+const SURUM = "?v=39d18eea6c";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
@@ -1049,6 +1218,7 @@ async function basla(){
   const avukat = o => o.anahtar.startsWith("avukat");
   dugmeler(document.getElementById("s-harita"), H.olcut.filter(o => !avukat(o)),
            o => haritaCiz(o, "harita"));
+  ilk20bin();
   hukukSeri();
   dugmeler(document.getElementById("s-hukuk"), H.olcut.filter(avukat),
            o => haritaCiz(o, "hukuk"));
