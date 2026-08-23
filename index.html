@@ -536,11 +536,15 @@ footer p{color:var(--ink-3);max-width:76ch}
   <h2>Hukuk: avukat sayısı ve iş yükü</h2>
   <p>Avukatta eşitsizlik hekimdekinden sert. Ankara 100 binde 481, Muş 52, arada
   <strong>9,3 kat</strong> var; hekimde bu fark 3,8 katta kalıyor.</p>
-  <p>Asıl hikâye ise haritada değil, arz tarafında. 2015'ten 2024'e baroya kayıtlı avukat
-  sayısı <strong>93.573'ten 199.142'ye</strong> çıktı, 2,13 kat. Aynı dönemde hukuk
-  mahkemelerine gelen dosya 1,58 kat arttı, avukattan yavaş; <strong>avukat başına düşen
-  dosya 36,3'ten 27,0'ye indi.</strong> Düşüş sürekli değil: dip 2020'de (25,4), o tarihten
-  beri seri 25,4 ile 27,0 arasında dar bir bantta.</p>
+  <p>Asıl hikâye ise haritada değil, arz tarafında. 2015'ten 2025'e baroya kayıtlı avukat
+  sayısı <strong>93.573'ten 206.678'e</strong> çıktı, 2,21 kat. Aynı dönemde hukuk
+  mahkemelerine gelen dosya 1,54 kat arttı, avukattan yavaş; <strong>avukat başına düşen
+  dosya 36,3'ten 25,3'e indi.</strong></p>
+  <p>2025 iki yönden birden ayrışıyor. Avukat sayısı büyümeyi sürdürürken <strong>gelen dosya
+  2020'den bu yana ilk kez azaldı</strong> (5.369.402'den 5.230.402'ye), açılan dosya da
+  (3.173.045'ten 3.010.106'ya). İkisi birleşince avukat başına düşen iş on bir yılın en düşük
+  düzeyine indi. Aşağıdaki harita 31 Aralık 2024 listesinden, çünkü kişi başı oranın paydası
+  olan il nüfusu 2024 yıllığından geliyor; yıl serisi ülke toplamı olduğu için 2025'e uzanıyor.</p>
   <p>Kontenjan tarafı ters yöne dönmüş durumda. 2018-2022 arasında hukuk kontenjanı
   16 binin üzerinde yatay seyretti; <strong>kesinti 2023'te başladı, asıl kırılma
   2025'te oldu</strong> (14.409'dan 10.138'e). 2026'da 8.886 kaldı, 2022'ye göre
@@ -896,8 +900,9 @@ function hukukSeri(){
     + sat("Avukat başına açılan dosya", h.acilan, vg)
     + "</tbody></table>";
   document.getElementById("n-hukuk-seri").innerHTML =
-    "Kontenjan ÖSYM'den (2018-2026), avukat sayısı Adalet İstatistikleri'nden (2024'te "
-    + "bitiyor, 2025 yıllığı henüz yayımlanmadı). <strong>Gelen</strong> dosya geçen yıldan "
+    "Kontenjan ÖSYM'den (2018-2026), avukat ve dosya sayısı Adalet İstatistikleri'nden "
+    + "(2025'te bitiyor, 2026 yıllığı henüz yayımlanmadı); 2025 toplamı Türkiye Barolar "
+    + "Birliği'nin 31.12.2025 listesiyle birebir tutuyor. <strong>Gelen</strong> dosya geçen yıldan "
     + "devredeni de sayar, mahkemenin önündeki toplam iştir; <strong>açılan</strong> yalnız "
     + "o yıl açılanı, talebin kendisidir. İkisi aynı yönde hareket ediyor, düzeyleri farklı.";
 }
@@ -980,7 +985,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=f0d779a9b9";
+const SURUM = "?v=81231ddb3d";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
