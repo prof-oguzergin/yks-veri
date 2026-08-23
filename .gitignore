@@ -1,0 +1,4 @@
+# Kisisel veri hicbir kosulda bu depoya girmez
+*.xlsx
+*.xls
+gizli*/

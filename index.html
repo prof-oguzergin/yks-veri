@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026 YKS Yerleştirme Çizelgeleri</title>
+<meta name="description" content="2026 YKS yerleştirme sonuçları: ilk 100 program, bölüm bölüm ilk 20 üniversitenin dokuz yıllık başarı sırası, tıp kontenjanı. Kaynak ÖSYM ve YÖK Atlas.">
+<style>
+:root{
+  --paper:#F1F2EF; --card:#FAFAF8; --ink:#141A20; --ink-2:#4A535E; --ink-3:#7C8590;
+  --rule:rgba(20,26,32,.13); --rule-soft:rgba(20,26,32,.06);
+  --iyi:#137a55; --kotu:#b23c0b; --vurgu:#4a3aa7; --gri:#B9B7B0;
+  --serif:ui-serif,Georgia,"Iowan Old Style","Times New Roman",serif;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-tema="acik"]){
+  --paper:#0E1216; --card:#161B21; --ink:#E9EBE8; --ink-2:#A9B2BC; --ink-3:#79838E;
+  --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
+  --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;}}
+:root[data-tema="koyu"]{
+  --paper:#0E1216; --card:#161B21; --ink:#E9EBE8; --ink-2:#A9B2BC; --ink-3:#79838E;
+  --rule:rgba(233,235,232,.15); --rule-soft:rgba(233,235,232,.07);
+  --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.sar{max-width:1060px;margin:0 auto;padding:0 clamp(18px,4vw,32px)}
+
+/* ---- giriş ---- */
+header{padding:clamp(40px,9vh,96px) 0 clamp(16px,3vh,32px)}
+.ust{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+  display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.ust::after{content:"";flex:1;height:1px;background:var(--rule)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6.2vw,66px);line-height:1.02;
+  margin:0 0 20px;letter-spacing:-.022em}
+.giris{color:var(--ink-2);max-width:60ch;margin:0;font-size:clamp(16px,1.6vw,19px)}
+.bulgu{margin:34px 0 0;padding:18px 22px;border-left:3px solid var(--vurgu);
+  background:var(--card);border-radius:0 12px 12px 0;max-width:66ch}
+.bulgu p{margin:0;color:var(--ink);font-size:clamp(15.5px,1.5vw,17.5px)}
+.kartlar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:30px 0 0}
+.kart{background:var(--card);border:1px solid var(--rule-soft);border-radius:13px;padding:12px 15px}
+.k-et{font-size:12.5px;color:var(--ink-3);line-height:1.35}
+.k-sy{font-size:clamp(20px,2.4vw,27px);font-variant-numeric:tabular-nums;letter-spacing:-.015em;
+  margin-top:2px}
+
+/* ---- gezinme ---- */
+nav{position:sticky;top:0;z-index:8;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule-soft);margin-top:34px}
+nav .ic{display:flex;gap:5px;overflow-x:auto;padding:11px 0;scrollbar-width:none}
+nav .ic::-webkit-scrollbar{display:none}
+nav a{font-size:13.5px;padding:6px 13px;border-radius:999px;text-decoration:none;white-space:nowrap;
+  color:var(--ink-2);border:1px solid transparent}
+nav a:hover{border-color:var(--rule);color:var(--ink)}
+
+/* ---- bölümler ---- */
+section{padding:clamp(44px,8vh,80px) 0;border-bottom:1px solid var(--rule-soft)}
+.sb{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+  margin-bottom:10px}
+h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.8vw,42px);line-height:1.1;
+  margin:0 0 14px;letter-spacing:-.015em}
+h3{font-size:16.5px;margin:34px 0 8px;font-weight:600}
+p{margin:0 0 13px;max-width:70ch;color:var(--ink-2)}
+p strong{color:var(--ink);font-weight:600}
+
+/* ---- çizelge ---- */
+.tw{width:100%;overflow-x:auto;margin:20px 0 0;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule-soft);border-radius:13px;background:var(--card)}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13.5px;min-width:100%}
+th,td{padding:6px 10px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;padding-left:15px}
+th:last-child,td:last-child{padding-right:15px}
+thead th{color:var(--ink-3);font-weight:600;font-size:11.5px;letter-spacing:.03em;
+  border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--card);
+  text-transform:uppercase}
+tbody tr{border-bottom:1px solid var(--rule-soft)}
+tbody tr:last-child{border-bottom:none}
+tbody th{font-weight:400;color:var(--ink-2)}
+td.son{font-weight:700;color:var(--ink)}
+td.dip{color:var(--iyi);font-weight:600}
+td.bos{color:var(--ink-3)}
+.sr{color:var(--ink-3);display:inline-block;min-width:1.9em}
+.alt{color:var(--ink-3);font-size:.85em}
+
+/* ---- seçim düğmeleri ---- */
+.secim{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 0}
+.secim button{font:inherit;font-size:13.5px;padding:6px 14px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--rule);background:transparent;color:var(--ink-2);transition:.12s}
+.secim button:hover{color:var(--ink)}
+.secim button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+/* 34 bölüm düğme olarak taşıyor; açılır liste alan alan gruplanıyor. */
+.sec-sar{display:inline-flex;align-items:center;gap:10px;margin:22px 0 0;font-size:13.5px;
+  color:var(--ink-3)}
+.sec-sar select{font:inherit;font-size:15px;color:var(--ink);background:var(--card);
+  border:1px solid var(--rule);border-radius:9px;padding:8px 12px;max-width:min(92vw,420px)}
+
+/* ---- bump grafiği ---- */
+.grafik{margin:20px 0 0;border:1px solid var(--rule-soft);border-radius:13px;background:var(--card);
+  padding:14px 6px 6px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+svg.hrt{width:100%;height:auto;display:block}
+.hrt path{transition:opacity .12s}
+.hrt:hover path{opacity:.55}
+.hrt path:hover{opacity:1;stroke:var(--ink);stroke-width:1.4}
+.efs{display:flex;flex-wrap:wrap;gap:2px;margin:14px 0 0;font-size:12.5px}
+.efs div{flex:1 1 0;min-width:78px;text-align:center}
+.efs i{display:block;height:13px;border-radius:2px;margin-bottom:5px}
+.efs span{color:var(--ink-3)}
+@media(max-width:760px){.hrt{min-width:660px}}
+.bump{width:100%;height:auto;display:block;font-family:var(--sans)}
+svg.bump text{fill:var(--ink-2)}
+svg.bump .yil{font-size:17px;fill:var(--ink-3)}
+svg.bump .rank{font-size:16px;fill:var(--ink-3)}
+svg.bump .et{font-size:18px;font-weight:600;dominant-baseline:middle}
+svg.bump .et.sol{font-weight:500}
+svg.bump .kont{font-size:15px;fill:var(--ink-3);dominant-baseline:middle;text-anchor:end}
+svg.bump .izgara{stroke:var(--rule-soft);stroke-width:1}
+svg.bump g.seri{transition:opacity .12s}
+svg.bump.vurgulu g.seri:not(.aktif){opacity:.13}
+svg.bump g.seri{cursor:pointer}
+.kaydir{display:none;font-size:12.5px;color:var(--ink-3);margin:14px 0 0}
+.efsane{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0 0;font-size:13px;color:var(--ink-3)}
+.efsane b{font-weight:600}
+
+.indir{display:inline-block;margin-top:16px;font-size:13.5px;color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:999px;padding:7px 15px;text-decoration:none}
+.indir:hover{border-color:var(--ink-3);color:var(--ink)}
+.not{font-size:13px;color:var(--ink-3);max-width:76ch;margin-top:16px;line-height:1.6}
+footer{padding:38px 0 70px;color:var(--ink-3);font-size:13.5px}
+footer a{color:var(--ink-2)}
+footer p{color:var(--ink-3);max-width:76ch}
+#tema{position:fixed;top:11px;right:14px;z-index:10;background:var(--card);color:var(--ink-2);
+  border:1px solid var(--rule);border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;
+  cursor:pointer}
+@media(max-width:760px){
+  table{font-size:12.5px}th,td{padding:5px 8px}
+  /* Dar ekranda grafigi kucultmek yerine kaydiriyoruz: 1200 birimlik tuval telefona
+     sigdirilirsa universite adlari 7 piksele iniyor ve okunmuyor. */
+  /* Olcek her bolumde ayni kalsin: tuval genisligi bolume gore degisiyor (uzun universite
+     adlari viewBox'i genisletiyor), sabit piksel genisligi verilirse genis tuvalli bolumde
+     yazi kuculuyor. --vb degeri cizim sirasinda JS'ten yaziliyor. */
+  svg.bump{min-width:calc(var(--vb,1200) * 0.634px)}
+  .kaydir{display:block}
+}
+</style>
+</head>
+<body>
+<button id="tema" aria-label="Temayı değiştir">tema</button>
+
+<div class="sar">
+  <header>
+    <div class="ust">ÖSYM 2026 yerleştirme sonuçları</div>
+    <h1>Dokuz yılda<br>ne değişti?</h1>
+    <p class="giris">2018'den bugüne bütün lisans programlarının kontenjanı, doluluğu ve başarı
+    sırası. Sayılar ÖSYM ve YÖK Atlas'ın birincil belgelerinden betikle çıkarıldı; sayfaya elle
+    sayı yazılmadı.</p>
+    <div class="bulgu"><p id="bulgu-metin"></p></div>
+    <div class="kartlar" id="ozet"></div>
+  </header>
+</div>
+
+<nav><div class="sar ic">
+  <a href="#ilk100">İlk 100 program</a>
+  <a href="#obek">Program mı, koltuk mu</a>
+  <a href="#cizgi">Üniversiteler yer değiştirdi mi</a>
+  <a href="#sira">Başarı sırası çizelgeleri</a>
+  <a href="#alan">Bölüm bölüm üniversiteler</a>
+  <a href="#degisim">Yükselen ve düşen bölümler</a>
+  <a href="#tip">Tıp</a>
+  <a href="#harita">Haritalar</a>
+  <a href="#yontem">Yöntem</a>
+</div></nav>
+
+<div class="sar">
+
+<section id="ilk100">
+  <div class="sb">Bölüm 1</div>
+  <h2>İlk 100 programda hangi bölümler var?</h2>
+  <p>Her yıl seçili puan türündeki bütün lisans programları taban puanına göre sıralanıyor,
+  ilk 100'ü bölüm bölüm sayılıyor. Koyuluk program sayısıyla orantılı.</p>
+  <div class="secim" id="s-ilk100"></div>
+  <div class="tw" id="t-ilk100"></div>
+  <p class="not" id="n-ilk100"></p>
+  <a class="indir" id="i-ilk100" href="gorsel/ilk100_isi.png" download>Görseli indir</a>
+</section>
+
+<section id="obek">
+  <div class="sb">Bölüm 2</div>
+  <h2>Program sayısı mı, koltuk sayısı mı?</h2>
+  <p>Üstteki çizelge <strong>program</strong> sayıyor, oysa programlar boyut olarak çok farklı.
+  Aynı listeyi kontenjanla ağırlıklandırınca tablo değişiyor: bir öbek listede çok yer kaplarken
+  az öğrenci alıyor olabilir.</p>
+  <div class="secim" id="s-obek"></div>
+  <div class="tw" id="t-obek"></div>
+  <p class="not" id="n-obek"></p>
+</section>
+
+<section id="cizgi">
+  <div class="sb">Bölüm 3</div>
+  <h2>Üniversiteler yer değiştirdi mi?</h2>
+  <p>Her bölümde taban puanına göre ilk 20 üniversite, 2018'den 2026'ya. Her çizgi bir
+  üniversite; dikey eksen sıra, en üstte birinci. <strong>Soldaki sütun 2018 sıralaması,
+  sağdaki 2026</strong>; soluk yazılanlar ilk 20'den düşmüş kurumlar. Bir kurumun birden çok
+  programı varsa en yüksek puanlısı alındı. <strong>Çizginin üzerine gelin</strong>, ötekiler
+  soluklaşsın.</p>
+  <div class="secim" id="s-bump"></div>
+  <p class="kaydir">Grafik geniş, yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-bump"></div>
+  <div class="efsane">
+    <span><b style="color:var(--iyi)">Yeşil</b> yükselen</span>
+    <span><b style="color:var(--kotu)">Turuncu</b> gerileyen</span>
+    <span><b style="color:var(--vurgu)">Mor</b> yeni giren</span>
+    <span><b style="color:var(--ink-3)">Gri</b> yerinde sayan</span>
+    <span><b style="color:var(--gri)">Soluk</b> ilk 20'den düşen</span>
+  </div>
+  <p class="not" id="n-bump"></p>
+  <a class="indir" id="i-bump" href="#" download>Görseli indir</a>
+</section>
+
+<section id="sira">
+  <div class="sb">Bölüm 4</div>
+  <h2>Başarı sırası: dokuz yılın tam çizelgesi</h2>
+  <p>Aynı ilk 20, bu kez sayılarla. <strong>Yeşil hücre programın en iyi yılı.</strong>
+  "Zirveden" sütunu 2026 sırasının o yıla göre kaç katı olduğunu gösterir; asıl soru bu, çünkü
+  çoğu bölümde sıralar önce iyileşiyor sonra bozuluyor.</p>
+  <div class="secim" id="s-bolum"></div>
+  <div class="tw" id="t-sira"></div>
+  <p class="not" id="n-sira"></p>
+  <a class="indir" id="i-sira" href="#" download>Görseli indir</a>
+</section>
+
+<section id="alan">
+  <div class="sb">Bölüm 5</div>
+  <h2>Bölüm bölüm üniversiteler</h2>
+  <p>Önceki çizelgeler ilk 20 üniversiteyi sıra numarasıyla veriyordu. Bu bölüm aynı soruyu
+  bütün ülkeye açıyor: <strong>bir bölümü sunan yüzlerce üniversite arasında hangisi ne kadar
+  seçici, dokuz yılda bu nasıl değişti?</strong> En büyük 34 bölüm var.</p>
+  <p>İki sayı yan yana veriliyor, çünkü tek sayı yanıltıyor.
+  <strong>Bölüm içi</strong> (grafikte çizilen), aynı bölümü sunan üniversiteler arasındaki
+  yer: 100 ülkenin en yüksek tabanlısı. <strong>Havuzda</strong> ise o programın, aynı puan
+  türündeki bütün programlar arasındaki yeri; bölümün ülke düzeyi buraya giriyor. Örnek:
+  Hacettepe biyoloji öğretmenliği bölüm içinde 91,0 ile ülkenin en iyi dokuzuncusu, ama
+  havuzda 39,1, çünkü o bölüme düşük sıralı öğrenci geliyor. İkisi de yüzdelik ve
+  <strong>koltuk sayısıyla</strong> ağırlıklı.</p>
+  <label class="sec-sar">Bölüm
+    <select id="s-alan"></select>
+  </label>
+  <p class="kaydir">Grafik geniş, yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-alan"></div>
+  <p class="not" id="n-grafik"></p>
+  <div class="tw" id="t-alan"></div>
+  <p class="not" id="n-alan"></p>
+  <div class="bulgu" style="margin-top:22px"><p><strong>Bu ölçüt seçiciliği ölçer, eğitimin
+  niteliğini değil.</strong> Kurumun ne kadar yüksek puanlı öğrenci aldığını gösterir;
+  öğrencisine ne kattığını, araştırmasını, mezununun başarısını göstermez. Onları ölçecek veri
+  ÖSYM belgelerinde yok.</p></div>
+</section>
+
+<section id="degisim">
+  <div class="sb">Bölüm 6</div>
+  <h2>Hangi bölümler yükseldi, hangileri düştü?</h2>
+  <p>Ölçü, programa giren en düşük puanlı öğrencinin <strong>Türkiye başarı sırası</strong>.
+  Her yıl bir öncekiyle ayrı ayrı eşleştiriliyor (aynı program kodu, kendisiyle
+  karşılaştırılıyor), sonra yıllık oranlar çarpılarak dokuz yıllık seri kuruluyor.
+  <strong>2018 = 1,00; 2 demek sıraların iki katına çıktığı, 0,5 demek yarıya indiği.</strong></p>
+  <p>Seri <strong>ülkeye bölünmüş</strong> veriliyor, çünkü kontenjan daraldığı için bu dönemde
+  tipik programın sırası kendiliğinden iyileşti: ülke 2026'da 0,78. Bölünmeseydi yerinde sayan
+  bölüm iyileşmiş görünürdü. <strong>1'in üstü ülkeden kötü, altı iyi.</strong></p>
+  <p>Üç liste var, çünkü <strong>2018'e göre net değişim tek başına yanıltıyor:</strong> bazı
+  bölümler önce yükselip sonra çöküyor ve nette orta hâlli görünüyor. Bilgisayar mühendisliği
+  2018'de 1,00, 2023'te 0,53, bugün 1,28; 83 bölüm içinde 60. sırada duruyor ama zirvesinden
+  <strong>2,41 kat</strong> uzakta. İlk liste bu yüzden zirveye göre sıralı.</p>
+  <p>Sıra <strong>aday sayısına bölünmüyor.</strong> Öğrenciler listenin tepesinden seçim
+  yapıyor; havuzun altına aday eklenmesi bir programın karşılaştığı rekabeti değiştirmiyor.
+  Bölseydik yanlış çıkardı: aday havuzu bu dönemde dil puanında %51, sayısalda %25 büyüdü ve
+  turizm rehberliği "en çok yükselen bölüm" gibi görünüyordu. Ham sıra mutlak, beş bininci aday
+  kaç kişi sınava girerse girsin aynı yerde.</p>
+  <div class="secim" id="s-degisim"></div>
+  <div class="tw" id="t-degisim"></div>
+  <p class="not" id="n-degisim"></p>
+</section>
+
+<section id="tip">
+  <div class="sb">Bölüm 7</div>
+  <h2>Tıp: kontenjan ve ilk sıralar</h2>
+  <p>Devlet üniversitelerinin tıp kontenjanı dokuz yılda büyüdü ama <strong>2024'ten beri
+  yerinde sayıyor</strong>. Altta, 2026'da en yüksek sıraları kimin aldığı.</p>
+  <div class="tw" id="t-tipk"></div>
+  <h3>İlk sıraları kim aldı? (2026)</h3>
+  <p>Bir programın taban sırası X'ten iyiyse o programdaki herkesin sırası da X'ten iyidir.
+  Öyleyse aşağıdaki sayılar, ilk X aday içinde o bölümlere gidenlerin <strong>alt
+  sınırıdır</strong>; tabanı X'ten kötü programlardaki iyi sıralı öğrenciler sayıya girmiyor.</p>
+  <div class="tw" id="t-tipb"></div>
+  <p class="not">Son devlet tıp programı 21.670. sırayı gördü. İlk 21.670 adayın en az %69,8'i
+  tıpta, %89,1'i ise bu dört öbeğin toplamında.</p>
+  <a class="indir" href="gorsel/devlet_tip_kontenjan.png" download>Görseli indir</a>
+</section>
+
+<section id="harita">
+  <div class="sb">Bölüm 8</div>
+  <h2>Haritada: tıp fakültesi ve hekim</h2>
+  <p>İki ayrı soru, aynı harita. <strong>Tıp koltuğu nerede</strong> ve
+  <strong>hekim nerede.</strong> İkisi aynı yerler değil.</p>
+  <p>Tıp kontenjanında İstanbul birinci (3.730 koltuk) ama <strong>ortanca taban sırası en kötü
+  olan il de o</strong> (27.304). Ankara 2.706 koltukla ikinci ve ortancası 5.590. Farkı
+  vakıf üniversitelerinin yarım burslu kontenjanları kuruyor.</p>
+  <p>Hekim tarafında ise mutlak sayı büyük ölçüde nüfusu tekrarlıyor; asıl soruyu
+  <strong>100 binde hekim</strong> yanıtlıyor. Ankara 457, Şırnak 120, arada 3,8 kat.
+  <strong>81 ilin yalnız biri OECD ortalamasını (389) geçiyor.</strong></p>
+  <div class="secim" id="s-harita"></div>
+  <p class="kaydir">Harita geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-harita"></div>
+  <div id="e-harita"></div>
+  <p class="not" id="n-harita"></p>
+  <a class="indir" href="gorsel/tip_harita.png" download>Tıp haritasını indir</a>
+  <a class="indir" href="gorsel/hekim_harita.png" download>Hekim haritasını indir</a>
+</section>
+
+<section id="yontem">
+  <div class="sb">Bölüm 9</div>
+  <h2>Yöntem ve kaynaklar</h2>
+  <p><strong>Kontenjan, yerleşen, taban puan.</strong> ÖSYM Tablo-4 merkezi yerleştirme
+  sonuçları, 2018-2026. Doluluk = (genel + okul birinciliği yerleşen) / (genel + okul birinciliği
+  kontenjanı).</p>
+  <p><strong>Başarı sırası.</strong> 2018-2025 için ÖSYM tercih kılavuzlarının Tablo-4'ündeki
+  "bir önceki yıl başarı sırası" sütunu; kılavuz N yılı, N−1 yılının sırasını taşıyor.
+  2026 için YÖK Atlas. ÖSYM 2026 sırasını henüz yayımlamadı, 2027 kılavuzuyla gelecek.</p>
+  <p><strong>Hekim sayıları.</strong> T.C. Sağlık Bakanlığı, Sağlık İstatistikleri Yıllığı 2024;
+  hekim Tablo 10.12, nüfus Tablo 1.3. İkisi de aynı yıllıkta olduğu için kişi başı oran iç
+  tutarlı. Hekim sayısı uzman, pratisyen ve asistan hekimin toplamı, tüm sektörler.
+  <strong>Hekim çalıştığı ilde sayılıyor, mezun olduğu ilde değil.</strong> Stokun %26,8'i
+  asistan hekim; asistansız Türkiye 100 binde 258 değil 189 olur, uluslararası karşılaştırmada
+  bu ayrım belirleyici.</p>
+  <p><strong>Haritada ilin bulunması.</strong> Programın ili önce fakülte adından, sonra
+  üniversite adından çıkarılıyor. Sağlık Bilimleri Üniversitesi'nin adresi İstanbul ama tıp
+  fakülteleri Adana, Bursa, Erzurum, İzmir ve Kayseri'de; fakülte adına bakılmasa bu koltuklar
+  İstanbul'a yazılırdı. KKTC ve yurt dışı programlar harita dışında.</p>
+  <p><strong>Başarı sırası ne demek?</strong> Son yerleşen öğrencinin sırası değil; o programın
+  taban puanına Türkiye'de kaç adayın ulaştığı. Normalde kontenjandan çok büyüktür, çünkü o puanı
+  geçen adayların çoğu başka programı seçer. Ek puanla girilen programlarda taban puanı ek puanlı,
+  sıra ek puansız hesaplandığı için sayı kontenjandan küçük çıkabilir.</p>
+  <p><strong>Boş hücre</strong> programın o yıl açık olmadığını, ya da dolmadığı için ÖSYM'nin
+  başarı sırası atamadığını gösterir. <strong>Ham taban puanları yıllar arasında doğrudan
+  karşılaştırılamaz</strong>; sıra ölçütü bu yüzden kullanılıyor.</p>
+  <p><strong>2021 sütunu ayrı okunmalı:</strong> tercih barajının (TYT 150 / AYT 180) son yılıydı,
+  doluluk her yerde düşük.</p>
+</section>
+
+<footer>
+  <p>Hesaplama: Prof. Dr. Oğuz Ergin · <a href="https://oguzergin.net">oguzergin.net</a></p>
+  <p>Kaynak: ÖSYM merkezi yerleştirme sonuçları ve tercih kılavuzları (2018-2026), YÖK Atlas.</p>
+</footer>
+</div>
+
+<script>
+const tr = n => (n === null || n === undefined) ? "–" : n.toLocaleString("tr-TR");
+const vg = (n, b=1) => (n === null || n === undefined) ? "–"
+  : n.toLocaleString("tr-TR", {minimumFractionDigits:b, maximumFractionDigits:b});
+const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+let D = null, B = null, A = null, G = null, H = null, YIL = [];
+
+// Cumle basina gelen puan turu adinin bas harfi. `toUpperCase()` Turkce'de "i" yi "I" yapiyor.
+const bas = t => t.charAt(0).toLocaleUpperCase("tr") + t.slice(1);
+
+const basliklar = ek => "<thead><tr><th>" + ek[0] + "</th>"
+  + YIL.map(y => `<th>${y}</th>`).join("")
+  + ek.slice(1).map(h => `<th>${h}</th>`).join("") + "</tr></thead>";
+
+/* ---------- 1 · ilk 100 ---------- */
+function ilk100(c){
+  const s = c.satir, enb = Math.max(...s.flatMap(r => r.slice(1)));
+  const gov = s.map(r => "<tr><th>" + esc(r[0]) + "</th>" + r.slice(1).map(v => {
+    // Karekök ölçek: doğrusal ölçekte tıp satırı ötekileri görünmez kılıyor.
+    const a = v ? 0.10 + 0.80 * Math.sqrt(v / enb) : 0;
+    return `<td style="background:color-mix(in srgb, var(--vurgu) ${Math.round(a*100)}%, transparent);
+      color:${a > .46 ? "#fff" : "var(--ink)"}">${v || ""}</td>`;
+  }).join("") + "</tr>").join("");
+  document.getElementById("t-ilk100").innerHTML =
+    `<table>${basliklar(["Bölüm"])}<tbody>${gov}</tbody></table>`;
+  const e = c.esik;
+  document.getElementById("n-ilk100").textContent =
+    `${bas(c.uzun_ad)} puan türünde 100. programın taban puanı: `
+    + `${YIL.map((y,i) => y + " · " + e[i]).join("   ")}. `
+    + "Hiçbir yıl iki programa ulaşmayan bölümler tek satırda toplandı.";
+  document.getElementById("i-ilk100").href = "gorsel/" + c.gorsel;
+}
+
+/* ---------- 2 · öbek ---------- */
+function obek(c){
+  const gov = c.obek.map(o => "<tr><th>" + esc(o.ad) + "</th>"
+    + o.program.map((p,i) =>
+        `<td>${p}<br><span class="alt">${tr(o.kontenjan[i])}</span></td>`).join("")
+    + "</tr>").join("");
+  document.getElementById("t-obek").innerHTML =
+    `<table>${basliklar(["Öbek"])}<tbody>${gov}</tbody></table>`;
+  // Ornek satir veriden secilir: en cok programi olup en az koltuk alan obek. SAY'da pilotaj
+  // cikiyor, EA ve SOZ'de baskasi; sabit yazilirsa puan turu degisince yanlis oluyor.
+  const son = YIL.length - 1;
+  const aday = c.obek.filter(o => o.program[son] >= 3);
+  const u = aday.length ? aday.reduce((a,b) =>
+    (b.kontenjan[son]/b.program[son] < a.kontenjan[son]/a.program[son] ? b : a)) : null;
+  document.getElementById("n-obek").innerHTML =
+    "Üstteki sayı program adedi, altındaki o öbeğin toplam kontenjanı."
+    + (u ? ` ${esc(bas(c.uzun_ad))} puan türünde ${esc(u.ad.toLocaleLowerCase("tr"))} `
+         + `${u.program[son]} programla listede ama toplam ${tr(u.kontenjan[son])} kişilik.` : "");
+}
+
+// Ilk 100 ve obek ayni veriyi (D.ilk100) kullaniyor, iki ayri dugme dizisiyle bagimsiz geziliyor.
+
+/* ---------- 3 · çizgili grafik ---------- */
+const YON = {yukselen:"var(--iyi)", gerileyen:"var(--kotu)", yeni:"var(--vurgu)",
+             sabit:"var(--ink-3)", dusen:"var(--gri)"};
+function bump(c){
+  const N = B.n, Y = B.yil;
+  // Sol boslugu ilk 20'den DUSEN universitelerin adi dolduruyor; dar birakilirsa kirpiliyor
+  // ("Ankara Yıldırım Beyazıt" en uzunu). sol = o etiketlerin sag ucu.
+  const G = {sol:150, rank:196, x0:210, x1:790, y0:46, y1:46 + (N-1)*28, sag:806, en:1200};
+  const yuk = G.y1 + 48;
+  const px = y => G.x0 + (G.x1 - G.x0) * (Y.indexOf(y) / (Y.length - 1));
+  const py = s => G.y0 + (G.y1 - G.y0) * ((s - 1) / (N - 1));
+  let o = "";
+  for(let s = 1; s <= N; s++){
+    o += `<line class="izgara" x1="${G.x0-8}" y1="${py(s)}" x2="${G.x1+8}" y2="${py(s)}"/>`;
+    o += `<text class="rank" x="${G.rank}" y="${py(s)+5}" text-anchor="end">${s}</text>`;
+  }
+  o += Y.map(y => `<text class="yil" x="${px(y)}" y="${G.y0-18}" text-anchor="middle">${y}</text>`).join("");
+  o += `<text class="kont" x="${G.en-8}" y="${G.y0-18}">2026 kont.</text>`;
+
+  c.seri.forEach((u, i) => {
+    // Ardışık yılları tek parça yap; ilk 20 dışına düşülen yılda çizgi kopsun.
+    const p = [], gecerli = new Map(u.nokta);
+    let ku = [];
+    Y.forEach(y => {
+      if(gecerli.has(y)) ku.push([px(y), py(gecerli.get(y))]);
+      else { if(ku.length) p.push(ku); ku = []; }
+    });
+    if(ku.length) p.push(ku);
+    const renk = u.renk || "var(--gri)";
+    const kal = u.yon === "dusen" ? 1.7 : u.yon === "yeni" ? 2.6 : 2.9;
+    let g = `<g class="seri" data-i="${i}"><title>${esc(u.ad)}</title>`;
+    g += p.map(par => `<polyline fill="none" stroke="${renk}" stroke-width="${kal}"
+        stroke-linecap="round" stroke-linejoin="round"
+        points="${par.map(q => q.join(",")).join(" ")}"/>`).join("");
+    g += p.flat().map(q =>
+      `<circle cx="${q[0]}" cy="${q[1]}" r="${2.6 + kal/3}" fill="${renk}"
+        stroke="var(--card)" stroke-width="1.4"/>`).join("");
+    const ad = esc(u.ad) + (u.burs ? ` (${esc(u.burs)})` : "");
+    const son = gecerli.get(Y[Y.length-1]);
+    if(son !== undefined){
+      g += `<text class="et" x="${G.sag}" y="${py(son)}" fill="${YON[u.yon]}">${ad}</text>`;
+      g += `<text class="kont" x="${G.en-8}" y="${py(son)}">${tr(u.kontenjan)}</text>`;
+    }
+    // Sol sutun 2018 siralamasi, sag sutun 2026. Cizelge iki ucundan okunuyor, o yuzden
+    // 2018'de listede olan HERKES sola yaziliyor; yalniz dusenleri yazmak sol tarafi bos
+    // birakiyordu. Sol soluk (baslangic durumu), sag yon rengiyle vurgulu (varilan yer).
+    const ilk = gecerli.get(Y[0]);
+    if(ilk !== undefined)
+      g += `<text class="et sol" x="${G.sol}" y="${py(ilk)}" text-anchor="end"
+             fill="${son === undefined ? "var(--gri)" : "var(--ink-3)"}">${ad}</text>`;
+    o += g + "</g>";
+  });
+  const svg = `<svg class="bump" viewBox="0 0 ${G.en} ${yuk}" role="img"
+     aria-label="${esc(c.baslik)} ilk 20 üniversite, 2018-2026 sıra değişimi">${o}</svg>`;
+  const kap = document.getElementById("g-bump");
+  kap.innerHTML = svg;
+  // Iki kenar da cizildikten SONRA olculup yerlestiriliyor; etiket uzunlugu bolume gore
+  // degistigi icin sabit bosluk ya kirpiyor ya da bos yer birakiyor.
+  {
+    const e = kap.querySelector("svg");
+    const bb = t => t.getBBox();
+
+    // (a) Sol: en soldaki metin tuvalin disina tasarsa viewBox soldan genisletilir
+    //     ("Alanya Hamdullah Emin Paşa" en uzunu).
+    let enSol = 0;
+    e.querySelectorAll("text").forEach(t => { const b = bb(t); if(b.x < enSol) enSol = b.x; });
+    const x0v = enSol < 0 ? Math.floor(enSol) - 10 : 0;
+
+    // (b) Sag: kontenjan sutunu universite adlarina yaklastirilir. Sutun genisligi en uzun
+    //     adin bittigi yere gore hesaplaniyor, sabit ARA kadar bosluk birakarak.
+    const ARA = 46;
+    const sag = [...e.querySelectorAll("text.et:not(.sol)")].map(t => bb(t).x + bb(t).width);
+    const kont = [...e.querySelectorAll("text.kont")];
+    let kontSag = G.en - 8;
+    if(sag.length && kont.length){
+      const kontEn = Math.max(...kont.map(t => bb(t).width));
+      kontSag = Math.round(Math.max(...sag) + ARA + kontEn);
+      kont.forEach(t => t.setAttribute("x", kontSag));
+    }
+    const vb = kontSag + 8 - x0v;
+    e.setAttribute("viewBox", `${x0v} 0 ${vb} ${yuk}`);
+    kap.style.setProperty("--vb", vb);   // dar ekrandaki en küçük genişlik bundan hesaplanıyor
+  }
+  // Üzerine gelince o çizgi öne çıksın, ötekiler soluklaşsın.
+  const el = kap.querySelector("svg");
+  kap.querySelectorAll("g.seri").forEach(g => {
+    g.onmouseenter = () => { el.classList.add("vurgulu"); g.classList.add("aktif"); };
+    g.onmouseleave = () => { el.classList.remove("vurgulu"); g.classList.remove("aktif"); };
+  });
+  document.getElementById("n-bump").textContent =
+    (c.not ? c.not + " " : "")
+    + `Puan türü ${c.pt}; 2026'da havuzda ${tr(c.havuz[c.havuz.length-1])} program var `
+    + `(2018'de ${tr(c.havuz[0])}). Sağdaki sayı o programın 2026 kontenjanı: vakıfların burslu `
+    + "programları listeye küçük kontenjanlarla girer, sıra tek başına okunmamalı.";
+  document.getElementById("i-bump").href =
+    c.slug === "bilgisayar" ? "gorsel/bilgisayar_ilk20.png" : `gorsel/ilk20_${c.slug}.png`;
+}
+
+/* ---------- 6 · beş yılda yükselen ve düşen ---------- */
+function degisimTablo(c){
+  const son = G.yil.length - 1;
+  const gov = c.liste.map((r, i) => {
+    const hucre = r.endeks.map((v, j) => {
+      const uz = Math.min(1, Math.abs(Math.log(v)) / Math.log(3));
+      const renk = v < 1 ? "var(--iyi)" : "var(--kotu)";
+      const ss = r.sira[j] ? tr(r.sira[j]) : "–";
+      return `<td style="color:${renk};font-weight:${uz > .35 ? 700 : 400}"
+        title="${G.yil[j]} ortanca taban sırası: ${ss}">${vg(v, 2)}</td>`;
+    }).join("");
+    return `<tr><th><span class="sr">${i+1}.</span>${esc(r.bolum)}</th>`
+      + `<td class="bos">${esc(r.pt)}</td>` + hucre
+      + `<td style="font-weight:600">${vg(r.zirveden, 2)}×</td>`
+      + `<td class="bos">${r.zirve}</td>`
+      + `<td class="bos">${r.sira[0] ? tr(r.sira[0]) : "–"}</td>`
+      + `<td class="bos">${r.sira[son] ? tr(r.sira[son]) : "–"}</td></tr>`;
+  }).join("");
+  document.getElementById("t-degisim").innerHTML =
+    `<table><thead><tr><th>Bölüm</th><th>Tür</th>`
+    + G.yil.map(y => `<th>${y}</th>`).join("")
+    + `<th>Zirveden</th><th>Zirve yılı</th>`
+    + `<th>${G.yil[0]} sırası</th><th>${G.yil[son]} sırası</th>`
+    + `</tr></thead><tbody>${gov}</tbody></table>`;
+  document.getElementById("n-degisim").innerHTML =
+    "Yıl sütunları <strong>ülkeye bölünmüş endeks</strong>: 2018'de hepsi 1,00, sonrası o "
+    + "bölümün ülke genelinden ne kadar ayrıldığı. Yeşil ülkeden iyi, turuncu kötü; hücrenin "
+    + "üzerine gelince o yılın sırası çıkıyor. Son iki sütun o bölümün programlarının 2018 ve "
+    + "2026 "
+    + "ortanca taban başarı sırası; endeksle aynı programlardan hesaplandığı için ikisi "
+    + "birbirini tutuyor. <strong>Zirveden</strong>, bölümün en iyi yılına göre kaç "
+    + "kat gerilediği; 2018'e göre net değişim tek başına yanıltabiliyor çünkü bazı "
+    + "bölümler önce yükselip sonra düşüyor. Bilgisayar mühendisliği 2018'de 1,00, "
+    + "2023'te 0,53, bugün 1,28: nette orta hâlli ama zirvesinden 2,41 kat uzakta. "
+    + "Bir bölümün seriye girmesi için her yıl en az 10 "
+    + "programının bir önceki yılla eşleşmesi gerekiyor (ÖSYM dolmayan programa sıra "
+    + `atamıyor); ${tr(G.bolum)} bölümün dokuz yılı tam.`;
+}
+
+/* ---------- 5 · alanlara göre üniversiteler ---------- */
+// 34 bölüm: düğme yerine alan alan gruplanmış açılır liste.
+function bolumSecici(sec, liste, ciz){
+  let html = "", oncekiAlan = null;
+  liste.forEach((c, i) => {
+    if(c.alan !== oncekiAlan){
+      if(oncekiAlan !== null) html += "</optgroup>";
+      html += `<optgroup label="${esc(c.alan)}">`;
+      oncekiAlan = c.alan;
+    }
+    html += `<option value="${i}">${esc(c.baslik)}</option>`;
+  });
+  sec.innerHTML = html + "</optgroup>";
+  sec.onchange = () => ciz(liste[+sec.value]);
+  // Bilgisayar mühendisliği açılışta seçili gelsin, sayfanın ana konusu o.
+  const bas = Math.max(0, liste.findIndex(c => c.ad === "Bilgisayar Mühendisliği"));
+  sec.value = bas;
+  ciz(liste[bas]);
+}
+
+function alanGrafik(c){
+  const Y = YIL, sat = c.satir.slice(0, c.grafik);
+  // Y ekseni veriye gore olceklenir. 0-100'e sabitlenirse butun cizgiler ustte bir tutam
+  // halinde toplaniyor: bu alanlarda skorlar 85-99 arasinda sikisik.
+  const hepsi = sat.flatMap(r => r.d).filter(v => v !== null);
+  let alt = Math.min(...hepsi), ust = Math.max(...hepsi);
+  const pay = Math.max((ust - alt) * 0.10, 0.6);
+  alt -= pay; ust += pay;
+  const G = {x0:56, x1:660, y0:26, y1:330, sag:676, en:1000};
+  const yuk = G.y1 + 46;
+  const px = y => G.x0 + (G.x1 - G.x0) * (Y.indexOf(y) / (Y.length - 1));
+  const py = v => G.y1 - (G.y1 - G.y0) * ((v - alt) / (ust - alt));
+  let o = "";
+  // Yatay izgara: uc cizgi yeter, daha fazlasi cizgileri bogyor.
+  for(const v of [alt + (ust-alt)*0.15, (alt+ust)/2, ust - (ust-alt)*0.15]){
+    const d = Math.round(v);
+    o += `<line class="izgara" x1="${G.x0}" y1="${py(d)}" x2="${G.x1}" y2="${py(d)}"/>`;
+    o += `<text class="rank" x="${G.x0-10}" y="${py(d)+5}" text-anchor="end">${d}</text>`;
+  }
+  o += Y.map(y => `<text class="yil" x="${px(y)}" y="${G.y1+26}" text-anchor="middle">${y}</text>`).join("");
+  const etiket = [], parca = [];
+  sat.forEach((r, i) => {
+    const p = []; let ku = [];
+    Y.forEach((y, j) => {
+      if(r.d[j] !== null) ku.push([px(y), py(r.d[j])]);
+      else { if(ku.length) p.push(ku); ku = []; }
+    });
+    if(ku.length) p.push(ku);
+    let g = `<g class="seri" data-i="${i}"><title>${esc(r.universite)}</title>`;
+    g += p.map(par => `<polyline fill="none" stroke="${r.renk}" stroke-width="2.6"
+        stroke-linecap="round" stroke-linejoin="round"
+        points="${par.map(q => q.join(",")).join(" ")}"/>`).join("");
+    g += p.flat().map(q => `<circle cx="${q[0]}" cy="${q[1]}" r="3.2" fill="${r.renk}"
+        stroke="var(--card)" stroke-width="1.2"/>`).join("");
+    const sonI = [...r.d.keys()].reverse().find(j => r.d[j] !== null);
+    if(sonI !== undefined) etiket.push({i, y: py(r.d[sonI]), r});
+    parca.push(g);
+  });
+
+  // Sag etiketleri dikey ayirma. Surekli eksende birden cok universitenin son degeri
+  // birbirine cok yakin olabiliyor ve etiketler ust uste biniyor (olculdu: her alanda
+  // 6-9 cakisma). Once ideal y'ye gore siralanip asagi dogru itiliyor, tuvalin altina
+  // tasarsa yukari dogru geri itiliyor; sonra noktadan etikete kilavuz cizgisi cekiliyor.
+  // ARA etiket kutusunun olculen yuksekliginden (24) buyuk olmali; 23 denendi, etiketler
+  // birbirine 1 birim deger halde kaldi.
+  const ARA = 28;
+  etiket.sort((a, b) => a.y - b.y);
+  etiket.forEach((e, k) => { e.ey = k ? Math.max(e.y, etiket[k-1].ey + ARA) : e.y; });
+  const tasma = etiket.length ? etiket[etiket.length-1].ey - (yuk - 14) : 0;
+  if(tasma > 0){
+    etiket[etiket.length-1].ey -= tasma;
+    for(let k = etiket.length - 2; k >= 0; k--)
+      etiket[k].ey = Math.min(etiket[k].ey, etiket[k+1].ey - ARA);
+  }
+  etiket.forEach(e => {
+    parca[e.i] += `<polyline fill="none" stroke="${e.r.renk}" stroke-width="1" opacity=".45"
+        points="${G.x1+4},${e.y} ${G.sag-8},${e.ey}"/>`;
+    parca[e.i] += `<text class="et" x="${G.sag}" y="${e.ey}" fill="${e.r.renk}">${esc(e.r.universite)}</text>`;
+  });
+  o += parca.map(x => x + "</g>").join("");
+  const kap = document.getElementById("g-alan");
+  kap.innerHTML = `<svg class="bump" viewBox="0 0 ${G.en} ${yuk}" role="img"
+     aria-label="${esc(c.ad)} bölümünde ilk ${sat.length} üniversitenin 2018-2026 seçicilik yüzdeliği">${o}</svg>`;
+  // Sag etiketler bolume gore uzuyor; tuval cizimden sonra olculup kirpiliyor (bump ile ayni).
+  {
+    const e = kap.querySelector("svg");
+    const uc = [...e.querySelectorAll("text.et")].map(t => t.getBBox().x + t.getBBox().width);
+    const vb = uc.length ? Math.round(Math.max(...uc)) + 10 : G.en;
+    e.setAttribute("viewBox", `0 0 ${vb} ${yuk}`);
+    kap.style.setProperty("--vb", vb);
+    const el = e;
+    kap.querySelectorAll("g.seri").forEach(g => {
+      g.onmouseenter = () => { el.classList.add("vurgulu"); g.classList.add("aktif"); };
+      g.onmouseleave = () => { el.classList.remove("vurgulu"); g.classList.remove("aktif"); };
+    });
+  }
+  document.getElementById("n-grafik").textContent =
+    `${c.ad} bölümünde 2026'nın en seçici ${sat.length} üniversitesi, 2018'den bugüne; `
+    + "çizilen değer bölüm içi yüzdelik. "
+    + "Dikey eksen sıfırdan başlamıyor, aralık veriye göre ayarlanıyor.";
+}
+
+function alanTablo(c){
+  alanGrafik(c);
+  const son = YIL.length - 1;
+  const gov = c.satir.map((r, i) => {
+    const ilk = r.d.find(v => v !== null);
+    const fark = (r.d[son] !== null && ilk !== undefined) ? r.d[son] - ilk : null;
+    const hucre = r.d.map(v => {
+      if(v === null) return '<td class="bos">–</td>';
+      // 0-100 arasi dogrusal isi. Alt uc de bilgi tasiyor, o yuzden karekok kullanilmiyor.
+      const y = 0.06 + 0.74 * (v / 100);
+      return `<td style="background:color-mix(in srgb, var(--vurgu) ${Math.round(y*100)}%, transparent);
+        color:${y > .46 ? "#fff" : "var(--ink)"}">${vg(v)}</td>`;
+    }).join("");
+    const fs = fark === null ? '<td class="bos">–</td>'
+      : `<td style="color:${fark >= 2 ? "var(--iyi)" : fark <= -2 ? "var(--kotu)" : "var(--ink-3)"}">`
+        + (fark > 0 ? "+" : "") + vg(fark) + "</td>";
+    return `<tr><th><span class="sr">${i+1}.</span>${esc(r.universite)}</th>`
+      + hucre + fs
+      + `<td>${r.p[son] === null ? "–" : vg(r.p[son])}</td>`
+      + `<td>${r.sira === null ? "–" : tr(r.sira)}</td>`
+      + `<td>${tr(r.kontenjan)}</td></tr>`;
+  }).join("");
+  document.getElementById("t-alan").innerHTML =
+    `<table>${basliklar(["Üniversite", "Değişim", "Havuzda", "2026 sırası", "2026 kont."])}`
+    + `<tbody>${gov}</tbody></table>`;
+  document.getElementById("n-alan").innerHTML =
+    `${esc(c.ad)} (${esc(c.pt)}) 2026'da ${tr(c.kurum)} üniversitede, toplam `
+    + `${tr(c.kontenjan)} kontenjan; çizelgede en seçici ${c.satir.length}'si. `
+    + "Yıl sütunları <strong>bölüm içi yüzdelik</strong>, <strong>Değişim</strong> ilk yıl "
+    + "ile 2026 arasındaki fark. <strong>Havuzda</strong> aynı puan türündeki bütün "
+    + "programlar arasındaki yer. <strong>2026 sırası</strong> o üniversitenin bu bölümdeki "
+    + "taban başarı sırası (ÖSYM dolmayan programa sıra atamıyor, o hücreler boş).";
+}
+
+/* ---------- 4 · sıra çizelgesi ---------- */
+function siraTablo(c){
+  const satir = (x, i) => {
+    const kat = x.kat;
+    const renk = kat >= 2 ? "var(--kotu)" : (kat && kat < 1 ? "var(--iyi)" : "var(--ink-3)");
+    const ad = esc(x.universite) + (x.ek ? ` (${esc(x.ek)})` : "");
+    return "<tr><th>" + (i ? `<span class="sr">${i}</span> ` : "") + ad + "</th>"
+      + x.sira.map((v, j) => {
+          const cl = v === null ? "bos" : (YIL[j] === x.dip_yil ? "dip"
+                     : (j === YIL.length - 1 ? "son" : ""));
+          return `<td class="${cl}">${tr(v)}</td>`;
+        }).join("")
+      + (c.kat_var ? `<td style="color:${renk};font-weight:600">${kat ? vg(kat)+"×" : "–"}</td>` : "")
+      + `<td>${tr(x.kontenjan)}</td></tr>`;
+  };
+  const ek = c.kat_var ? ["Üniversite","Zirveden","Kont."] : ["Üniversite","Kont."];
+  const ekU = c.kat_var ? ["Üniversite (ücretli)","Zirveden","Kont."]
+                        : ["Üniversite (ücretli)","Kont."];
+  document.getElementById("t-sira").innerHTML =
+    `<table>${basliklar(ek)}<tbody>${c.ilk20.map((x,i) => satir(x, i+1)).join("")}</tbody></table>`
+    + `<table style="border-top:1px solid var(--rule)">${basliklar(ekU)}`
+    + `<tbody>${c.ucretli.map(x => satir(x, null)).join("")}</tbody></table>`;
+  document.getElementById("n-sira").textContent =
+    (c.not ? c.not + " " : "")
+    + "Alt tablo bu bölümün en yüksek tabanlı ücretli programları. "
+    + (c.kat_var ? "" : "Tıpta sıralar çok küçük sayılar olduğu için oran sütunu gösterilmiyor. ");
+  document.getElementById("i-sira").href =
+    c.slug === "bilgisayar" ? "gorsel/bilgisayar_sira.png" : `gorsel/sira_${c.slug}.png`;
+}
+
+/* ---------- 5 · tıp ---------- */
+function tip(){
+  const k = D.tip.kontenjan;
+  const sat = (ad, dizi, bicim) => "<tr><th>" + ad + "</th>"
+    + dizi.map((v,i) => `<td class="${i === dizi.length-1 ? "son" : ""}">${bicim(v)}</td>`).join("")
+    + "</tr>";
+  document.getElementById("t-tipk").innerHTML = `<table>${basliklar(["Kontenjan"])}<tbody>`
+    + sat("Devlet", k.devlet_kont, tr) + sat("Vakıf", k.vakif_kont, tr)
+    + sat("KKTC ve yurt dışı", k.disi_kont, tr)
+    + sat("Doluluk", k.doluluk, v => "%" + vg(v)) + "</tbody></table>";
+
+  const b = D.tip.bant, esik = D.tip.esik;
+  const hedef = [2000, 5000, 10000, 15000, esik, 30000];
+  // Izgara 250'lik; eşik sütunu ona yuvarlanırsa görseldeki sayılarla tutmuyor.
+  const bul = x => { let i = 0; while(i < b.sira.length-1 && b.sira[i+1] <= x) i++; return i; };
+  const deger = (c, h) => h === esik ? D.tip.esik_kirilim[c] : b[c][bul(h)];
+  const kol = ["tip_devlet","tip_vakif","muhendislik","oteki"];
+  const ad = {tip_devlet:"Tıp (devlet)", tip_vakif:"Tıp (vakıf ve KKTC)",
+              muhendislik:"Mühendislik ve pilotaj", oteki:"Öteki sayısal bölümler"};
+  const bas = "<thead><tr><th>Öbek</th>"
+    + hedef.map(h => `<th>ilk ${tr(h)}</th>`).join("") + "</tr></thead>";
+  let gov = kol.map(c => "<tr><th>" + ad[c] + "</th>"
+    + hedef.map(h => `<td>${tr(deger(c,h))}</td>`).join("") + "</tr>").join("");
+  gov += "<tr><th>Toplam</th>" + hedef.map(h => {
+    const t = kol.reduce((a,c) => a + deger(c,h), 0);
+    return `<td class="son">${tr(t)}<br><span class="alt">%${vg(100*t/h)}</span></td>`;
+  }).join("") + "</tr>";
+  document.getElementById("t-tipb").innerHTML = `<table>${bas}<tbody>${gov}</tbody></table>`;
+}
+
+/* ---------- kurulum ---------- */
+function dugmeler(kap, liste, sec){
+  kap.innerHTML = liste.map((c,i) =>
+    `<button data-i="${i}" aria-pressed="${i===0}">${esc(c.baslik)}</button>`).join("");
+  kap.onclick = e => {
+    const b = e.target.closest("button"); if(!b) return;
+    [...kap.children].forEach(x => x.setAttribute("aria-pressed", x === b));
+    sec(liste[+b.dataset.i]);
+  };
+  sec(liste[0]);
+}
+
+function haritaBasamak(v, esik){
+  for(let i = 0; i < esik.length; i++) if(v < esik[i]) return i;
+  return esik.length;
+}
+
+function haritaCiz(o){
+  // Deger yoksa (tip fakultesi olmayan 17 il) ayri renk; sifir ile "veri yok"
+  // karistirilmamali, efsanede de ayri kutu var.
+  const bicimle = v => o.bicim === "ondalik" ? vg(v) : tr(v);
+  const yol = Object.entries(H.yollar).map(([il, d]) => {
+    const v = o.deger[il];
+    const renk = v === undefined ? "var(--rule-soft)" : o.renk[haritaBasamak(v, o.esik)];
+    const bilgi = v === undefined ? (o.yok || "veri yok")
+                                  : bicimle(v) + (o.birim ? " " + o.birim : "");
+    return `<path d="${d}" fill="${renk}" stroke="var(--card)" stroke-width=".7"
+      ><title>${esc(il)}: ${esc(bilgi)}</title></path>`;
+  }).join("");
+  document.getElementById("g-harita").innerHTML =
+    `<svg class="hrt" viewBox="0 0 ${H.en} ${H.boy}" role="img"
+       aria-label="${esc(o.baslik)} il haritası">${yol}</svg>`;
+
+  const kutu = o.renk.map((r, i) =>
+    `<div><i style="background:${r}"></i><span>${esc(o.etiket[i])}</span></div>`).join("")
+    + (o.yok ? `<div><i style="background:var(--rule-soft)"></i>
+        <span>${esc(o.yok)}</span></div>` : "");
+  document.getElementById("e-harita").innerHTML = `<div class="efs">${kutu}</div>`;
+  document.getElementById("n-harita").innerHTML =
+    esc(o.aciklama) + " Veri yılı " + o.yil + "."
+    + " İlin üzerine gelince değeri çıkıyor.";
+}
+
+async function basla(){
+  [D, B, A, G, H] = await Promise.all([
+    fetch("veri/cizelge.json").then(r => r.json()),
+    fetch("veri/bump.json").then(r => r.json()),
+    fetch("veri/bolum.json").then(r => r.json()),
+    fetch("veri/degisim.json").then(r => r.json()),
+    fetch("veri/harita.json").then(r => r.json()),
+  ]);
+  YIL = D.yil;
+  const o = await (await fetch("veri/ozet.json")).json();
+  document.getElementById("ozet").innerHTML = [
+    ["Lisans programı", tr(o.program)],
+    ["2026 kontenjanı", tr(o.kontenjan)],
+    ["Yerleşen", tr(o.yerlesen)],
+    ["Doluluk", "%" + vg(o.doluluk)],
+    ["Veri aralığı", o.yil_ilk + "-" + o.yil_son],
+  ].map(([e,s]) => `<div class="kart"><div class="k-et">${e}</div><div class="k-sy">${s}</div></div>`).join("");
+
+  // Giriş bulgusu veriden: bilişimin ilk 100'deki koltuk sayısı.
+  const bil = D.ilk100[0].obek.find(x => x.ad === "Bilişim");
+  if(bil){
+    const enb = Math.max(...bil.kontenjan), yil = YIL[bil.kontenjan.indexOf(enb)];
+    document.getElementById("bulgu-metin").innerHTML =
+      `Bilişim bölümlerinin ilk 100 içindeki kontenjanı ${yil}'de <strong>${tr(enb)}</strong> `
+      + `kişiydi, 2026'da <strong>${tr(bil.kontenjan[bil.kontenjan.length-1])}</strong>. `
+      + `2018'deki ${tr(bil.kontenjan[0])} kişilik düzeyine geri döndü.`;
+  }
+  tip();
+  dugmeler(document.getElementById("s-ilk100"), D.ilk100, ilk100);
+  dugmeler(document.getElementById("s-obek"), D.ilk100, obek);
+  dugmeler(document.getElementById("s-bump"), B.bolum, bump);
+  dugmeler(document.getElementById("s-bolum"), D.sira, siraTablo);
+  bolumSecici(document.getElementById("s-alan"), A.bolum, alanTablo);
+  // Renk kimlik degil, cizgiyi gozle izleme araci (site_bump ile ayni altin oran adimi).
+  const boya = l => l.forEach((r, i) => {
+    const h = Math.round(((i * 0.6180339887) % 1.0) * 360);
+    r.renk = `hsl(${h} ${i % 2 ? 72 : 58}% ${i % 3 === 0 ? 42 : 52}%)`;
+  });
+  boya(G.yukselen); boya(G.dusen);
+  dugmeler(document.getElementById("s-harita"), H.olcut, haritaCiz);
+  dugmeler(document.getElementById("s-degisim"),
+           [{baslik: "Zirvesinden en çok düşen", liste: G.zirveden},
+            {baslik: "2018'e göre en çok düşen", liste: G.dusen},
+            {baslik: "2018'e göre en çok yükselen", liste: G.yukselen}], degisimTablo);
+}
+
+document.getElementById("tema").onclick = () => {
+  const k = document.documentElement;
+  const koyu = k.dataset.tema === "koyu" ||
+    (!k.dataset.tema && matchMedia("(prefers-color-scheme:dark)").matches);
+  k.dataset.tema = koyu ? "acik" : "koyu";
+};
+basla();
+</script>
+</body>
+</html>
