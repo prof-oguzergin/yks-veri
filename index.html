@@ -536,11 +536,18 @@ footer p{color:var(--ink-3);max-width:76ch}
   <h2>Hukuk: avukat sayısı ve iş yükü</h2>
   <p>Avukatta eşitsizlik hekimdekinden sert. Ankara 100 binde 481, Muş 52, arada
   <strong>9,3 kat</strong> var; hekimde bu fark 3,8 katta kalıyor.</p>
-  <p>Asıl hikâye ise haritada değil, arz tarafında. 2015'ten 2024'e avukat sayısı
-  <strong>93.573'ten 199.142'ye</strong> çıktı, 2,13 kat. Aynı dönemde hukuk mahkemelerine
-  gelen dosya 1,58 kat arttı, avukattan yavaş; <strong>avukat başına düşen dosya 36,3'ten
-  27,0'ye indi.</strong> Düşüş 2019'da bitti, seri o tarihten beri dar bir bantta.
-  Hukuk kontenjanı da 2022'den beri kesiliyor: 16.499'dan 8.886'ya, yarı yarıya.</p>
+  <p>Asıl hikâye ise haritada değil, arz tarafında. 2015'ten 2024'e baroya kayıtlı avukat
+  sayısı <strong>93.573'ten 199.142'ye</strong> çıktı, 2,13 kat. Aynı dönemde hukuk
+  mahkemelerine gelen dosya 1,58 kat arttı, avukattan yavaş; <strong>avukat başına düşen
+  dosya 36,3'ten 27,0'ye indi.</strong> Düşüş sürekli değil: dip 2020'de (25,4), o tarihten
+  beri seri 25,4 ile 27,0 arasında dar bir bantta.</p>
+  <p>Kontenjan tarafı ters yöne dönmüş durumda. 2018-2022 arasında hukuk kontenjanı
+  16 binin üzerinde yatay seyretti; <strong>kesinti 2023'te başladı, asıl kırılma
+  2025'te oldu</strong> (14.409'dan 10.138'e). 2026'da 8.886 kaldı, 2022'ye göre
+  <strong>%46 daha az.</strong> Program sayısı ise 189'dan 166'ya indi, yalnız 23 azaldı:
+  kontenjan program kapatılarak değil, açık programların koltuğu kısılarak düşürüldü.</p>
+  <div class="tw" id="t-hukuk"></div>
+  <p class="not" id="n-hukuk-seri"></p>
   <div class="secim" id="s-hukuk"></div>
   <p class="kaydir">Harita geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
   <div class="grafik" id="g-hukuk"></div>
@@ -869,6 +876,32 @@ function siraTablo(c){
     c.slug === "bilgisayar" ? "gorsel/bilgisayar_sira.png" : `gorsel/sira_${c.slug}.png`;
 }
 
+/* ---------- 8 · hukuk ---------- */
+function hukukSeri(){
+  const h = D.hukuk;
+  // Kendi yil basligi var: kontenjan 2018-2026, avukat 2015-2024. Sayfanin ortak yil
+  // dizisi (2018-2026) ikisini birden tasimiyor.
+  const bas = "<thead><tr><th>Hukuk</th>"
+    + h.yil.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+  const sat = (ad, dizi, bicim) => "<tr><th>" + ad + "</th>"
+    + dizi.map((v, i) => v === null
+        ? '<td class="bos">–</td>'
+        : `<td class="${i === dizi.length-1 ? "son" : ""}">${bicim(v)}</td>`).join("")
+    + "</tr>";
+  document.getElementById("t-hukuk").innerHTML = `<table>${bas}<tbody>`
+    + sat("Kontenjan", h.kontenjan, tr)
+    + sat("Yerleşen", h.yerlesen, tr)
+    + sat("Baroya kayıtlı avukat", h.avukat, tr)
+    + sat("Avukat başına gelen dosya", h.gelen, vg)
+    + sat("Avukat başına açılan dosya", h.acilan, vg)
+    + "</tbody></table>";
+  document.getElementById("n-hukuk-seri").innerHTML =
+    "Kontenjan ÖSYM'den (2018-2026), avukat sayısı Adalet İstatistikleri'nden (2024'te "
+    + "bitiyor, 2025 yıllığı henüz yayımlanmadı). <strong>Gelen</strong> dosya geçen yıldan "
+    + "devredeni de sayar, mahkemenin önündeki toplam iştir; <strong>açılan</strong> yalnız "
+    + "o yıl açılanı, talebin kendisidir. İkisi aynı yönde hareket ediyor, düzeyleri farklı.";
+}
+
 /* ---------- 5 · tıp ---------- */
 function tip(){
   const k = D.tip.kontenjan;
@@ -947,7 +980,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=6f285371ec";
+const SURUM = "?v=f0d779a9b9";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
@@ -994,6 +1027,7 @@ async function basla(){
   const avukat = o => o.anahtar.startsWith("avukat");
   dugmeler(document.getElementById("s-harita"), H.olcut.filter(o => !avukat(o)),
            o => haritaCiz(o, "harita"));
+  hukukSeri();
   dugmeler(document.getElementById("s-hukuk"), H.olcut.filter(avukat),
            o => haritaCiz(o, "hukuk"));
   dugmeler(document.getElementById("s-degisim"),
