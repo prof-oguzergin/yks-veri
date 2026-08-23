@@ -121,8 +121,16 @@ nav{position:sticky;top:0;z-index:8;background:color-mix(in srgb,var(--paper) 88
    baglanti 1334 piksel tutuyor ve sagdan kirpiliyordu. Cubuk zaten tam genislikte,
    hizalamasi da yazi sutununa borclu degil. Sagda tema dugmesi icin yer ayriliyor
    (dugme fixed ve ayni bantta duruyor, yoksa son baglantinin ustune biniyor). */
-nav .ic{display:flex;gap:5px;overflow-x:auto;padding:11px 0;scrollbar-width:none;
-  max-width:none;padding-right:118px}
+nav .ic{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;max-width:none;
+  padding:11px 118px 11px clamp(18px,4vw,32px)}
+/* Genis ekranda baglantilar ORTALANIYOR. Sagdaki kirpilmayi cozerken cubugu tam
+   genislige acmistim; icerik sutunu ortada dururken baglantilar sol kenara yapisiyordu.
+   Ogeler 1.205 piksel, iki yanda tema dugmesi icin 118'er pay: 1.441'den genisse
+   ortalaniyor, altinda soldan hizali kalip kaydiriliyor. `safe center` sigmadiginda
+   basa donuyor; duz `center` tasan bir esnek kapta sol ucu erisilmez birakiyor. */
+@media (min-width:1460px){
+  nav .ic{padding-left:118px;justify-content:safe center}
+}
 nav .ic::-webkit-scrollbar{display:none}
 /* Dar ekranda yine kaydiriliyor; sag kenardaki solma kaydirilabildigini gosteriyor.
    Maske CUBUGA DEGIL kaydirilan kaba uygulaniyor; cubuga uygulanirsa zemini ve alt
