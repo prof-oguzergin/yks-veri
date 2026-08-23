@@ -1086,7 +1086,7 @@ function ilk20bin(){
   document.getElementById("t-ilk20bin").innerHTML = `<table>${bas}<tbody>`
     + sat("Tıp", d.tip, "ana")
     + sat("Mühendislik ve pilotaj", d.muhendislik)
-    + sat("bunun bilişimi", d.bilisim)
+    + sat("Bilişim (mühendisliğin içinde)", d.bilisim)
     + sat("Diş hekimliği", d.dis)
     + sat("Öteki sayısal bölümler", d.oteki)
     + '<tr class="ayrik"><th>Toplam</th>'
@@ -1100,8 +1100,8 @@ function ilk20bin(){
     // Turkce okunusuna gore degisiyor (alti->ya, uc->e, iki->ye). Cumle eksiz kuruldu.
     `Tıbbın payı ${Y[0]}'de %${vg(s0)} idi, ${dipYil}'te %${vg(sd)} ile dibi gördü, `
     + `${Y[Y.length-1]}'da %${vg(ss)}. <strong>Mühendislik bunun aynadaki görüntüsü;</strong> `
-    + "yükselişin ve düşüşün büyük kısmını bilişim taşıyor, o yüzden ayrı satır olarak "
-    + "verildi (bilişim mühendisliğin İÇİNDE, toplama iki kez girmiyor). "
+    + "yükselişin de düşüşün de büyük kısmını bilişim taşıyor. Bilişim mühendisliğin bir "
+    + "alt kümesi, ayrı satırda gösteriliyor ve toplama iki kez girmiyor. "
     + `Eşik dokuz yıl boyunca ${tr(d.esik[0])}. sıra. Diş hekimliği bandın dışına çıktı: `
     + `${tr(d.dis[0])} kişiden ${tr(d.dis[d.dis.length-1])} kişiye.`;
 }
