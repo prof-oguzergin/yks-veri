@@ -161,11 +161,6 @@ tbody th .ikon{width:17px;height:17px;vertical-align:-3.6px;margin-right:8px}
   border:1px solid var(--rule);background:transparent;color:var(--ink-2);transition:.12s}
 .secim button:hover{color:var(--ink)}
 .secim button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-/* 34 bölüm düğme olarak taşıyor; açılır liste alan alan gruplanıyor. */
-.sec-sar{display:inline-flex;align-items:center;gap:10px;margin:22px 0 0;font-size:13.5px;
-  color:var(--ink-3)}
-.sec-sar select{font:inherit;font-size:15px;color:var(--ink);background:var(--card);
-  border:1px solid var(--rule);border-radius:9px;padding:8px 12px;max-width:min(92vw,420px)}
 
 /* ---- bump grafiği ---- */
 .grafik{margin:20px 0 0;border:1px solid var(--rule-soft);border-radius:13px;background:var(--card);
@@ -203,7 +198,9 @@ footer a{color:var(--ink-2)}
 footer p{color:var(--ink-3);max-width:76ch}
 #tema{position:fixed;top:11px;right:14px;z-index:10;background:var(--card);color:var(--ink-2);
   border:1px solid var(--rule);border-radius:999px;padding:6px 13px;font:inherit;font-size:13px;
-  cursor:pointer}
+  cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+#tema .ikon{width:16px;height:16px;color:var(--ink-3)}
+#tema:hover{color:var(--ink)}#tema:hover .ikon{color:var(--ink-2)}
 @media(max-width:760px){
   table{font-size:12.5px}th,td{padding:5px 8px}
   /* Dar ekranda grafigi kucultmek yerine kaydiriyoruz: 1200 birimlik tuval telefona
@@ -245,16 +242,6 @@ footer p{color:var(--ink-3);max-width:76ch}
     <g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
        stroke-linejoin="round">
       <polyline points="2.5,3.5 7,3.5 7,9.5 12,9.5 12,15.5 17.5,15.5"/>
-    </g></symbol>
-  <symbol id="i-alan" viewBox="0 0 20 20"><!-- nokta grafigi -->
-    <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-      <line x1="2.5" y1="4.5" x2="17.5" y2="4.5" opacity=".28"/>
-      <line x1="2.5" y1="10" x2="17.5" y2="10" opacity=".28"/>
-      <line x1="2.5" y1="15.5" x2="17.5" y2="15.5" opacity=".28"/>
-    </g>
-    <g fill="currentColor">
-      <circle cx="14" cy="4.5" r="2.3"/><circle cx="7" cy="10" r="2.3"/>
-      <circle cx="11" cy="15.5" r="2.3"/>
     </g></symbol>
   <symbol id="i-degisim" viewBox="0 0 20 20"><!-- biri yukari biri asagi ok.
     Ilk tasarim iki kirik cizgiydi, kutusu 17x9 cikiyordu; oteki ikonlar 17-18
@@ -369,9 +356,17 @@ footer p{color:var(--ink-3);max-width:76ch}
   <symbol id="o-oteki" viewBox="0 0 20 20"><!-- uc nokta -->
     <g fill="currentColor"><circle cx="4" cy="10" r="1.9"/><circle cx="10" cy="10" r="1.9"/>
       <circle cx="16" cy="10" r="1.9"/></g></symbol>
+  <symbol id="i-ay" viewBox="0 0 20 20"><!-- ay -->
+    <path fill="currentColor" d="M16.2 12.9A6.9 6.9 0 0 1 7.1 3.8a7.5 7.5 0 1 0 9.1 9.1z"/>
+    </symbol>
+  <symbol id="i-gunes" viewBox="0 0 20 20"><!-- gunes -->
+    <circle cx="10" cy="10" r="3.7" fill="currentColor"/>
+    <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+      <path d="M10 1.6v2.1M10 16.3v2.1M1.6 10h2.1M16.3 10h2.1M4.1 4.1l1.5 1.5M14.4
+        14.4l1.5 1.5M15.9 4.1l-1.5 1.5M5.6 14.4l-1.5 1.5"/></g></symbol>
 </defs></svg>
 
-<button id="tema" aria-label="Temayı değiştir">tema</button>
+<button id="tema"><svg class="ikon" aria-hidden="true"><use href="#i-ay"/></svg><span>Karanlık</span></button>
 
 <div class="sar">
   <header>
@@ -410,10 +405,10 @@ footer p{color:var(--ink-3);max-width:76ch}
   <a href="#obek" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Program mı, koltuk mu</a>
   <a href="#cizgi" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Üniversiteler yer değiştirdi mi</a>
   <a href="#sira" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Başarı sırası çizelgeleri</a>
-  <a href="#alan" style="--br:var(--b5)"><svg class="ikon"><use href="#i-alan"/></svg>Bölüm bölüm üniversiteler</a>
   <a href="#degisim" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Yükselen ve düşen bölümler</a>
   <a href="#tip" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Tıp</a>
   <a href="#harita" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Haritalar</a>
+  <a href="#hukuk" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Hukuk</a>
   <a href="#yontem" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Yöntem</a>
 </div></nav>
 
@@ -475,35 +470,8 @@ footer p{color:var(--ink-3);max-width:76ch}
   <a class="indir" id="i-sira" href="#" download>Görseli indir</a>
 </section>
 
-<section id="alan">
-  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#i-alan"/></svg>Bölüm 5</div>
-  <h2>Bölüm bölüm üniversiteler</h2>
-  <p>Önceki çizelgeler ilk 20 üniversiteyi sıra numarasıyla veriyordu. Bu bölüm aynı soruyu
-  bütün ülkeye açıyor: <strong>bir bölümü sunan yüzlerce üniversite arasında hangisi ne kadar
-  seçici, dokuz yılda bu nasıl değişti?</strong> En büyük 34 bölüm var.</p>
-  <p>İki sayı yan yana veriliyor, çünkü tek sayı yanıltıyor.
-  <strong>Bölüm içi</strong> (grafikte çizilen), aynı bölümü sunan üniversiteler arasındaki
-  yer: 100 ülkenin en yüksek tabanlısı. <strong>Havuzda</strong> ise o programın, aynı puan
-  türündeki bütün programlar arasındaki yeri; bölümün ülke düzeyi buraya giriyor. Örnek:
-  Hacettepe biyoloji öğretmenliği bölüm içinde 91,0 ile ülkenin en iyi dokuzuncusu, ama
-  havuzda 39,1, çünkü o bölüme düşük sıralı öğrenci geliyor. İkisi de yüzdelik ve
-  <strong>koltuk sayısıyla</strong> ağırlıklı.</p>
-  <label class="sec-sar">Bölüm
-    <select id="s-alan"></select>
-  </label>
-  <p class="kaydir">Grafik geniş, yana kaydırarak tamamını görebilirsiniz.</p>
-  <div class="grafik" id="g-alan"></div>
-  <p class="not" id="n-grafik"></p>
-  <div class="tw" id="t-alan"></div>
-  <p class="not" id="n-alan"></p>
-  <div class="bulgu" style="margin-top:22px"><p><strong>Bu ölçüt seçiciliği ölçer, eğitimin
-  niteliğini değil.</strong> Kurumun ne kadar yüksek puanlı öğrenci aldığını gösterir;
-  öğrencisine ne kattığını, araştırmasını, mezununun başarısını göstermez. Onları ölçecek veri
-  ÖSYM belgelerinde yok.</p></div>
-</section>
-
 <section id="degisim">
-  <div class="sb" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Bölüm 6</div>
+  <div class="sb" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Bölüm 5</div>
   <h2>Hangi bölümler yükseldi, hangileri düştü?</h2>
   <p>Ölçü, programa giren en düşük puanlı öğrencinin <strong>Türkiye başarı sırası</strong>.
   Her yıl bir öncekiyle ayrı ayrı eşleştiriliyor (aynı program kodu, kendisiyle
@@ -527,7 +495,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="tip">
-  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 7</div>
+  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 6</div>
   <h2>Tıp: kontenjan ve ilk sıralar</h2>
   <p>Devlet üniversitelerinin tıp kontenjanı dokuz yılda büyüdü ama <strong>2024'ten beri
   yerinde sayıyor</strong>. Altta, 2026'da en yüksek sıraları kimin aldığı.</p>
@@ -543,8 +511,8 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="harita">
-  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 8</div>
-  <h2>Haritada: tıp, hekim, avukat</h2>
+  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 7</div>
+  <h2>Haritada: tıp kontenjanı ve hekim</h2>
   <p>Üç ayrı soru, aynı harita. <strong>Koltuk nerede</strong>,
   <strong>meslek sahibi nerede</strong>, ve nüfusa göre <strong>ne kadar.</strong>
   Üçü aynı yerler değil.</p>
@@ -554,20 +522,31 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p>Hekim tarafında ise mutlak sayı büyük ölçüde nüfusu tekrarlıyor; asıl soruyu
   <strong>100 binde hekim</strong> yanıtlıyor. Ankara 457, Şırnak 120, arada 3,8 kat.
   <strong>81 ilin yalnız biri OECD ortalamasını (389) geçiyor.</strong></p>
-  <p>Avukatta eşitsizlik daha da sert: Ankara 100 binde 481, Muş 52, arada
-  <strong>9,3 kat</strong> var. Hukukta asıl hikâye ise arz tarafında. 2015'ten 2024'e
-  avukat sayısı <strong>93.573'ten 199.142'ye</strong> çıktı, 2,13 kat. Aynı dönemde
-  hukuk mahkemelerine gelen dosya 1,58 kat arttı, avukattan yavaş; <strong>avukat
-  başına düşen dosya 36,3'ten 27,0'ye indi.</strong> Hukuk kontenjanı da 2022'den
-  beri kesiliyor: 16.499'dan 8.886'ya, yarı yarıya.</p>
   <div class="secim" id="s-harita"></div>
   <p class="kaydir">Harita geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
   <div class="grafik" id="g-harita"></div>
   <div id="e-harita"></div>
   <p class="not" id="n-harita"></p>
-  <a class="indir" href="gorsel/hukuk_arz_talep.png" download>Hukukta arz ve talep</a>
   <a class="indir" href="gorsel/tip_harita.png" download>Tıp haritasını indir</a>
   <a class="indir" href="gorsel/hekim_harita.png" download>Hekim haritasını indir</a>
+</section>
+
+<section id="hukuk">
+  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Bölüm 8</div>
+  <h2>Hukuk: avukat sayısı ve iş yükü</h2>
+  <p>Avukatta eşitsizlik hekimdekinden sert. Ankara 100 binde 481, Muş 52, arada
+  <strong>9,3 kat</strong> var; hekimde bu fark 3,8 katta kalıyor.</p>
+  <p>Asıl hikâye ise haritada değil, arz tarafında. 2015'ten 2024'e avukat sayısı
+  <strong>93.573'ten 199.142'ye</strong> çıktı, 2,13 kat. Aynı dönemde hukuk mahkemelerine
+  gelen dosya 1,58 kat arttı, avukattan yavaş; <strong>avukat başına düşen dosya 36,3'ten
+  27,0'ye indi.</strong> Düşüş 2019'da bitti, seri o tarihten beri dar bir bantta.
+  Hukuk kontenjanı da 2022'den beri kesiliyor: 16.499'dan 8.886'ya, yarı yarıya.</p>
+  <div class="secim" id="s-hukuk"></div>
+  <p class="kaydir">Harita geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-hukuk"></div>
+  <div id="e-hukuk"></div>
+  <p class="not" id="n-hukuk"></p>
+  <a class="indir" href="gorsel/hukuk_arz_talep.png" download>Hukukta arz ve talep</a>
 </section>
 
 <section id="hazirlayan">
@@ -649,7 +628,7 @@ const tr = n => (n === null || n === undefined) ? "–" : n.toLocaleString("tr-T
 const vg = (n, b=1) => (n === null || n === undefined) ? "–"
   : n.toLocaleString("tr-TR", {minimumFractionDigits:b, maximumFractionDigits:b});
 const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-let D = null, B = null, A = null, G = null, H = null, YIL = [];
+let D = null, B = null, G = null, H = null, YIL = [];
 
 // Cumle basina gelen puan turu adinin bas harfi. `toUpperCase()` Turkce'de "i" yi "I" yapiyor.
 const bas = t => t.charAt(0).toLocaleUpperCase("tr") + t.slice(1);
@@ -858,142 +837,6 @@ function degisimTablo(c){
     + `atamıyor); ${tr(G.bolum)} bölümün dokuz yılı tam.`;
 }
 
-/* ---------- 5 · alanlara göre üniversiteler ---------- */
-// 34 bölüm: düğme yerine alan alan gruplanmış açılır liste.
-function bolumSecici(sec, liste, ciz){
-  let html = "", oncekiAlan = null;
-  liste.forEach((c, i) => {
-    if(c.alan !== oncekiAlan){
-      if(oncekiAlan !== null) html += "</optgroup>";
-      html += `<optgroup label="${esc(c.alan)}">`;
-      oncekiAlan = c.alan;
-    }
-    html += `<option value="${i}">${esc(c.baslik)}</option>`;
-  });
-  sec.innerHTML = html + "</optgroup>";
-  sec.onchange = () => ciz(liste[+sec.value]);
-  // Bilgisayar mühendisliği açılışta seçili gelsin, sayfanın ana konusu o.
-  const bas = Math.max(0, liste.findIndex(c => c.ad === "Bilgisayar Mühendisliği"));
-  sec.value = bas;
-  ciz(liste[bas]);
-}
-
-function alanGrafik(c){
-  const Y = YIL, sat = c.satir.slice(0, c.grafik);
-  // Y ekseni veriye gore olceklenir. 0-100'e sabitlenirse butun cizgiler ustte bir tutam
-  // halinde toplaniyor: bu alanlarda skorlar 85-99 arasinda sikisik.
-  const hepsi = sat.flatMap(r => r.d).filter(v => v !== null);
-  let alt = Math.min(...hepsi), ust = Math.max(...hepsi);
-  const pay = Math.max((ust - alt) * 0.10, 0.6);
-  alt -= pay; ust += pay;
-  const G = {x0:56, x1:660, y0:26, y1:330, sag:676, en:1000};
-  const yuk = G.y1 + 46;
-  const px = y => G.x0 + (G.x1 - G.x0) * (Y.indexOf(y) / (Y.length - 1));
-  const py = v => G.y1 - (G.y1 - G.y0) * ((v - alt) / (ust - alt));
-  let o = "";
-  // Yatay izgara: uc cizgi yeter, daha fazlasi cizgileri bogyor.
-  for(const v of [alt + (ust-alt)*0.15, (alt+ust)/2, ust - (ust-alt)*0.15]){
-    const d = Math.round(v);
-    o += `<line class="izgara" x1="${G.x0}" y1="${py(d)}" x2="${G.x1}" y2="${py(d)}"/>`;
-    o += `<text class="rank" x="${G.x0-10}" y="${py(d)+5}" text-anchor="end">${d}</text>`;
-  }
-  o += Y.map(y => `<text class="yil" x="${px(y)}" y="${G.y1+26}" text-anchor="middle">${y}</text>`).join("");
-  const etiket = [], parca = [];
-  sat.forEach((r, i) => {
-    const p = []; let ku = [];
-    Y.forEach((y, j) => {
-      if(r.d[j] !== null) ku.push([px(y), py(r.d[j])]);
-      else { if(ku.length) p.push(ku); ku = []; }
-    });
-    if(ku.length) p.push(ku);
-    let g = `<g class="seri" data-i="${i}"><title>${esc(r.universite)}</title>`;
-    g += p.map(par => `<polyline fill="none" stroke="${r.renk}" stroke-width="2.6"
-        stroke-linecap="round" stroke-linejoin="round"
-        points="${par.map(q => q.join(",")).join(" ")}"/>`).join("");
-    g += p.flat().map(q => `<circle cx="${q[0]}" cy="${q[1]}" r="3.2" fill="${r.renk}"
-        stroke="var(--card)" stroke-width="1.2"/>`).join("");
-    const sonI = [...r.d.keys()].reverse().find(j => r.d[j] !== null);
-    if(sonI !== undefined) etiket.push({i, y: py(r.d[sonI]), r});
-    parca.push(g);
-  });
-
-  // Sag etiketleri dikey ayirma. Surekli eksende birden cok universitenin son degeri
-  // birbirine cok yakin olabiliyor ve etiketler ust uste biniyor (olculdu: her alanda
-  // 6-9 cakisma). Once ideal y'ye gore siralanip asagi dogru itiliyor, tuvalin altina
-  // tasarsa yukari dogru geri itiliyor; sonra noktadan etikete kilavuz cizgisi cekiliyor.
-  // ARA etiket kutusunun olculen yuksekliginden (24) buyuk olmali; 23 denendi, etiketler
-  // birbirine 1 birim deger halde kaldi.
-  const ARA = 28;
-  etiket.sort((a, b) => a.y - b.y);
-  etiket.forEach((e, k) => { e.ey = k ? Math.max(e.y, etiket[k-1].ey + ARA) : e.y; });
-  const tasma = etiket.length ? etiket[etiket.length-1].ey - (yuk - 14) : 0;
-  if(tasma > 0){
-    etiket[etiket.length-1].ey -= tasma;
-    for(let k = etiket.length - 2; k >= 0; k--)
-      etiket[k].ey = Math.min(etiket[k].ey, etiket[k+1].ey - ARA);
-  }
-  etiket.forEach(e => {
-    parca[e.i] += `<polyline fill="none" stroke="${e.r.renk}" stroke-width="1" opacity=".45"
-        points="${G.x1+4},${e.y} ${G.sag-8},${e.ey}"/>`;
-    parca[e.i] += `<text class="et" x="${G.sag}" y="${e.ey}" fill="${e.r.renk}">${esc(e.r.universite)}</text>`;
-  });
-  o += parca.map(x => x + "</g>").join("");
-  const kap = document.getElementById("g-alan");
-  kap.innerHTML = `<svg class="bump" viewBox="0 0 ${G.en} ${yuk}" role="img"
-     aria-label="${esc(c.ad)} bölümünde ilk ${sat.length} üniversitenin 2018-2026 seçicilik yüzdeliği">${o}</svg>`;
-  // Sag etiketler bolume gore uzuyor; tuval cizimden sonra olculup kirpiliyor (bump ile ayni).
-  {
-    const e = kap.querySelector("svg");
-    const uc = [...e.querySelectorAll("text.et")].map(t => t.getBBox().x + t.getBBox().width);
-    const vb = uc.length ? Math.round(Math.max(...uc)) + 10 : G.en;
-    e.setAttribute("viewBox", `0 0 ${vb} ${yuk}`);
-    kap.style.setProperty("--vb", vb);
-    const el = e;
-    kap.querySelectorAll("g.seri").forEach(g => {
-      g.onmouseenter = () => { el.classList.add("vurgulu"); g.classList.add("aktif"); };
-      g.onmouseleave = () => { el.classList.remove("vurgulu"); g.classList.remove("aktif"); };
-    });
-  }
-  document.getElementById("n-grafik").textContent =
-    `${c.ad} bölümünde 2026'nın en seçici ${sat.length} üniversitesi, 2018'den bugüne; `
-    + "çizilen değer bölüm içi yüzdelik. "
-    + "Dikey eksen sıfırdan başlamıyor, aralık veriye göre ayarlanıyor.";
-}
-
-function alanTablo(c){
-  alanGrafik(c);
-  const son = YIL.length - 1;
-  const gov = c.satir.map((r, i) => {
-    const ilk = r.d.find(v => v !== null);
-    const fark = (r.d[son] !== null && ilk !== undefined) ? r.d[son] - ilk : null;
-    const hucre = r.d.map(v => {
-      if(v === null) return '<td class="bos">–</td>';
-      // 0-100 arasi dogrusal isi. Alt uc de bilgi tasiyor, o yuzden karekok kullanilmiyor.
-      const y = 0.06 + 0.74 * (v / 100);
-      return `<td style="background:color-mix(in srgb, var(--vurgu) ${Math.round(y*100)}%, transparent);
-        color:${y > .46 ? "#fff" : "var(--ink)"}">${vg(v)}</td>`;
-    }).join("");
-    const fs = fark === null ? '<td class="bos">–</td>'
-      : `<td style="color:${fark >= 2 ? "var(--iyi)" : fark <= -2 ? "var(--kotu)" : "var(--ink-3)"}">`
-        + (fark > 0 ? "+" : "") + vg(fark) + "</td>";
-    return `<tr><th><span class="sr">${i+1}.</span>${esc(r.universite)}</th>`
-      + hucre + fs
-      + `<td>${r.p[son] === null ? "–" : vg(r.p[son])}</td>`
-      + `<td>${r.sira === null ? "–" : tr(r.sira)}</td>`
-      + `<td>${tr(r.kontenjan)}</td></tr>`;
-  }).join("");
-  document.getElementById("t-alan").innerHTML =
-    `<table>${basliklar(["Üniversite", "Değişim", "Havuzda", "2026 sırası", "2026 kont."])}`
-    + `<tbody>${gov}</tbody></table>`;
-  document.getElementById("n-alan").innerHTML =
-    `${esc(c.ad)} (${esc(c.pt)}) 2026'da ${tr(c.kurum)} üniversitede, toplam `
-    + `${tr(c.kontenjan)} kontenjan; çizelgede en seçici ${c.satir.length}'si. `
-    + "Yıl sütunları <strong>bölüm içi yüzdelik</strong>, <strong>Değişim</strong> ilk yıl "
-    + "ile 2026 arasındaki fark. <strong>Havuzda</strong> aynı puan türündeki bütün "
-    + "programlar arasındaki yer. <strong>2026 sırası</strong> o üniversitenin bu bölümdeki "
-    + "taban başarı sırası (ÖSYM dolmayan programa sıra atamıyor, o hücreler boş).";
-}
-
 /* ---------- 4 · sıra çizelgesi ---------- */
 function siraTablo(c){
   const satir = (x, i) => {
@@ -1071,7 +914,9 @@ function haritaBasamak(v, esik){
   return esik.length;
 }
 
-function haritaCiz(o){
+// `on` hangi bolumde cizildigini soyluyor ("harita" ya da "hukuk"). Ayni cizim iki ayri
+// bolumde, iki ayri olcut kumesiyle calisiyor.
+function haritaCiz(o, on){
   // Deger yoksa (tip fakultesi olmayan 17 il) ayri renk; sifir ile "veri yok"
   // karistirilmamali, efsanede de ayri kutu var.
   const bicimle = v => o.bicim === "ondalik" ? vg(v) : tr(v);
@@ -1083,7 +928,7 @@ function haritaCiz(o){
     return `<path d="${d}" fill="${renk}" stroke="var(--card)" stroke-width=".7"
       ><title>${esc(il)}: ${esc(bilgi)}</title></path>`;
   }).join("");
-  document.getElementById("g-harita").innerHTML =
+  document.getElementById("g-" + on).innerHTML =
     `<svg class="hrt" viewBox="0 0 ${H.en} ${H.boy}" role="img"
        aria-label="${esc(o.baslik)} il haritası">${yol}</svg>`;
 
@@ -1091,8 +936,8 @@ function haritaCiz(o){
     `<div><i style="background:${r}"></i><span>${esc(o.etiket[i])}</span></div>`).join("")
     + (o.yok ? `<div><i style="background:var(--rule-soft)"></i>
         <span>${esc(o.yok)}</span></div>` : "");
-  document.getElementById("e-harita").innerHTML = `<div class="efs">${kutu}</div>`;
-  document.getElementById("n-harita").innerHTML =
+  document.getElementById("e-" + on).innerHTML = `<div class="efs">${kutu}</div>`;
+  document.getElementById("n-" + on).innerHTML =
     esc(o.aciklama) + " Veri yılı " + o.yil + "."
     + " İlin üzerine gelince değeri çıkıyor.";
 }
@@ -1100,13 +945,12 @@ function haritaCiz(o){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=c71cda0c80";
+const SURUM = "?v=29638b7268";
 
 async function basla(){
-  [D, B, A, G, H] = await Promise.all([
+  [D, B, G, H] = await Promise.all([
     fetch("veri/cizelge.json" + SURUM).then(r => r.json()),
     fetch("veri/bump.json" + SURUM).then(r => r.json()),
-    fetch("veri/bolum.json" + SURUM).then(r => r.json()),
     fetch("veri/degisim.json" + SURUM).then(r => r.json()),
     fetch("veri/harita.json" + SURUM).then(r => r.json()),
   ]);
@@ -1134,26 +978,47 @@ async function basla(){
   dugmeler(document.getElementById("s-obek"), D.ilk100, obek);
   dugmeler(document.getElementById("s-bump"), B.bolum, bump);
   dugmeler(document.getElementById("s-bolum"), D.sira, siraTablo);
-  bolumSecici(document.getElementById("s-alan"), A.bolum, alanTablo);
   // Renk kimlik degil, cizgiyi gozle izleme araci (site_bump ile ayni altin oran adimi).
   const boya = l => l.forEach((r, i) => {
     const h = Math.round(((i * 0.6180339887) % 1.0) * 360);
     r.renk = `hsl(${h} ${i % 2 ? 72 : 58}% ${i % 3 === 0 ? 42 : 52}%)`;
   });
   boya(G.yukselen); boya(G.dusen);
-  dugmeler(document.getElementById("s-harita"), H.olcut, haritaCiz);
+  // Olcutler ikiye ayriliyor: tip ve hekim bolum 7'de, avukat bolum 8'de.
+  const avukat = o => o.anahtar.startsWith("avukat");
+  dugmeler(document.getElementById("s-harita"), H.olcut.filter(o => !avukat(o)),
+           o => haritaCiz(o, "harita"));
+  dugmeler(document.getElementById("s-hukuk"), H.olcut.filter(avukat),
+           o => haritaCiz(o, "hukuk"));
   dugmeler(document.getElementById("s-degisim"),
            [{baslik: "Zirvesinden en çok düşen", liste: G.zirveden},
             {baslik: "2018'e göre en çok düşen", liste: G.dusen},
             {baslik: "2018'e göre en çok yükselen", liste: G.yukselen}], degisimTablo);
 }
 
-document.getElementById("tema").onclick = () => {
+// Dugme ADI TIKLAYINCA NE OLACAGINI soyluyor, su an hangi temada oldugunu degil:
+// "tema" yazisi kimseye bir sey anlatmiyordu. Sistem temasi degisirse ve okur kendi
+// secimini yapmamissa yazi da kendiliginden guncelleniyor.
+const temaDugme = document.getElementById("tema");
+const koyuMu = () => {
   const k = document.documentElement;
-  const koyu = k.dataset.tema === "koyu" ||
-    (!k.dataset.tema && matchMedia("(prefers-color-scheme:dark)").matches);
-  k.dataset.tema = koyu ? "acik" : "koyu";
+  return k.dataset.tema === "koyu"
+    || (!k.dataset.tema && matchMedia("(prefers-color-scheme:dark)").matches);
 };
+function temaYaz(){
+  const k = koyuMu();
+  temaDugme.querySelector("span").textContent = k ? "Aydınlık" : "Karanlık";
+  temaDugme.querySelector("use").setAttribute("href", k ? "#i-gunes" : "#i-ay");
+  temaDugme.setAttribute("aria-label", (k ? "Aydınlık" : "Karanlık") + " temaya geç");
+}
+temaDugme.onclick = () => {
+  document.documentElement.dataset.tema = koyuMu() ? "acik" : "koyu";
+  temaYaz();
+};
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change", () => {
+  if(!document.documentElement.dataset.tema) temaYaz();
+});
+temaYaz();
 basla();
 </script>
 </body>
