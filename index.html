@@ -655,6 +655,10 @@ footer p{color:var(--ink-3);max-width:76ch}
   avukat sayısı 118,8'den 240,1'e çıktı</strong>, yine iki katından fazla. Aynı dönemde hukuk
   mahkemelerine gelen dosya 1,54 kat arttı, avukattan yavaş; <strong>avukat başına düşen
   dosya 36,3'ten 25,3'e indi.</strong></p>
+  <p><strong>Büyüyen yalnız avukat tarafı.</strong> Aynı on bir yılda hâkim sayısı 10.382'den
+  18.386'ya (1,77 kat), savcı 4.908'den 8.518'e (1,74 kat) çıktı; avukat ise 2,21 kat. Bir
+  hâkime düşen avukat 9,0'dan 11,2'ye yükseldi. Mesleğe giriş kapısı yalnız barolar tarafında
+  genişledi, yargı kadrosu aynı hızda büyümedi.</p>
   <p>2025 iki yönden birden ayrışıyor. Avukat sayısı büyümeyi sürdürürken <strong>gelen dosya
   2020'den bu yana ilk kez azaldı</strong> (5.369.402'den 5.230.402'ye), açılan dosya da
   (3.173.045'ten 3.010.106'ya). İkisi birleşince avukat başına düşen iş on bir yılın en düşük
@@ -1023,13 +1027,16 @@ function hukukSeri(){
     + sat("Yerleşen", h.yerlesen, tr)
     + sat("Baroya kayıtlı avukat", h.avukat, tr)
     + sat("100 binde avukat", h.avukat_100bin, vg)
+    + sat("Hâkim", h.hakim, tr)
+    + sat("Savcı", h.savci, tr)
     + sat("Avukat başına gelen dosya", h.gelen, vg)
     + sat("Avukat başına açılan dosya", h.acilan, vg)
     + "</tbody></table>";
   document.getElementById("n-hukuk-seri").innerHTML =
     "Kontenjan ÖSYM'den (2018-2026), avukat ve dosya sayısı Adalet İstatistikleri'nden "
     + "(2025'te bitiyor, 2026 yıllığı henüz yayımlanmadı); 2025 toplamı Türkiye Barolar "
-    + "Birliği'nin 31.12.2025 listesiyle birebir tutuyor. Nüfus TÜİK'in adrese dayalı "
+    + "Birliği'nin 31.12.2025 listesiyle birebir tutuyor. Hâkim ve savcı sayısı da aynı "
+    + "yıllığın tarihi tablolarından, 31 Aralık itibarıyla. Nüfus TÜİK'in adrese dayalı "
     + "kayıt sisteminden, 31 Aralık nüfusu; avukat sayısı da 31 Aralık itibarıyla, iki "
     + "ölçüm aynı güne denk geliyor. <strong>Gelen</strong> dosya geçen yıldan "
     + "devredeni de sayar, mahkemenin önündeki toplam iştir; <strong>açılan</strong> yalnız "
@@ -1176,7 +1183,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=39d18eea6c";
+const SURUM = "?v=5ffcb33527";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
@@ -1228,9 +1235,23 @@ async function basla(){
 
   // Ilk yuklemede adres cubugunda #bolum varsa tarayici cizelgeler kurulmadan zipliyor
   // ve yanlis yere dusuyor. Icerik hazir olunca hedefe yeniden gidiliyor.
+  //
+  // TEK SEFER YETMIYOR: cizelgeler kurulduktan sonra da yerlesim oturmaya devam ediyor
+  // (olculdu, #hukuk 560 piksel eksik kaliyordu). Uc kez deneniyor: hemen, kisa bir
+  // gecikmeyle ve `load` olayinda. OKUR KAYDIRMAYA BASLADIYSA VAZGECILIYOR, yoksa
+  // sayfa okurun altindan cekiliyor.
   if (location.hash.length > 1) {
     const hedef = document.getElementById(location.hash.slice(1));
-    if (hedef) requestAnimationFrame(() => hedef.scrollIntoView());
+    if (hedef) {
+      let birak = false;
+      const vazgec = () => { birak = true; };
+      ["wheel", "touchstart", "keydown"].forEach(o =>
+        addEventListener(o, vazgec, {once: true, passive: true}));
+      const git = () => { if (!birak) hedef.scrollIntoView(); };
+      requestAnimationFrame(git);
+      setTimeout(git, 500);
+      addEventListener("load", () => setTimeout(git, 100));
+    }
   }
   dugmeler(document.getElementById("s-hukuk"), H.olcut.filter(avukat),
            o => haritaCiz(o, "hukuk"));
