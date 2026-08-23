@@ -744,6 +744,7 @@ footer p{color:var(--ink-3);max-width:76ch}
   <div class="tw" id="t-yetenek"></div>
   <p class="not" id="n-yetenek"></p>
   <p id="y-sonuc"></p>
+  <p id="y-yz"></p>
   <p><strong>Buradan sonrası makalenin göremediği yer.</strong> Ölçüt kafa sayıyor,
   hangi kafanın nereye gittiğini sormuyor. Çizelgenin üçüncü satırı bu sayfanın kendi
   bulgusu: mühendisliğin toplam içindeki payı dokuz yıldır yerinde dururken, sayısalın
@@ -836,7 +837,9 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p><strong>Mühendislik ve hukuk payları.</strong> Bölüm 10'daki iki oran, o yıl örgün
   lisansa yerleşen toplam öğrenciye bölünüyor. Mühendislik, bölüm adında &ldquo;mühendis&rdquo;
   geçen bütün programlar (biyomühendislik ve Sabancı'nın bölünmemiş programı dahil); mimarlık
-  dışarıda. Hukuk yalnız &ldquo;Hukuk&rdquo; adlı lisans programı, adalet önlisansı sayılmıyor.
+  dışarıda. Yapay zeka satırı bunun alt kümesi: yapay zeka mühendisliği, yapay zeka ve
+  veri mühendisliği, veri mühendisliği; betik her yıl bu üçünün mühendislik kümesinin
+  içinde kaldığını denetliyor. Hukuk yalnız &ldquo;Hukuk&rdquo; adlı lisans programı, adalet önlisansı sayılmıyor.
   Açıköğretim ve uzaktan öğretim çizelgenin dışında; ayrı payda ile hesaplanmış oranlar
   çizelgenin altındaki notta veriliyor.</p>
 </section>
@@ -1147,11 +1150,14 @@ function kartKur(on, adres){
 function yetenek(){
   const d = D.yetenek, Y = d.yil, M = d.msv, son = Y.length - 1;
   const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
-  const sat = (ad, dizi, sinif) => `<tr class="${sinif || ""}"><th>${ad}</th>`
-    + dizi.map(v => `<td>%${vg(v)}</td>`).join("") + "</tr>";
+  // Ust bloktaki uc satir ayni paydadan geliyor ve iki ondalikli: yapay zeka payi
+  // tek ondalikta dokuz yilin yedisinde %0,0 gorunuyor, satir bilgi tasimiyor.
+  const sat = (ad, dizi, sinif, b) => `<tr class="${sinif || ""}"><th>${ad}</th>`
+    + dizi.map(v => `<td>%${vg(v, b === undefined ? 1 : b)}</td>`).join("") + "</tr>";
   document.getElementById("t-yetenek").innerHTML = `<table>${bas}<tbody>`
-    + sat("Mühendisliğin payı", d.muh_pay, "ana")
-    + sat("Hukukun payı", d.huk_pay, "ana")
+    + sat("Mühendisliğin payı", d.muh_pay, "ana", 2)
+    + sat("Yapay zeka mühendisliği (mühendisliğin içinde)", d.yz_pay, "", 2)
+    + sat("Hukukun payı", d.huk_pay, "ana", 2)
     // Ucuncu satirin paydasi otekilerden farkli: ilk 20 binin ICINDEKI pay.
     // Ayrik cizgiyle ayriliyor, yoksa ilk iki satirla ayni olcut sanilir.
     + sat("Mühendisliğin ilk 20 bindeki payı", d.ust_muh, "ayrik")
@@ -1165,16 +1171,30 @@ function yetenek(){
     + `hukuk ortancası %${vg(M.huk_ortanca)}; ortalamalar %${vg(M.muh_ort)} ve `
     + `%${vg(M.huk_ort)}. Kıyas yaklaşık: makale kayıtlı öğrenci stokunu ölçüyor, `
     + "buradaki sayı o yıl yerleşen akış. Mimarlık mühendisliğe katılmadı, UNESCO ayrı "
-    + "alan sayıyor. Üçüncü satır bölüm 6'daki banttan geliyor, paydası öteki ikisinden farklı.";
+    + "alan sayıyor. Yapay zeka satırı mühendislik satırının İÇİNDE, adı "
+    + "&ldquo;mühendisliği&rdquo; ile biten yapay zeka ve veri programları; toplama iki "
+    + "kez girmiyor. Son satır bölüm 6'daki banttan geliyor, paydası öteki üçünden farklı.";
   document.getElementById("y-sonuc").innerHTML =
     "<strong>Türkiye bu ölçütte mühendislik tarafında duruyor ve dokuz yılda biraz "
-    + `daha o tarafa kaydı.</strong> Mühendisliğin payı ${Y[0]}'de %${vg(d.muh_pay[0])} `
-    + `iken ${Y[son]}'da %${vg(d.muh_pay[son])}, neredeyse yerinde; hukukun payı `
-    + `%${vg(d.huk_pay[0])}'ten %${vg(d.huk_pay[son])}'e indi, `
+    + `daha o tarafa kaydı.</strong> Mühendisliğin payı ${Y[0]}'de %${vg(d.muh_pay[0], 2)} `
+    + `iken ${Y[son]}'da %${vg(d.muh_pay[son], 2)}, neredeyse yerinde; hukukun payı `
+    + `%${vg(d.huk_pay[0], 2)}'ten %${vg(d.huk_pay[son], 2)}'e indi, `
     + `${vg(d.huk_pay[son] / d.huk_pay[0])} kat. Önlisansı da katan paydayla ${Y[son]} `
     + `mühendislik oranı %${vg(d.muh_pay_orgun[son])}, makalenin ülke ortancasına yakın; `
     + `hukuk oranı ise %${vg(d.huk_pay_orgun[son])} ile o ortancanın epeyce altında. `
     + "Hukuk tarafındaki kontenjan kısıntısı bölüm 9'da.";
+  const ilkYz = d.yz.findIndex(v => v > 0);
+  document.getElementById("y-yz").innerHTML =
+    "<strong>Mühendislik satırının içinde yepyeni bir alt küme var.</strong> Yapay zeka "
+    + `mühendisliği ${Y[0]}'de yoktu; ilk iki program ${Y[ilkYz]} yılında açıldı ve `
+    + `${tr(d.yz[ilkYz])} kişi aldı. ${Y[son]} yılında ${tr(d.yz_program[son])} programda `
+    + `${tr(d.yz[son])} kişi var, mühendislik koltuklarının `
+    + `%${vg(d.yz_pay_muh[son], 2)} kadarı. Tanımı geniş tutup `
+    + "mühendislik sayılmayan yapay zeka ve veri programlarını da katarsak (veri bilimi "
+    + "ve analitiği, yapay zeka ve makine öğrenmesi, felsefe ve yapay zeka gibi ortak "
+    + `programlar) ${Y[son]} sayısı ${tr(d.yz_genis[son])} kişiye çıkıyor. `
+    + "<strong>1991'in ölçütü bu değişimi de göremez:</strong> mühendisliğin toplam payı "
+    + "yerinde dururken içeriği değişiyor, üstelik bu kez yeni bir alanın lehine.";
 }
 
 /* ---------- 6 · ilk 20 bin ---------- */
@@ -1306,7 +1326,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=3b99445683";
+const SURUM = "?v=aacb63d0c5";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
