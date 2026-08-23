@@ -659,6 +659,11 @@ footer p{color:var(--ink-3);max-width:76ch}
   18.386'ya (1,77 kat), savcı 4.908'den 8.518'e (1,74 kat) çıktı; avukat ise 2,21 kat. Bir
   hâkime düşen avukat 9,0'dan 11,2'ye yükseldi. Mesleğe giriş kapısı yalnız barolar tarafında
   genişledi, yargı kadrosu aynı hızda büyümedi.</p>
+  <p>Buna karşılık <strong>hâkimin iş yükü avukatınki kadar hafiflemedi</strong>: adlî yargı
+  ilk derecede hâkim başına gelen dosya 914'ten 802'ye indi (0,88 kat), avukat başına düşen
+  ise 36,3'ten 25,3'e (0,70 kat). İki ölçütün kapsamı aynı değil, aşağıda yazılı; oranları
+  birbirine bölmeyin. Ölçek farkı da yanıltmasın: bir hâkim yılda sekiz yüz dosyaya bakıyor,
+  avukat sayısı çok daha kalabalık olduğu için kişi başına düşen dosya küçük çıkıyor.</p>
   <p>2025 iki yönden birden ayrışıyor. Avukat sayısı büyümeyi sürdürürken <strong>gelen dosya
   2020'den bu yana ilk kez azaldı</strong> (5.369.402'den 5.230.402'ye), açılan dosya da
   (3.173.045'ten 3.010.106'ya). İkisi birleşince avukat başına düşen iş on bir yılın en düşük
@@ -1017,7 +1022,7 @@ function hukukSeri(){
   // dizisi (2018-2026) ikisini birden tasimiyor.
   const bas = "<thead><tr><th>Hukuk</th>"
     + h.yil.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
-  const sat = (ad, dizi, bicim) => "<tr><th>" + ad + "</th>"
+  const sat = (ad, dizi, bicim, sinif) => `<tr class="${sinif || ""}"><th>${ad}</th>`
     + dizi.map((v, i) => v === null
         ? '<td class="bos">–</td>'
         : `<td class="${i === dizi.length-1 ? "son" : ""}">${bicim(v)}</td>`).join("")
@@ -1031,12 +1036,18 @@ function hukukSeri(){
     + sat("Savcı", h.savci, tr)
     + sat("Avukat başına gelen dosya", h.gelen, vg)
     + sat("Avukat başına açılan dosya", h.acilan, vg)
+    + sat("Hâkim başına gelen dosya", h.hakim_gelen, tr, "ayrik")
+    + sat("Hâkim başına açılan dosya", h.hakim_acilan, tr)
     + "</tbody></table>";
   document.getElementById("n-hukuk-seri").innerHTML =
     "Kontenjan ÖSYM'den (2018-2026), avukat ve dosya sayısı Adalet İstatistikleri'nden "
     + "(2025'te bitiyor, 2026 yıllığı henüz yayımlanmadı); 2025 toplamı Türkiye Barolar "
     + "Birliği'nin 31.12.2025 listesiyle birebir tutuyor. Hâkim ve savcı sayısı da aynı "
-    + "yıllığın tarihi tablolarından, 31 Aralık itibarıyla. Nüfus TÜİK'in adrese dayalı "
+    + "yıllığın tarihi tablolarından, 31 Aralık itibarıyla. <strong>Hâkim başına dosya "
+    + "satırlarının kapsamı farklı:</strong> avukat satırları yalnız hukuk mahkemelerini "
+    + "sayar, hâkim satırları adlî yargı ilk derece mahkemelerinin tamamını (hukuk ve "
+    + "ceza birlikte). İkisi aynı çizelgede durur ama birbirine bölünmez; yıllık hukuk "
+    + "mahkemeleri için ayrı bir hâkim başına satırı vermiyor. Nüfus TÜİK'in adrese dayalı "
     + "kayıt sisteminden, 31 Aralık nüfusu; avukat sayısı da 31 Aralık itibarıyla, iki "
     + "ölçüm aynı güne denk geliyor. <strong>Gelen</strong> dosya geçen yıldan "
     + "devredeni de sayar, mahkemenin önündeki toplam iştir; <strong>açılan</strong> yalnız "
@@ -1090,7 +1101,7 @@ function ilk20bin(){
 /* ---------- 5 · tıp ---------- */
 function tip(){
   const k = D.tip.kontenjan;
-  const sat = (ad, dizi, bicim) => "<tr><th>" + ad + "</th>"
+  const sat = (ad, dizi, bicim, sinif) => `<tr class="${sinif || ""}"><th>${ad}</th>`
     + dizi.map((v,i) => `<td class="${i === dizi.length-1 ? "son" : ""}">${bicim(v)}</td>`).join("")
     + "</tr>";
   document.getElementById("t-tipk").innerHTML = `<table>${basliklar(["Kontenjan"])}<tbody>`
@@ -1183,7 +1194,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=5ffcb33527";
+const SURUM = "?v=91912e5922";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
