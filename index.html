@@ -42,7 +42,12 @@
   --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
   --o16:#A5A59E;}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
+/* YUMUSAK KAYDIRMA KALDIRILDI. Sayfa 16.700 piksel; gezinmeden "Tıp"a basildiginda
+   dokuz bin piksellik bir animasyon basliyor ve yolda kesiliyor, okur yanlis bolume
+   dusuyordu (olculdu: smooth ile hedefe hic varmiyor, auto ile tam 8.932'ye gidiyor).
+   Uzun basvuru sayfasinda ani gecis hem dogru hem hizli.
+   `scroll-padding-top` duruyor: yapiskan cubuk baslıgı ortmesin. */
+html{scroll-padding-top:64px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
   font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
 .sar{max-width:1060px;margin:0 auto;padding:0 clamp(18px,4vw,32px)}
@@ -1220,6 +1225,13 @@ async function basla(){
            o => haritaCiz(o, "harita"));
   ilk20bin();
   hukukSeri();
+
+  // Ilk yuklemede adres cubugunda #bolum varsa tarayici cizelgeler kurulmadan zipliyor
+  // ve yanlis yere dusuyor. Icerik hazir olunca hedefe yeniden gidiliyor.
+  if (location.hash.length > 1) {
+    const hedef = document.getElementById(location.hash.slice(1));
+    if (hedef) requestAnimationFrame(() => hedef.scrollIntoView());
+  }
   dugmeler(document.getElementById("s-hukuk"), H.olcut.filter(avukat),
            o => haritaCiz(o, "hukuk"));
   dugmeler(document.getElementById("s-degisim"),
