@@ -35,6 +35,51 @@ header{padding:clamp(40px,9vh,96px) 0 clamp(16px,3vh,32px)}
 h1{font-family:var(--serif);font-weight:400;font-size:clamp(36px,6.2vw,66px);line-height:1.02;
   margin:0 0 20px;letter-spacing:-.022em}
 .giris{color:var(--ink-2);max-width:60ch;margin:0;font-size:clamp(16px,1.6vw,19px)}
+/* --- Giris (hero). Iki sutun: solda yazi, sagda gorsel deste.
+   Deste dekoratif; ekran okuyucudan gizli, tiklaninca ilgili bolume gidiyor. */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(24px,4vw,56px);align-items:center}
+.hero-yazi{min-width:0}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 0}
+.btn{font:inherit;font-size:15px;padding:11px 20px;border-radius:999px;
+  text-decoration:none;border:1px solid var(--rule);transition:.15s}
+.btn-ana{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn-ana:hover{opacity:.85}
+.btn-sade{color:var(--ink-2)}
+.btn-sade:hover{color:var(--ink);border-color:var(--ink-3)}
+.imza{display:flex;align-items:center;gap:11px;margin:26px 0 0;
+  font-size:14.5px;color:var(--ink-2)}
+.imza img{width:38px;height:38px;border-radius:50%;object-fit:cover;
+  border:1px solid var(--rule)}
+.imza a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.imza a:hover{border-color:var(--ink)}
+.deste{position:relative;margin:0;aspect-ratio:4/5;max-width:390px;
+  margin-inline:auto;width:100%}
+.deste a{position:absolute;inset:0;display:block;border-radius:14px;overflow:hidden;
+  box-shadow:0 14px 34px rgba(20,26,32,.16);border:1px solid var(--rule-soft);
+  transition:transform .25s}
+.deste img{width:100%;height:100%;object-fit:cover;display:block}
+.deste .d1{transform:rotate(-6deg) translate(-7%,2%) scale(.93)}
+.deste .d2{transform:rotate(4deg) translate(7%,-1%) scale(.95)}
+.deste .d3{transform:rotate(-1deg)}
+.deste:hover .d1{transform:rotate(-9deg) translate(-11%,2%) scale(.93)}
+.deste:hover .d2{transform:rotate(7deg) translate(11%,-1%) scale(.95)}
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .deste{max-width:300px;margin-top:34px}
+}
+/* --- Kim hazirladi */
+.yazar{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(18px,3vw,30px);
+  align-items:start;background:var(--card);border:1px solid var(--rule-soft);
+  border-radius:16px;padding:clamp(20px,3vw,30px)}
+.yazar img{width:112px;height:112px;border-radius:50%;object-fit:cover;
+  border:1px solid var(--rule)}
+.yazar h2{margin:0 0 10px}
+.yazar p{margin:0 0 12px;color:var(--ink-2)}
+.yazar .bag{display:flex;gap:16px;flex-wrap:wrap;font-size:14.5px;margin:0}
+.yazar .bag a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.yazar .bag a:hover{border-color:var(--ink)}
+@media(max-width:560px){.yazar{grid-template-columns:1fr}.yazar img{width:88px;height:88px}}
 .bulgu{margin:34px 0 0;padding:18px 22px;border-left:3px solid var(--vurgu);
   background:var(--card);border-radius:0 12px 12px 0;max-width:66ch}
 .bulgu p{margin:0;color:var(--ink);font-size:clamp(15.5px,1.5vw,17.5px)}
@@ -148,11 +193,31 @@ footer p{color:var(--ink-3);max-width:76ch}
 
 <div class="sar">
   <header>
-    <div class="ust">ÖSYM 2026 yerleştirme sonuçları</div>
-    <h1>Dokuz yılda<br>ne değişti?</h1>
-    <p class="giris">2018'den bugüne bütün lisans programlarının kontenjanı, doluluğu ve başarı
-    sırası. Sayılar ÖSYM ve YÖK Atlas'ın birincil belgelerinden betikle çıkarıldı; sayfaya elle
-    sayı yazılmadı.</p>
+    <div class="hero">
+      <div class="hero-yazi">
+        <div class="ust">ÖSYM ve YÖK Atlas verisiyle · 2018-2026</div>
+        <h1>Dokuz yılda<br>ne değişti?</h1>
+        <p class="giris">Bütün lisans programlarının kontenjanı, doluluğu ve başarı sırası.
+        En iyi öğrenciler hangi bölümü seçti, hangisinden vazgeçti, tıp koltuğu ve doktor
+        ülkeye nasıl dağıldı. Sayılar birincil belgelerden betikle çıkarıldı; sayfaya elle
+        sayı yazılmadı.</p>
+        <div class="cta">
+          <a class="btn btn-ana" href="#ilk100">Çizelgelere başla</a>
+          <a class="btn btn-sade" href="#yontem">Yöntem ve kaynaklar</a>
+        </div>
+        <p class="imza"><img src="gorsel/oguz-ergin-kucuk.jpg" width="38" height="38"
+          alt="">Hazırlayan <a href="https://oguzergin.net" target="_blank"
+          rel="noopener">Prof. Dr. Oğuz Ergin</a></p>
+      </div>
+      <figure class="deste" aria-hidden="true">
+        <a class="d1" href="#harita" tabindex="-1"><img src="gorsel/tip_harita.png"
+          alt="" loading="lazy" width="1080" height="1350"></a>
+        <a class="d2" href="#degisim" tabindex="-1"><img src="gorsel/bolum_gerileyen.png"
+          alt="" loading="lazy" width="1080" height="1350"></a>
+        <a class="d3" href="#tip" tabindex="-1"><img src="gorsel/ilk20bin_dagilim.png"
+          alt="" loading="lazy" width="1080" height="1350"></a>
+      </figure>
+    </div>
     <div class="bulgu"><p id="bulgu-metin"></p></div>
     <div class="kartlar" id="ozet"></div>
   </header>
@@ -313,6 +378,29 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p class="not" id="n-harita"></p>
   <a class="indir" href="gorsel/tip_harita.png" download>Tıp haritasını indir</a>
   <a class="indir" href="gorsel/hekim_harita.png" download>Hekim haritasını indir</a>
+</section>
+
+<section id="hazirlayan">
+  <div class="yazar">
+    <img src="gorsel/oguz-ergin.jpg" width="112" height="112"
+      alt="Prof. Dr. Oğuz Ergin">
+    <div>
+      <h2>Kim hazırladı</h2>
+      <p><strong>Prof. Dr. Oğuz Ergin</strong>, Sharjah Üniversitesi'nde bilgisayar
+      mühendisliği öğretim üyesi. TOBB ETÜ'de kurduğu Kasırga Mikroişlemciler
+      Laboratuvarı'nı yönetmeyi sürdürüyor. Çalışma alanı mikroişlemci mimarisi,
+      bellek sistemleri ve donanım güvenliği.</p>
+      <p>Bu sayfa, her tercih döneminde sorulan soruları kendi merakı için hesaplarken
+      çıktı. Sayıların tamamı kamuya açık resmî belgelerden betikle üretiliyor ve
+      belge değişince yeniden üretilebiliyor; sayfaya elle sayı yazılmıyor.</p>
+      <p class="bag">
+        <a href="https://oguzergin.net" target="_blank" rel="noopener">oguzergin.net</a>
+        <a href="https://www.youtube.com/@oguz_ergin" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://github.com/prof-oguzergin/yks-veri" target="_blank"
+          rel="noopener">Bu sayfanın kaynağı</a>
+      </p>
+    </div>
+  </div>
 </section>
 
 <section id="yontem">
