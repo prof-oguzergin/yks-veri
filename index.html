@@ -217,6 +217,18 @@ svg.bump .izgara{stroke:var(--rule-soft);stroke-width:1}
 svg.bump g.seri{transition:opacity .12s}
 svg.bump.vurgulu g.seri:not(.aktif){opacity:.13}
 svg.bump g.seri{cursor:pointer}
+svg.nokta{width:100%;height:auto;display:block;font-family:var(--sans)}
+svg.nokta text{fill:var(--ink-2)}
+svg.nokta .yil{font-size:16px;fill:var(--ink-3);text-anchor:middle}
+svg.nokta .yok{font-size:13px;fill:var(--ink-3);text-anchor:middle}
+svg.nokta .eks{font-size:15px;fill:var(--ink-3);text-anchor:end;dominant-baseline:middle}
+svg.nokta .izgara{stroke:var(--rule-soft);stroke-width:1}
+svg.nokta circle{fill:var(--h);fill-opacity:.42;stroke:var(--h);stroke-opacity:.5;
+  stroke-width:.6}
+svg.nokta circle:hover{fill-opacity:.95;stroke:var(--ink);stroke-width:1.2}
+svg.nokta .orta{fill:none;stroke:var(--h);stroke-width:2.4;stroke-linejoin:round}
+svg.nokta .ortan{fill:var(--h);stroke:var(--card);stroke-width:1.6}
+@media(max-width:900px){svg.nokta{min-width:840px}}
 .kaydir{display:none;font-size:12.5px;color:var(--ink-3);margin:14px 0 0}
 .efsane{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0 0;font-size:13px;color:var(--ink-3)}
 .efsane b{font-weight:600}
@@ -697,6 +709,15 @@ footer p{color:var(--ink-3);max-width:76ch}
   1.000'den iyi olması gerekiyordu.</p>
   <div class="tw" id="t-ogretmenlik-bant"></div>
   <p class="not" id="n-ogretmenlik-bant"></p>
+
+  <h3>Her program bir nokta</h3>
+  <p>Çizelge koltukları bantlara topluyor; burada toplama yok. Seçilen bölümün
+  <strong>her programı ayrı bir nokta</strong>, dikey eksen taban başarı sırası, nokta
+  büyüklüğü o programın kontenjanı. Üzerine gelince üniversite adı çıkıyor.</p>
+  <div class="secim" id="sn-ogretmenlik"></div>
+  <p class="kaydir">Grafik geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-ogretmenlik"></div>
+  <p class="not" id="n-ogretmenlik-nokta"></p>
 </section>
 
 <section id="temelbilim">
@@ -719,6 +740,15 @@ footer p{color:var(--ink-3);max-width:76ch}
   1.000'den iyi olması gerekiyordu.</p>
   <div class="tw" id="t-temelbilim-bant"></div>
   <p class="not" id="n-temelbilim-bant"></p>
+
+  <h3>Her program bir nokta</h3>
+  <p>Çizelge koltukları bantlara topluyor; burada toplama yok. Seçilen bölümün
+  <strong>her programı ayrı bir nokta</strong>, dikey eksen taban başarı sırası, nokta
+  büyüklüğü o programın kontenjanı. Üzerine gelince üniversite adı çıkıyor.</p>
+  <div class="secim" id="sn-temelbilim"></div>
+  <p class="kaydir">Grafik geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-temelbilim"></div>
+  <p class="not" id="n-temelbilim-nokta"></p>
 </section>
 
 <section id="harita">
@@ -957,7 +987,7 @@ const tr = n => (n === null || n === undefined) ? "–" : n.toLocaleString("tr-T
 const vg = (n, b=1) => (n === null || n === undefined) ? "–"
   : n.toLocaleString("tr-TR", {minimumFractionDigits:b, maximumFractionDigits:b});
 const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-let D = null, B = null, G = null, H = null, YIL = [];
+let D = null, B = null, G = null, H = null, N = null, YIL = [];
 
 // Cumle basina gelen puan turu adinin bas harfi. `toUpperCase()` Turkce'de "i" yi "I" yapiyor.
 const bas = t => t.charAt(0).toLocaleUpperCase("tr") + t.slice(1);
@@ -1423,6 +1453,101 @@ function dgsTablo(){
     + "Karşılaştırma üniversitenin program kodunun ilk dört hanesiyle yapılıyor, adla değil.";
 }
 
+/* ---------- nokta grafiği: bir bölümün bütün programları ---------- */
+// Eksen LOG: taban başarı sırası bir bölüm içinde bile iki-üç büyüklük mertebesi
+// değişiyor (tıpta 30 ile 60.000 aynı çizelgede). Doğrusal eksende bütün noktalar
+// dibe yığılıyor. Yukarı = daha iyi sıra.
+const NOKTA_ISARET = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000,
+                      100000, 200000, 500000, 1000000, 2000000];
+
+function noktaCiz(kap, b, uni, Y, renk){
+  const G = {en: 1000, boy: 430, sol: 96, sag: 16, ust: 22, alt: 52};
+  const hepsi = b.yil.flat();
+  if(!hepsi.length){ kap.innerHTML = ""; return; }
+  const enk = Math.min(...hepsi.map(x => x[0])), enb = Math.max(...hepsi.map(x => x[0]));
+  const l0 = Math.log10(Math.max(1, enk)) - 0.08, l1 = Math.log10(enb) + 0.08;
+  const yy = v => G.ust + (Math.log10(v) - l0) / (l1 - l0) * (G.boy - G.ust - G.alt);
+  const gen = (G.en - G.sol - G.sag) / Y.length;
+  const xx = i => G.sol + (i + 0.5) * gen;
+  const enKont = Math.max(...hepsi.map(x => x[1])) || 1;
+  // Yatay dagitma: ayni yilda onlarca program var, ust uste binmesin diye altin oran
+  // adimiyla dagitiliyor (rastgele degil, her yuklemede ayni yerde duruyor).
+  const kay = (j, n) => (((j * 0.6180339887) % 1) - 0.5) * gen * (n > 6 ? 0.74 : 0.34);
+
+  let g = "";
+  for(const v of NOKTA_ISARET){
+    if(Math.log10(v) < l0 || Math.log10(v) > l1) continue;
+    const y = yy(v);
+    g += `<line class="izgara" x1="${G.sol}" y1="${y}" x2="${G.en - G.sag}" y2="${y}"/>`
+      + `<text class="eks" x="${G.sol - 10}" y="${y}">${tr(v)}</text>`;
+  }
+  Y.forEach((yil, i) => {
+    g += `<text class="yil" x="${xx(i)}" y="${G.boy - 26}">${yil}</text>`;
+    if(b.yok[i]) g += `<text class="yok" x="${xx(i)}" y="${G.boy - 8}">`
+      + `${b.yok[i]} programın sırası yok</text>`.replace(" programın sırası yok",
+          b.yok[i] === 1 ? " program dolmadı" : " program dolmadı");
+  });
+  // Noktalar: buyukleri altta kalsin diye once buyukten kucuge ciziliyor.
+  Y.forEach((yil, i) => {
+    const n = b.yil[i].length;
+    b.yil[i].map((x, j) => ({x, j}))
+      .sort((a, c) => c.x[1] - a.x[1])
+      .forEach(({x, j}) => {
+        const r = Math.min(9, 2 + 3.4 * Math.sqrt(x[1] / enKont));
+        g += `<circle cx="${(xx(i) + kay(j, n)).toFixed(1)}" cy="${yy(x[0]).toFixed(1)}"`
+          + ` r="${r.toFixed(1)}"><title>${esc(uni[x[2]])} · ${yil}`
+          + `\nsıra ${tr(x[0])} · kontenjan ${tr(x[1])}</title></circle>`;
+      });
+  });
+  // Ortanca cizgisi: bulut icindeki egilimi gozle izlemek icin.
+  const ort = [];
+  Y.forEach((yil, i) => {
+    const v = b.yil[i].map(x => x[0]).sort((a, c) => a - c);
+    if(v.length) ort.push([i, v.length % 2 ? v[(v.length - 1) / 2]
+      : (v[v.length / 2 - 1] + v[v.length / 2]) / 2]);
+  });
+  if(ort.length > 1)
+    g += `<polyline class="orta" points="${ort.map(([i, v]) =>
+      xx(i).toFixed(1) + "," + yy(v).toFixed(1)).join(" ")}"/>`;
+  ort.forEach(([i, v]) => {
+    g += `<circle class="ortan" cx="${xx(i).toFixed(1)}" cy="${yy(v).toFixed(1)}" r="4.6">`
+      + `<title>${Y[i]} ortanca sıra: ${tr(Math.round(v))}</title></circle>`;
+  });
+  kap.innerHTML = `<svg class="nokta" viewBox="0 0 ${G.en} ${G.boy}" `
+    + `style="--h:var(${renk})" role="img">${g}</svg>`;
+}
+
+function noktaGrafik(anahtar, renk){
+  const g = N.grup[anahtar], Y = N.yil;
+  const kap = document.getElementById("g-" + anahtar);
+  const not = document.getElementById("n-" + anahtar + "-nokta");
+  const sec = document.getElementById("sn-" + anahtar);
+  sec.innerHTML = "<select>" + g.bolum.map((b, i) =>
+    `<option value="${i}">${esc(b.ad)}</option>`).join("") + "</select>";
+  const ciz = i => {
+    const b = g.bolum[i];
+    noktaCiz(kap, b, g.uni, Y, renk);
+    const son = Y.length - 1;
+    const dolu = b.yil.map(y => y.length);
+    const ortanca = j => {
+      const v = b.yil[j].map(x => x[0]).sort((a, c) => a - c);
+      return v.length ? (v.length % 2 ? v[(v.length - 1) / 2]
+        : Math.round((v[v.length / 2 - 1] + v[v.length / 2]) / 2)) : null;
+    };
+    const o0 = ortanca(0), o1 = ortanca(son);
+    not.innerHTML = `${esc(b.ad)} · ${esc(PT_AD[b.pt] || b.pt)} puan türü. `
+      + `${Y[son]} yılında sırası olan ${tr(dolu[son])} program, toplam `
+      + `${tr(b.kont[son])} kontenjan. Ortanca taban sırası ${Y[0]} yılında `
+      + `${o0 === null ? "yok" : tr(o0)}, ${Y[son]} yılında `
+      + `${o1 === null ? "yok" : tr(o1)}. <strong>Dikey eksen logaritmik</strong>, `
+      + "yukarı çıkmak daha iyi sıra demek; doğrusal eksende bütün noktalar dibe "
+      + "yığılıyordu. Kalın çizgi o yılın ortancası. <strong>Dolmayan programlar "
+      + "grafikte yok</strong>, ÖSYM onlara sıra atamıyor; sayıları yılın altında yazılı.";
+  };
+  sec.querySelector("select").onchange = e => ciz(+e.target.value);
+  ciz(0);
+}
+
 /* ---------- 9-10 · bölüm grubu: kontenjan ve bant dağılımı ---------- */
 const PT_AD = {"SAY": "Sayısal", "SÖZ": "Sözel", "EA": "Eşit ağırlık", "DİL": "Dil",
                "TYT": "TYT"};
@@ -1663,18 +1788,19 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=ffd037362e";
+const SURUM = "?v=ba00720bb6";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
 const surum = SURUM || (yerel ? "?t=" + Date.now() : "");
 
 async function basla(){
-  [D, B, G, H] = await Promise.all([
+  [D, B, G, H, N] = await Promise.all([
     fetch("veri/cizelge.json" + surum).then(r => r.json()),
     fetch("veri/bump.json" + surum).then(r => r.json()),
     fetch("veri/degisim.json" + surum).then(r => r.json()),
     fetch("veri/harita.json" + surum).then(r => r.json()),
+    fetch("veri/nokta.json" + surum).then(r => r.json()),
   ]);
   YIL = D.yil;
   const o = await (await fetch("veri/ozet.json" + surum)).json();
@@ -1717,6 +1843,8 @@ async function basla(){
   dgsTablo();
   bantGrubu("ogretmenlik");
   bantGrubu("temelbilim");
+  noktaGrafik("ogretmenlik", "--b13");
+  noktaGrafik("temelbilim", "--b14");
   hukukSeri();
 
   // Ilk yuklemede adres cubugunda #bolum varsa tarayici cizelgeler kurulmadan zipliyor
