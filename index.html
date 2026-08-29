@@ -484,10 +484,13 @@ footer p{color:var(--ink-3);max-width:76ch}
   <h2>Kaç kişi girdi, kaç kişi yerleşti?</h2>
   <p>Sayfanın geri kalanı hangi bölümün nereye gittiğini anlatıyor. Bu bölüm çerçeveyi
   kuruyor: her yıl sınava kaç kişi giriyor, kaç koltuk açılıyor, kaçı doluyor.</p>
-  <p><strong>İki uç birlikte okunmalı.</strong> Sınava giren sayısı dokuz yılda neredeyse
-  hiç değişmedi, buna karşılık açılan kontenjan belirgin biçimde daraldı ve doluluk yükseldi.
-  Sayfadaki &ldquo;sıralar iyileşti&rdquo; bulgularının arkasındaki ilk mekanizma bu:
-  aynı büyüklükteki aday kitlesi daha az koltuk için yarışıyor.</p>
+  <p><strong>İki ucu karşılaştırmak yetmiyor, aradaki tepe kayboluyor.</strong> Aday
+  sayısı 2018 ile 2026'da neredeyse aynı, ama arada üç milyona çıkıp geri döndü. Kontenjan
+  tarafında böyle bir tepe yok, 2023'ten sonra kesintisiz daralıyor. Sayfadaki
+  &ldquo;sıralar iyileşti&rdquo; bulgularının arkasındaki ilk mekanizma bu makas.</p>
+  <p>Satırlar kendi içinde renklendirildi ki hareket sayıya bakmadan da görünsün: koyu
+  hücre o satırın büyük değeri. Renk satır içinde ölçekli, satırlar birbiriyle
+  karşılaştırılamaz.</p>
   <div class="tw" id="t-genel"></div>
   <p class="not" id="n-genel"></p>
 </section>
@@ -1222,8 +1225,28 @@ function genelTablo(){
   const d = D.genel, Y = d.yil, son = Y.length - 1;
   const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
   // Bos hucre gercek bir bilgi: tercih yapan sayisi 2021'de yayimlanmadi, 2026'da henuz yok.
-  const sat = (ad, dizi, bicim, sinif) => `<tr class="${sinif || ""}"><th>${ad}</th>`
-    + dizi.map(v => `<td>${v === null ? "–" : bicim(v)}</td>`).join("") + "</tr>";
+  //
+  // ISI RENGI SATIR ICINDE olceklenmis: her satir kendi en kucugu ile en buyugu arasinda
+  // 0-1'e getiriliyor. Amac egilimi gozle okutmak. Iki sonucu var ve ikisi de notta yazili:
+  // (1) satirlar birbiriyle karsilastirilamaz, (2) az oynayan bir satir da bastan sona
+  // dolu bir gecis serigi gosterir. Ikinciyi yumusatmak icin renk yogunlugu satirin
+  // GERCEK yayilimiyla (aralik / en buyuk) da carpiliyor: sinava giren satiri soluk,
+  // kontenjan satiri koyu cikiyor. Tek renk kullaniliyor, yesil-kirmizi degil: "bos kalan"
+  // ile "doluluk" ayni yonde okunamaz, renk iyi-kotu degil BUYUK-KUCUK demek.
+  const isi = dizi => {
+    const v = dizi.filter(x => x !== null);
+    const enk = Math.min(...v), enb = Math.max(...v);
+    const yay = enb ? (enb - enk) / Math.abs(enb) : 0;
+    const yogun = 0.40 + 0.60 * Math.min(1, yay / 0.30);
+    return x => (x === null || enb === enk) ? 0
+      : Math.round((6 + 52 * ((x - enk) / (enb - enk))) * yogun);
+  };
+  const sat = (ad, dizi, bicim, sinif) => {
+    const a = isi(dizi);
+    return `<tr class="${sinif || ""}"><th>${ad}</th>`
+      + dizi.map(v => `<td style="background:color-mix(in srgb, var(--vurgu) ${a(v)}%,`
+          + ` transparent)">${v === null ? "–" : bicim(v)}</td>`).join("") + "</tr>";
+  };
   const yuzde = v => "%" + vg(v);
   document.getElementById("t-genel").innerHTML = `<table>${bas}<tbody>`
     + sat("Sınava giren aday", d.sinava_giren, tr, "ana")
@@ -1240,16 +1263,24 @@ function genelTablo(){
     + sat("Yerleşenin sınava girene oranı", d.yerlesme_orani, yuzde)
     + "</tbody></table>";
   const kat = (a) => vg(a[son] / a[0], 2);
+  // Zirve veriden bulunuyor: iki ucu yazip gecmek seriyi duz gosteriyordu.
+  const enb = Math.max(...d.sinava_giren), zi = d.sinava_giren.indexOf(enb);
   document.getElementById("n-genel").innerHTML =
     `Sınava giren sayısı ${Y[0]}'de ${tr(d.sinava_giren[0])}, ${Y[son]}'da `
-    + `${tr(d.sinava_giren[son])} kişi: ${kat(d.sinava_giren)} kat. Aynı dönemde lisans `
+    + `${tr(d.sinava_giren[son])} kişi: uçtan uca ${kat(d.sinava_giren)} kat. `
+    + `<strong>Ama seri düz değil</strong>, ${Y[zi]} yılında ${tr(enb)} ile zirve yaptı, `
+    + `başlangıcın ${vg(enb / d.sinava_giren[0], 2)} katı. Aynı dönemde lisans `
     + `kontenjanı ${kat(d.lisans_kont)} kat, önlisans kontenjanı `
     + `${kat(d.onlisans_kont)} kat oldu; lisans doluluğu %${vg(d.lisans_doluluk[0])} iken `
     + `%${vg(d.lisans_doluluk[son])}. <strong>Ölçüt sınavı geçerli sayılan aday.</strong> `
     + "Tercih yapan sayısı 2021'de yayımlanmadı, 2026'nınki henüz gelmedi. Doluluk "
     + "(genel + okul birinciliği yerleşen) / (genel + okul birinciliği kontenjan); boş "
     + "kontenjan program program hesaplanıp toplanıyor. Açıköğretim ve uzaktan öğretim "
-    + "örgün satırların dışında, ayrı veriliyor. 2018-2021 arasındaki düşük doluluğun "
+    + "örgün satırların dışında, ayrı veriliyor. <strong>Renk satırın kendi içinde "
+    + "ölçekli:</strong> her satır kendi en küçüğü ile en büyüğü arasında boyanıyor, koyu "
+    + "= büyük. Satırlar birbiriyle karşılaştırılamaz; buna karşılık az oynayan bir "
+    + "satır soluk, çok oynayan koyu çıkıyor, çünkü yoğunluk satırın gerçek "
+    + "yayılımıyla da orantılı. 2018-2021 arasındaki düşük doluluğun "
     + "sebebi tercih barajı (TYT 150 / AYT 180), 2022'de kaldırıldı.";
 }
 
