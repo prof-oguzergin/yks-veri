@@ -13,7 +13,7 @@
   /* Bolum renkleri: gozun bolumu tanimasi icin, dokuzu da birbirinden ayirt edilir. */
   --b1:#B23C0B; --b2:#8A6D1F; --b3:#2A78D6; --b4:#17708F; --b5:#5E4CA8;
   --b6:#137A55; --b7:#C2185B; --b8:#4A6572; --b9:#6B7280; --b10:#8E2F8E;
-  --b11:#4D7C0F;
+  --b11:#4D7C0F; --b12:#3730A3; --b13:#A02334; --b14:#7C4A21;
   /* Obek renkleri: on alti obegin her birine bir ton. */
   --o1:#C0392B; --o2:#C4551F; --o3:#A87813; --o4:#6E7A2E; --o5:#2E7D32;
   --o6:#0E7C5A; --o7:#10808C; --o8:#4A6572; --o9:#2A78D6; --o10:#1E4E9C;
@@ -28,7 +28,7 @@
   --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
   --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
   --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE; --b10:#D07FD0;
-  --b11:#9BCB4B;
+  --b11:#9BCB4B; --b12:#8B87F0; --b13:#EE6E7C; --b14:#C79A6A;
   --o1:#EF7062; --o2:#F07440; --o3:#D9A63C; --o4:#A8B457; --o5:#62BE67;
   --o6:#22B481; --o7:#3FB6C4; --o8:#8FA6B4; --o9:#5FA3E8; --o10:#7A9FE8;
   --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
@@ -39,7 +39,7 @@
   --iyi:#22b481; --kotu:#f07440; --vurgu:#9085e9; --gri:#4E5257;
   --b1:#F07440; --b2:#D3AC4A; --b3:#5FA3E8; --b4:#4FA6C4; --b5:#9085E9;
   --b6:#22B481; --b7:#EE6394; --b8:#8FA6B4; --b9:#9AA3AE; --b10:#D07FD0;
-  --b11:#9BCB4B;
+  --b11:#9BCB4B; --b12:#8B87F0; --b13:#EE6E7C; --b14:#C79A6A;
   --o1:#EF7062; --o2:#F07440; --o3:#D9A63C; --o4:#A8B457; --o5:#62BE67;
   --o6:#22B481; --o7:#3FB6C4; --o8:#8FA6B4; --o9:#5FA3E8; --o10:#7A9FE8;
   --o11:#9085E9; --o12:#B48CF0; --o13:#D585D3; --o14:#EE6394; --o15:#C99A6B;
@@ -131,7 +131,7 @@ nav .ic{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;max-width:none
    Ogeler 1.205 piksel, iki yanda tema dugmesi icin 118'er pay: 1.441'den genisse
    ortalaniyor, altinda soldan hizali kalip kaydiriliyor. `safe center` sigmadiginda
    basa donuyor; duz `center` tasan bir esnek kapta sol ucu erisilmez birakiyor. */
-@media (min-width:1640px){
+@media (min-width:2000px){
   nav .ic{padding-left:118px;justify-content:safe center}
 }
 nav .ic::-webkit-scrollbar{display:none}
@@ -404,6 +404,12 @@ footer p{color:var(--ink-3);max-width:76ch}
       <polyline points="4.6,9 4.6,5.4 8.2,5.4"/>
       <polyline points="15.4,9 15.4,5.4 11.8,5.4" opacity=".55"/>
     </g></symbol>
+  <symbol id="i-huni" viewBox="0 0 20 20"><!-- huni: giren, tercih eden, yerlesen -->
+    <g fill="currentColor">
+      <rect x="2" y="3" width="16" height="3.6" rx="1.3"/>
+      <rect x="4.6" y="8.2" width="10.8" height="3.6" rx="1.3" opacity=".62"/>
+      <rect x="7.2" y="13.4" width="5.6" height="3.6" rx="1.3" opacity=".34"/>
+    </g></symbol>
   <symbol id="i-ay" viewBox="0 0 20 20"><!-- ay -->
     <path fill="currentColor" d="M16.2 12.9A6.9 6.9 0 0 1 7.1 3.8a7.5 7.5 0 1 0 9.1 9.1z"/>
     </symbol>
@@ -455,6 +461,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </div>
 
 <nav><div class="sar ic">
+  <a href="#genel" style="--br:var(--b12)"><svg class="ikon"><use href="#i-huni"/></svg>Genel tablo</a>
   <a href="#ilk100" style="--br:var(--b1)"><svg class="ikon"><use href="#i-ilk100"/></svg>İlk 100 program</a>
   <a href="#obek" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Program mı, koltuk mu</a>
   <a href="#cizgi" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Yer değiştirdi mi</a>
@@ -462,6 +469,8 @@ footer p{color:var(--ink-3);max-width:76ch}
   <a href="#degisim" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Yükselen ve düşen</a>
   <a href="#ilk20bin" style="--br:var(--b10)"><svg class="ikon"><use href="#i-ustdilim"/></svg>İlk 20 bin</a>
   <a href="#tip" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Tıp</a>
+  <a href="#ogretmenlik" style="--br:var(--b13)"><svg class="ikon"><use href="#o-ogretmenlik"/></svg>Öğretmenlik</a>
+  <a href="#temelbilim" style="--br:var(--b14)"><svg class="ikon"><use href="#o-temelbilim"/></svg>Temel bilimler</a>
   <a href="#harita" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Harita</a>
   <a href="#hukuk" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Hukuk</a>
   <a href="#yetenek" style="--br:var(--b11)"><svg class="ikon"><use href="#i-ayrim"/></svg>Mühendis mi, avukat mı</a>
@@ -470,8 +479,21 @@ footer p{color:var(--ink-3);max-width:76ch}
 
 <div class="sar">
 
+<section id="genel">
+  <div class="sb" style="--br:var(--b12)"><svg class="ikon"><use href="#i-huni"/></svg>Bölüm 1</div>
+  <h2>Kaç kişi girdi, kaç kişi yerleşti?</h2>
+  <p>Sayfanın geri kalanı hangi bölümün nereye gittiğini anlatıyor. Bu bölüm çerçeveyi
+  kuruyor: her yıl sınava kaç kişi giriyor, kaç koltuk açılıyor, kaçı doluyor.</p>
+  <p><strong>İki uç birlikte okunmalı.</strong> Sınava giren sayısı dokuz yılda neredeyse
+  hiç değişmedi, buna karşılık açılan kontenjan belirgin biçimde daraldı ve doluluk yükseldi.
+  Sayfadaki &ldquo;sıralar iyileşti&rdquo; bulgularının arkasındaki ilk mekanizma bu:
+  aynı büyüklükteki aday kitlesi daha az koltuk için yarışıyor.</p>
+  <div class="tw" id="t-genel"></div>
+  <p class="not" id="n-genel"></p>
+</section>
+
 <section id="ilk100">
-  <div class="sb" style="--br:var(--b1)"><svg class="ikon"><use href="#i-ilk100"/></svg>Bölüm 1</div>
+  <div class="sb" style="--br:var(--b1)"><svg class="ikon"><use href="#i-ilk100"/></svg>Bölüm 2</div>
   <h2>İlk 100 programda hangi bölümler var?</h2>
   <p>Her yıl seçili puan türündeki bütün lisans programları taban puanına göre sıralanıyor,
   ilk 100'ü bölüm bölüm sayılıyor. Koyuluk program sayısıyla orantılı.</p>
@@ -490,7 +512,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="obek">
-  <div class="sb" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Bölüm 2</div>
+  <div class="sb" style="--br:var(--b2)"><svg class="ikon"><use href="#i-obek"/></svg>Bölüm 3</div>
   <h2>Program sayısı mı, koltuk sayısı mı?</h2>
   <p>Üstteki çizelge <strong>program</strong> sayıyor, oysa programlar boyut olarak çok farklı.
   Aynı listeyi kontenjanla ağırlıklandırınca tablo değişiyor: bir öbek listede çok yer kaplarken
@@ -501,7 +523,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="cizgi">
-  <div class="sb" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Bölüm 3</div>
+  <div class="sb" style="--br:var(--b3)"><svg class="ikon"><use href="#i-cizgi"/></svg>Bölüm 4</div>
   <h2>Üniversiteler yer değiştirdi mi?</h2>
   <p>Her bölümde taban puanına göre ilk 20 üniversite, 2018'den 2026'ya. Her çizgi bir
   üniversite; dikey eksen sıra, en üstte birinci. <strong>Soldaki sütun 2018 sıralaması,
@@ -531,7 +553,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="sira">
-  <div class="sb" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Bölüm 4</div>
+  <div class="sb" style="--br:var(--b4)"><svg class="ikon"><use href="#i-sira"/></svg>Bölüm 5</div>
   <h2>Başarı sırası: dokuz yılın tam çizelgesi</h2>
   <p>Aynı ilk 20, bu kez sayılarla. <strong>Yeşil hücre programın en iyi yılı.</strong>
   "Zirveden" sütunu 2026 sırasının o yıla göre kaç katı olduğunu gösterir; asıl soru bu, çünkü
@@ -551,7 +573,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="degisim">
-  <div class="sb" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Bölüm 5</div>
+  <div class="sb" style="--br:var(--b6)"><svg class="ikon"><use href="#i-degisim"/></svg>Bölüm 6</div>
   <h2>Hangi bölümler yükseldi, hangileri düştü?</h2>
   <p>Ölçü, programa giren en düşük puanlı öğrencinin <strong>Türkiye başarı sırası</strong>.
   Her yıl bir öncekiyle ayrı ayrı eşleştiriliyor (aynı program kodu, kendisiyle
@@ -575,12 +597,12 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="ilk20bin">
-  <div class="sb" style="--br:var(--b10)"><svg class="ikon"><use href="#i-ustdilim"/></svg>Bölüm 6</div>
+  <div class="sb" style="--br:var(--b10)"><svg class="ikon"><use href="#i-ustdilim"/></svg>Bölüm 7</div>
   <h2>İlk 20 bini kim aldı?</h2>
   <p>Buraya kadarki bölümler <strong>programları</strong> saydı. Bu bölüm öğrenci tarafına
   bakıyor: sayısalda en iyi 20 bin adayın kaçı hangi bölüme gitti, dokuz yılda bu nasıl
   değişti?</p>
-  <p>Ölçüt bölüm 7'dekiyle aynı mantıkta ve yine <strong>alt sınır</strong>: taban başarı
+  <p>Ölçüt <a href="#tip">tıp bölümündekiyle</a> aynı mantıkta ve yine <strong>alt sınır</strong>: taban başarı
   sırası 20.000'den iyi olan programların yerleşen toplamı sayılıyor. Tabanı 20.000'den kötü
   programlardaki iyi sıralı öğrenciler bu sayıya girmiyor, o yüzden gerçek pay buradakinden
   yüksek olabilir. <strong>Yalnız sayısal</strong>, çünkü başarı sırası puan türü içinde
@@ -599,7 +621,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="tip">
-  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 7</div>
+  <div class="sb" style="--br:var(--b7)"><svg class="ikon"><use href="#i-tip"/></svg>Bölüm 8</div>
   <h2>Tıp: kontenjan ve ilk sıralar</h2>
   <p>Devlet üniversitelerinin tıp kontenjanı dokuz yılda büyüdü ama <strong>2024'ten beri
   yerinde sayıyor</strong>. Çizelgenin son satırı aynı yıl ekseninde <strong>100 bin kişiye
@@ -627,8 +649,57 @@ footer p{color:var(--ink-3);max-width:76ch}
   </div>
 </section>
 
+<section id="ogretmenlik">
+  <div class="sb" style="--br:var(--b13)"><svg class="ikon"><use href="#o-ogretmenlik"/></svg>Bölüm 9</div>
+  <h2>Öğretmenlik</h2>
+  <p>Öğretmenlik tek bir bölüm değil, <strong>dört ayrı puan türüne dağılmış</strong>
+  yirmi beş bölüm. Sınıf öğretmenliği eşit ağırlıktan, okul öncesi sözelden, ilköğretim
+  matematik sayısaldan, İngilizce öğretmenliği dil puanından öğrenci alıyor. Bu yüzden
+  çizelgeler puan türü türü veriliyor ve <strong>türler toplanmıyor</strong>: başarı sırası
+  puan türünün kendi içinde hesaplanıyor, sözelde 20.000. sıra ile sayısalda 20.000. sıra
+  aynı öğrenci değil.</p>
+  <p><strong>Dokuz yılda kontenjan 39.912'den 25.382'ye indi</strong>, üçte birinden çoğu
+  kesildi. Kesinti her türde aynı değil ve asıl kırılma sayısal tarafta: 2024'te sayısal
+  öğretmenlik programlarının doluluğu <strong>%51,6'ya</strong> düştü. Fen bilgisi
+  öğretmenliğinde doluluk 2023'te %87,1 iken 2024'te <strong>%29,6</strong>; kontenjan
+  o günden bugüne 2.763'ten 1.039'a inmesine karşın doluluk hâlâ %40,9.</p>
+  <div class="secim" id="s-ogretmenlik"></div>
+  <h3>Kontenjan nasıl değişti?</h3>
+  <div class="tw" id="t-ogretmenlik-kont"></div>
+  <p class="not" id="n-ogretmenlik-kont"></p>
+  <h3>Taban sıraları hangi banda düşüyor?</h3>
+  <p>Her hücre o yıl o bantta açılan <strong>koltuk sayısı</strong>, altındaki yüzde o
+  yılın toplamındaki payı. Bant, programın taban başarı sırasına göre veriliyor: bir
+  program &ldquo;ilk 1.000&rdquo; bandındaysa o programa girebilmek için sırasının
+  1.000'den iyi olması gerekiyordu.</p>
+  <div class="tw" id="t-ogretmenlik-bant"></div>
+  <p class="not" id="n-ogretmenlik-bant"></p>
+</section>
+
+<section id="temelbilim">
+  <div class="sb" style="--br:var(--b14)"><svg class="ikon"><use href="#o-temelbilim"/></svg>Bölüm 10</div>
+  <h2>Temel bilimler</h2>
+  <p>Matematik, fizik, kimya, biyoloji, istatistik ve yakın bölümler. Neredeyse tamamı
+  sayısal puan türünde, o yüzden tek çizelge yetiyor.</p>
+  <p><strong>Buradaki hikâye kontenjanda değil, kimin geldiğinde.</strong> Temel bilimlerin
+  kontenjanı dokuz yılda 15.716'dan 15.650'ye, yerinde saydı; doluluk da 2026'da %97,8.
+  Ama koltukların yarısından çoğu her yıl <strong>500 binden kötü sıralı</strong> adaylarla
+  doluyor. İlk 10.000 sıraya giren koltuk sayısı 2026'da 60 kişi, toplamın binde dördü.</p>
+  <div class="secim" id="s-temelbilim"></div>
+  <h3>Kontenjan nasıl değişti?</h3>
+  <div class="tw" id="t-temelbilim-kont"></div>
+  <p class="not" id="n-temelbilim-kont"></p>
+  <h3>Taban sıraları hangi banda düşüyor?</h3>
+  <p>Her hücre o yıl o bantta açılan <strong>koltuk sayısı</strong>, altındaki yüzde o
+  yılın toplamındaki payı. Bant, programın taban başarı sırasına göre veriliyor: bir
+  program &ldquo;ilk 1.000&rdquo; bandındaysa o programa girebilmek için sırasının
+  1.000'den iyi olması gerekiyordu.</p>
+  <div class="tw" id="t-temelbilim-bant"></div>
+  <p class="not" id="n-temelbilim-bant"></p>
+</section>
+
 <section id="harita">
-  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 8</div>
+  <div class="sb" style="--br:var(--b8)"><svg class="ikon"><use href="#i-harita"/></svg>Bölüm 11</div>
   <h2>Haritada: tıp kontenjanı ve hekim</h2>
   <p>Üç ayrı soru, aynı harita. <strong>Koltuk nerede</strong>,
   <strong>meslek sahibi nerede</strong>, ve nüfusa göre <strong>ne kadar.</strong>
@@ -665,7 +736,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="hukuk">
-  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Bölüm 9</div>
+  <div class="sb" style="--br:var(--b5)"><svg class="ikon"><use href="#o-hukuk"/></svg>Bölüm 12</div>
   <h2>Hukuk: avukat sayısı ve iş yükü</h2>
   <p>Avukatta eşitsizlik hekimdekinden sert. Ankara 100 binde 481, Muş 52, arada
   <strong>9,3 kat</strong> var; hekimde bu fark 3,8 katta kalıyor.</p>
@@ -713,7 +784,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="yetenek">
-  <div class="sb" style="--br:var(--b11)"><svg class="ikon"><use href="#i-ayrim"/></svg>Bölüm 10</div>
+  <div class="sb" style="--br:var(--b11)"><svg class="ikon"><use href="#i-ayrim"/></svg>Bölüm 13</div>
   <h2>Mühendis mi, avukat mı? 1991'de sorulmuş bir soru</h2>
   <p>Buraya kadarki bütün bölümler bir ülkenin gençlerinin nereye gittiğini ölçtü.
   Aynı soru iktisat alanyazınında da sorulmuş. Kevin Murphy, Andrei Shleifer ve Robert
@@ -755,7 +826,7 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p>İkinci boşluk daha büyük: <strong>tıp bu çerçevede hiç yok.</strong> Murphy,
   Shleifer ve Vishny'nin dünyasında iki kutu var, üretenler ve bölüşenler; hekim
   ikisine de girmiyor. Türkiye'de ise sayısalın tepesindeki her üç kişiden ikisi tıbba
-  gidiyor (bölüm 6). Bir ülkede en yetenekli gençlerin çoğunluğu ne mühendislik ne
+  gidiyor (<a href="#ilk20bin">ilk 20 bin bölümü</a>). Bir ülkede en yetenekli gençlerin çoğunluğu ne mühendislik ne
   hukuk seçiyorsa, bu iki oran o ülkenin yetenek dağılımını anlatmakta yetersiz kalır.
   Makalenin sorusu hâlâ yerinde duruyor; vekil ölçütü Türkiye için eksik.</p>
   <p class="not">Kaynak: Murphy, K. M., Shleifer, A., Vishny, R. W. (1991).
@@ -789,7 +860,7 @@ footer p{color:var(--ink-3);max-width:76ch}
 </section>
 
 <section id="yontem">
-  <div class="sb" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Bölüm 11</div>
+  <div class="sb" style="--br:var(--b9)"><svg class="ikon"><use href="#i-yontem"/></svg>Bölüm 14</div>
   <h2>Yöntem ve kaynaklar</h2>
   <p><strong>Kontenjan, yerleşen, taban puan.</strong> ÖSYM Tablo-4 merkezi yerleştirme
   sonuçları, 2018-2026. Doluluk = (genel + okul birinciliği yerleşen) / (genel + okul birinciliği
@@ -834,7 +905,7 @@ footer p{color:var(--ink-3);max-width:76ch}
   karşılaştırılamaz</strong>; sıra ölçütü bu yüzden kullanılıyor.</p>
   <p><strong>2021 sütunu ayrı okunmalı:</strong> tercih barajının (TYT 150 / AYT 180) son yılıydı,
   doluluk her yerde düşük.</p>
-  <p><strong>Mühendislik ve hukuk payları.</strong> Bölüm 10'daki iki oran, o yıl örgün
+  <p><strong>Mühendislik ve hukuk payları.</strong> Bu iki oran, o yıl örgün
   lisansa yerleşen toplam öğrenciye bölünüyor. Mühendislik, bölüm adında &ldquo;mühendis&rdquo;
   geçen bütün programlar (biyomühendislik ve Sabancı'nın bölünmemiş programı dahil); mimarlık
   dışarıda. Yapay zeka satırı bunun alt kümesi: yapay zeka mühendisliği, yapay zeka ve
@@ -1146,6 +1217,102 @@ function kartKur(on, adres){
   document.getElementById("on-" + on).src = adres;
 }
 
+/* ---------- 1 · genel tablo ---------- */
+function genelTablo(){
+  const d = D.genel, Y = d.yil, son = Y.length - 1;
+  const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+  // Bos hucre gercek bir bilgi: tercih yapan sayisi 2021'de yayimlanmadi, 2026'da henuz yok.
+  const sat = (ad, dizi, bicim, sinif) => `<tr class="${sinif || ""}"><th>${ad}</th>`
+    + dizi.map(v => `<td>${v === null ? "–" : bicim(v)}</td>`).join("") + "</tr>";
+  const yuzde = v => "%" + vg(v);
+  document.getElementById("t-genel").innerHTML = `<table>${bas}<tbody>`
+    + sat("Sınava giren aday", d.sinava_giren, tr, "ana")
+    + sat("Tercih yapan aday", d.tercih_yapan, tr)
+    + sat("Lisans kontenjanı", d.lisans_kont, tr, "ayrik")
+    + sat("Lisans yerleşen", d.lisans_yer, tr)
+    + sat("Lisans boş kalan", d.lisans_bos, tr)
+    + sat("Lisans doluluğu", d.lisans_doluluk, yuzde)
+    + sat("Önlisans kontenjanı", d.onlisans_kont, tr, "ayrik")
+    + sat("Önlisans yerleşen", d.onlisans_yer, tr)
+    + sat("Önlisans doluluğu", d.onlisans_doluluk, yuzde)
+    + sat("Açıköğretim yerleşen", d.acik_yer, tr, "ayrik")
+    + sat("Toplam yerleşen", d.toplam_yer, tr, "ana ayrik")
+    + sat("Yerleşenin sınava girene oranı", d.yerlesme_orani, yuzde)
+    + "</tbody></table>";
+  const kat = (a) => vg(a[son] / a[0], 2);
+  document.getElementById("n-genel").innerHTML =
+    `Sınava giren sayısı ${Y[0]}'de ${tr(d.sinava_giren[0])}, ${Y[son]}'da `
+    + `${tr(d.sinava_giren[son])} kişi: ${kat(d.sinava_giren)} kat. Aynı dönemde lisans `
+    + `kontenjanı ${kat(d.lisans_kont)} kat, önlisans kontenjanı `
+    + `${kat(d.onlisans_kont)} kat oldu; lisans doluluğu %${vg(d.lisans_doluluk[0])} iken `
+    + `%${vg(d.lisans_doluluk[son])}. <strong>Ölçüt sınavı geçerli sayılan aday.</strong> `
+    + "Tercih yapan sayısı 2021'de yayımlanmadı, 2026'nınki henüz gelmedi. Doluluk "
+    + "(genel + okul birinciliği yerleşen) / (genel + okul birinciliği kontenjan); boş "
+    + "kontenjan program program hesaplanıp toplanıyor. Açıköğretim ve uzaktan öğretim "
+    + "örgün satırların dışında, ayrı veriliyor. 2018-2021 arasındaki düşük doluluğun "
+    + "sebebi tercih barajı (TYT 150 / AYT 180), 2022'de kaldırıldı.";
+}
+
+/* ---------- 9-10 · bölüm grubu: kontenjan ve bant dağılımı ---------- */
+const PT_AD = {"SAY": "Sayısal", "SÖZ": "Sözel", "EA": "Eşit ağırlık", "DİL": "Dil",
+               "TYT": "TYT"};
+
+function bantGrubu(anahtar){
+  const d = D[anahtar], Y = d.yil, son = Y.length - 1;
+  const bas = et => "<thead><tr><th>" + et + "</th>"
+    + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+
+  const ciz = c => {
+    // Kontenjan cizelgesi: bolum bolum, 2026'ya gore sirali. Doluluk hucrenin ustune
+    // gelince cikiyor; ayri sutun acmak dokuz yillik cizelgeyi iki katina cikarirdi.
+    const kg = c.bolum.map(r => `<tr><th>${esc(r.bolum)}</th>`
+      + r.kontenjan.map((v, i) => `<td title="doluluk %${vg(r.doluluk[i])}">${v ? tr(v) : "–"}</td>`)
+          .join("") + "</tr>").join("");
+    document.getElementById("t-" + anahtar + "-kont").innerHTML =
+      `<table>${bas("Bölüm")}<tbody>${kg}`
+      + '<tr class="ana ayrik"><th>Toplam</th>'
+      + c.toplam.map(v => `<td>${tr(v)}</td>`).join("") + "</tr></tbody></table>";
+    document.getElementById("n-" + anahtar + "-kont").innerHTML =
+      `${esc(PT_AD[c.pt] || c.pt)} puan türündeki programlar. Kontenjan genel ve okul `
+      + `birinciliği toplamı. Hücrenin üzerine gelince o yılın doluluğu çıkıyor. `
+      + `Toplam ${Y[0]}'de ${tr(c.toplam[0])}, ${Y[son]}'da ${tr(c.toplam[son])} koltuk.`;
+
+    // Bant cizelgesi: satir bant, hucre koltuk + o yilin payi. Isi rengi payla orantili.
+    const bg = c.bant.map(b => `<tr><th>${esc(b.ad)}</th>`
+      + b.kontenjan.map((v, i) => {
+          const pay = c.toplam[i] ? v / c.toplam[i] : 0;
+          const a = Math.round(Math.sqrt(pay) * 62);
+          return `<td style="background:color-mix(in srgb, var(--vurgu) ${a}%, transparent)"
+            title="${b.program[i]} program">${v ? tr(v) : "–"}`
+            + (v ? `<br><span class="alt">%${vg(100 * pay)}</span>` : "") + "</td>";
+        }).join("") + "</tr>").join("");
+    document.getElementById("t-" + anahtar + "-bant").innerHTML =
+      `<table>${bas("Taban sırası")}<tbody>${bg}`
+      + '<tr class="ana ayrik"><th>Toplam</th>'
+      + c.toplam.map(v => `<td>${tr(v)}</td>`).join("") + "</tr></tbody></table>";
+
+    const yok = c.bant[c.bant.length - 1];
+    const ust = c.bant.slice(0, 3).map(b => b.kontenjan);
+    const ilk10 = i => ust.reduce((t, k) => t + k[i], 0);
+    document.getElementById("n-" + anahtar + "-bant").innerHTML =
+      `<strong>&ldquo;Sırası yok&rdquo; eksik veri değil:</strong> ÖSYM tamamı dolmayan `
+      + `programa taban başarı sırası atamıyor, o koltuklar bu satırda toplanıyor. `
+      + `${Y[son]} yılında ${tr(yok.kontenjan[son])} koltuk `
+      + `(%${vg(100 * yok.kontenjan[son] / c.toplam[son])}) böyle. `
+      + `İlk 10.000 sıraya giren koltuk ${Y[0]}'de ${tr(ilk10(0))}, ${Y[son]}'da `
+      + `${tr(ilk10(son))}. <strong>Bantlar puan türleri arasında karşılaştırılamaz</strong>, `
+      + "çünkü başarı sırası puan türünün kendi içinde hesaplanıyor. 2018-2021 sütunlarında "
+      + "alt bantlar boş görünüyor: o yıllarda tercih barajı vardı (TYT 150 / AYT 180) ve "
+      + "baraj altındaki aday tercih yapamadığı için taban sıraları belirli bir noktadan "
+      + "sonrasına inemiyordu.";
+  };
+
+  const kap = document.getElementById("s-" + anahtar);
+  dugmeler(kap, d.pt.map(c => Object.assign({baslik: PT_AD[c.pt] || c.pt}, c)), ciz);
+  // Tek puan turu varsa dugme dizisi bilgi tasimiyor.
+  if(d.pt.length < 2) kap.style.display = "none";
+}
+
 /* ---------- 10 · yetenek tahsisi ---------- */
 function yetenek(){
   const d = D.yetenek, Y = d.yil, M = d.msv, son = Y.length - 1;
@@ -1173,7 +1340,7 @@ function yetenek(){
     + "buradaki sayı o yıl yerleşen akış. Mimarlık mühendisliğe katılmadı, UNESCO ayrı "
     + "alan sayıyor. Yapay zeka satırı mühendislik satırının İÇİNDE, adı "
     + "&ldquo;mühendisliği&rdquo; ile biten yapay zeka ve veri programları; toplama iki "
-    + "kez girmiyor. Son satır bölüm 6'daki banttan geliyor, paydası öteki üçünden farklı.";
+    + "kez girmiyor. Son satır ilk 20 bin bandından geliyor, paydası öteki üçünden farklı.";
   document.getElementById("y-sonuc").innerHTML =
     "<strong>Türkiye bu ölçütte mühendislik tarafında duruyor ve dokuz yılda biraz "
     + `daha o tarafa kaydı.</strong> Mühendisliğin payı ${Y[0]}'de %${vg(d.muh_pay[0], 2)} `
@@ -1182,7 +1349,7 @@ function yetenek(){
     + `${vg(d.huk_pay[son] / d.huk_pay[0])} kat. Önlisansı da katan paydayla ${Y[son]} `
     + `mühendislik oranı %${vg(d.muh_pay_orgun[son])}, makalenin ülke ortancasına yakın; `
     + `hukuk oranı ise %${vg(d.huk_pay_orgun[son])} ile o ortancanın epeyce altında. `
-    + "Hukuk tarafındaki kontenjan kısıntısı bölüm 9'da.";
+    + "Hukuk tarafındaki kontenjan kısıntısı hukuk bölümünde.";
   const ilkYz = d.yz.findIndex(v => v > 0);
   document.getElementById("y-yz").innerHTML =
     "<strong>Mühendislik satırının içinde yepyeni bir alt küme var.</strong> Yapay zeka "
@@ -1326,7 +1493,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=bbd155aeef";
+const SURUM = "?v=dd412a720e";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
@@ -1342,7 +1509,7 @@ async function basla(){
   YIL = D.yil;
   const o = await (await fetch("veri/ozet.json" + surum)).json();
   document.getElementById("ozet").innerHTML = [
-    ["Lisans programı", tr(o.program)],
+    ["Örgün lisans programı", tr(o.program)],
     ["2026 kontenjanı", tr(o.kontenjan)],
     ["Yerleşen", tr(o.yerlesen)],
     ["Doluluk", "%" + vg(o.doluluk)],
@@ -1375,6 +1542,9 @@ async function basla(){
            o => haritaCiz(o, "harita"));
   ilk20bin();
   yetenek();
+  genelTablo();
+  bantGrubu("ogretmenlik");
+  bantGrubu("temelbilim");
   hukukSeri();
 
   // Ilk yuklemede adres cubugunda #bolum varsa tarayici cizelgeler kurulmadan zipliyor
