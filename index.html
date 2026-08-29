@@ -1480,7 +1480,10 @@ const NOKTA_ADIM = [1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000, 100000,
 function noktaEksen(enb){
   const adim = NOKTA_ADIM.find(a => enb / a <= 7) || NOKTA_ADIM[NOKTA_ADIM.length - 1];
   const ust = Math.ceil(enb / adim) * adim;      // eksenin alt ucu (en kötü sıra)
-  const isaret = [];
+  // SIFIR DA ISARETLENIYOR. Eksen sifirdan basliyor ama tepesinde cizgi ve etiket
+  // olmayinca olcegin nerede basladigi gorunmuyordu; en ustteki noktalarin hangi
+  // siraya denk geldigi okunamiyordu.
+  const isaret = [0];
   for(let v = adim; v <= ust; v += adim) isaret.push(v);
   return {ust, isaret};
 }
@@ -1508,9 +1511,10 @@ function noktaCiz(kap, b, uni, Y, renk){
   }
   Y.forEach((yil, i) => {
     g += `<text class="yil" x="${xx(i)}" y="${G.boy - 26}">${yil}</text>`;
+    // Etiket KISA: "4 program dolmadı" sütun genişliğini aşıp komşusuna giriyordu.
+    // Ne demek olduğu çizelgenin altındaki notta yazılı.
     if(b.yok[i]) g += `<text class="yok" x="${xx(i)}" y="${G.boy - 8}">`
-      + `${b.yok[i]} programın sırası yok</text>`.replace(" programın sırası yok",
-          b.yok[i] === 1 ? " program dolmadı" : " program dolmadı");
+      + `${b.yok[i]} dolmadı</text>`;
   });
   // Noktalar: buyukleri altta kalsin diye once buyukten kucuge ciziliyor.
   Y.forEach((yil, i) => {
@@ -1567,7 +1571,8 @@ function noktaGrafik(anahtar, renk){
       + `${o1 === null ? "yok" : tr(o1)}. <strong>Dikey eksen doğrusal</strong>, `
       + "sıfırdan başlıyor ve yukarı çıkmak daha iyi sıra demek. Kalın çizgi o yılın "
       + "ortancası. <strong>Dolmayan programlar grafikte yok</strong>, ÖSYM onlara sıra "
-      + "atamıyor; sayıları yılın altında yazılı.";
+      + "atamıyor; yılın altındaki &ldquo;n dolmadı&rdquo; o yıl tamamı dolmayan ve bu "
+      + "yüzden çizilemeyen program sayısı.";
   };
   sec.querySelector("select").onchange = e => ciz(+e.target.value);
   ciz(0);
