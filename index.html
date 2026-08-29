@@ -227,6 +227,12 @@ svg.nokta circle{fill:var(--h);fill-opacity:.42;stroke:var(--h);stroke-opacity:.
   stroke-width:.6}
 svg.nokta circle:hover{fill-opacity:.95;stroke:var(--ink);stroke-width:1.2}
 svg.nokta .orta{fill:none;stroke:var(--h);stroke-width:2.4;stroke-linejoin:round}
+svg.nokta .kesikli{stroke:var(--rule);stroke-width:1;stroke-dasharray:5 4}
+svg.nokta .bantet{font-size:13px;fill:var(--ink-3)}
+svg.nokta g.seri{--h:var(--k)}
+svg.nokta g.seri circle{fill:var(--k);stroke:var(--k)}
+svg.nokta g.seri .orta{stroke:var(--k)}
+svg.nokta g.seri .ortan{fill:var(--k)}
 svg.nokta .ortan{fill:var(--h);stroke:var(--card);stroke-width:1.6}
 @media(max-width:900px){svg.nokta{min-width:840px}}
 .kaydir{display:none;font-size:12.5px;color:var(--ink-3);margin:14px 0 0}
@@ -749,6 +755,16 @@ footer p{color:var(--ink-3);max-width:76ch}
   <p class="kaydir">Grafik geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
   <div class="grafik" id="g-temelbilim"></div>
   <p class="not" id="n-temelbilim-nokta"></p>
+
+  <h3>Dört temel bilim yan yana</h3>
+  <p>Aynı gösterim, bu kez dört bölüm tek eksende ve ayrı renklerde: matematik, fizik,
+  kimya ve biyoloji. Her yılın içinde dört bulut yan yana duruyor, kalın çizgiler o
+  bölümün o yıldaki ortancası. <strong>Biyoloji tarafı birleşik</strong>: moleküler
+  biyoloji ve genetik, biyokimya, biyoteknoloji ve moleküler biyoteknoloji tek seride.</p>
+  <div class="efsane" id="e-dortlu"></div>
+  <p class="kaydir">Grafik geniş, dar ekranda yana kaydırarak tamamını görebilirsiniz.</p>
+  <div class="grafik" id="g-dortlu"></div>
+  <p class="not" id="n-dortlu"></p>
 </section>
 
 <section id="harita">
@@ -1548,6 +1564,110 @@ function noktaGrafik(anahtar, renk){
   ciz(0);
 }
 
+/* ---------- dört temel bilim tek grafikte ---------- */
+// Ayni eksen mantigi (log, yukari = daha iyi), tek fark seriler. Yil sutunu dorde
+// bolunuyor: seriler ust uste binerse hangi bulutun nerede oldugu okunmuyor. Yan yana
+// koyunca hem her bulut kendi icinde okunuyor hem de dort ortanca cizgisi kiyaslanabiliyor.
+const DORTLU_RENK = ["--b1", "--b3", "--b6", "--b5"];
+
+function noktaDortlu(){
+  const seri = N.karsilastirma, Y = N.yil, uni = N.grup.temelbilim.uni;
+  const G = {en: 1000, boy: 470, sol: 96, sag: 16, ust: 22, alt: 56, bant: 34};
+  const hepsi = seri.flatMap(x => x.yil.flat());
+  const sirali = hepsi.map(x => x[0]).sort((a, c) => a - c);
+  // EKSEN 2. PERSENTILDE KESILIYOR. Noktalarin %3'ü 20.000'den iyi sirada ve eksenin
+  // 2,5 ondalik basamagini tek basina tutuyor; ortadaki yarim 0,37 basamaga siksiyor.
+  // Kesim noktasindan daha iyi siradaki programlar en ustteki ayri bantta toplaniyor,
+  // sayilari notta yazili. Nokta atilmiyor, yalnizca yeri degisiyor.
+  const kesik = sirali[Math.floor(sirali.length * 0.02)];
+  const enb = sirali[sirali.length - 1];
+  const l0 = Math.log10(kesik), l1 = Math.log10(enb) + 0.06;
+  const ustKenar = G.ust + G.bant;
+  const yy = v => v < kesik ? G.ust + 14
+    : ustKenar + (Math.log10(v) - l0) / (l1 - l0) * (G.boy - ustKenar - G.alt);
+  const gen = (G.en - G.sol - G.sag) / Y.length;
+  const xx = i => G.sol + (i + 0.5) * gen;
+  const enKont = Math.max(...hepsi.map(x => x[1])) || 1;
+  // Seri k'nin sutun icindeki yeri; jitter dar tutuldu, dort bulut karismasin.
+  const kaydir = k => (k - (seri.length - 1) / 2) * gen * 0.215;
+  const cirp = (j, n) => (((j * 0.6180339887) % 1) - 0.5) * gen * (n > 6 ? 0.17 : 0.08);
+
+  let g = "";
+  for(const v of NOKTA_ISARET){
+    if(v < kesik || Math.log10(v) > l1) continue;
+    const y = yy(v);
+    g += `<line class="izgara" x1="${G.sol}" y1="${y}" x2="${G.en - G.sag}" y2="${y}"/>`
+      + `<text class="eks" x="${G.sol - 10}" y="${y}">${tr(v)}</text>`;
+  }
+  // Bandin alt siniri kesikli cizgi; ustunde kalan noktalarin gercek yeri daha yukarida.
+  g += `<line class="kesikli" x1="${G.sol}" y1="${ustKenar - 4}" x2="${G.en - G.sag}"`
+    + ` y2="${ustKenar - 4}"/>`
+    + `<text class="eks" x="${G.sol - 10}" y="${G.ust + 14}">${tr(kesik)}</text>`
+    + `<text class="bantet" x="${G.sol + 6}" y="${G.ust + 2}">`
+    + `${tr(kesik)} ve daha iyi sıradakiler (ölçek dışı)</text>`;
+  Y.forEach((yil, i) =>
+    g += `<text class="yil" x="${xx(i)}" y="${G.boy - 30}">${yil}</text>`);
+
+  seri.forEach((sr, k) => {
+    let p = "";
+    Y.forEach((yil, i) => {
+      const n = sr.yil[i].length;
+      sr.yil[i].map((x, j) => ({x, j})).sort((a, c) => c.x[1] - a.x[1]).forEach(({x, j}) => {
+        const r = Math.min(7, 1.7 + 2.9 * Math.sqrt(x[1] / enKont));
+        p += `<circle cx="${(xx(i) + kaydir(k) + cirp(j, n)).toFixed(1)}"`
+          + ` cy="${yy(x[0]).toFixed(1)}" r="${r.toFixed(1)}">`
+          + `<title>${esc(sr.ad)} · ${esc(uni[x[2]])} · ${yil}`
+          + `\nsıra ${tr(x[0])} · kontenjan ${tr(x[1])}</title></circle>`;
+      });
+    });
+    const ort = [];
+    Y.forEach((yil, i) => {
+      const v = sr.yil[i].map(x => x[0]).sort((a, c) => a - c);
+      if(v.length) ort.push([i, v.length % 2 ? v[(v.length - 1) / 2]
+        : (v[v.length / 2 - 1] + v[v.length / 2]) / 2]);
+    });
+    if(ort.length > 1)
+      p += `<polyline class="orta" points="${ort.map(([i, v]) =>
+        (xx(i) + kaydir(k)).toFixed(1) + "," + yy(v).toFixed(1)).join(" ")}"/>`;
+    ort.forEach(([i, v]) =>
+      p += `<circle class="ortan" cx="${(xx(i) + kaydir(k)).toFixed(1)}"`
+        + ` cy="${yy(v).toFixed(1)}" r="4.2"><title>${esc(sr.ad)} ${Y[i]} ortanca sıra: `
+        + `${tr(Math.round(v))}</title></circle>`);
+    g += `<g class="seri" style="--k:var(${DORTLU_RENK[k]})">${p}</g>`;
+  });
+
+  document.getElementById("g-dortlu").innerHTML =
+    `<svg class="nokta" viewBox="0 0 ${G.en} ${G.boy}" role="img">${g}</svg>`;
+  document.getElementById("e-dortlu").innerHTML = seri.map((sr, k) =>
+    `<span><b style="color:var(${DORTLU_RENK[k]})">&#9679;</b> ${esc(sr.ad)}</span>`
+  ).join("");
+
+  const son = Y.length - 1;
+  const ortanca = (sr, j) => {
+    const v = sr.yil[j].map(x => x[0]).sort((a, c) => a - c);
+    return v.length ? (v.length % 2 ? v[(v.length - 1) / 2]
+      : Math.round((v[v.length / 2 - 1] + v[v.length / 2]) / 2)) : null;
+  };
+  const dizi = seri.map(sr => ({ad: sr.ad, ilk: ortanca(sr, 0), son: ortanca(sr, son),
+                                kont: sr.kont[son]}));
+  const bantta = hepsi.filter(x => x[0] < kesik).length;
+  const iyi = dizi.slice().sort((a, b) => a.son - b.son)[0];
+  document.getElementById("n-dortlu").innerHTML =
+    `${Y[son]} ortanca taban sıraları: `
+    + dizi.map(x => `${esc(x.ad)} ${tr(x.son)}`).join(" · ")
+    + `. Dördü içinde en iyi ortanca ${esc(iyi.ad)} tarafında. `
+    + `${Y[0]} yılındaki değerler sırasıyla `
+    + dizi.map(x => `${esc(x.ad)} ${x.ilk === null ? "yok" : tr(x.ilk)}`).join(" · ")
+    + `. ${Y[son]} kontenjanları: `
+    + dizi.map(x => `${esc(x.ad)} ${tr(x.kont)}`).join(" · ")
+    + `. Eksen ${tr(kesik)}. sırada kesildi: noktaların %${vg(100 * bantta / hepsi.length)} `
+    + `kadarı (${tr(bantta)} program) bundan daha iyi sırada ve eksenin çok büyük bir `
+    + "kısmını tek başına tutuyordu; onlar en üstteki ayrı bantta toplandı, kaldırılmadı. "
+    + "Noktalar yıl içinde bölüme göre yan yana dizildi, dikey konum sırayı veriyor. "
+    + "Biyoloji serisi altı ayrı program adını topluyor; matematik yalnız "
+    + "&ldquo;Matematik&rdquo;, matematik-bilgisayar programları ayrı bölüm sayıldı.";
+}
+
 /* ---------- 9-10 · bölüm grubu: kontenjan ve bant dağılımı ---------- */
 const PT_AD = {"SAY": "Sayısal", "SÖZ": "Sözel", "EA": "Eşit ağırlık", "DİL": "Dil",
                "TYT": "TYT"};
@@ -1788,7 +1908,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=ba00720bb6";
+const SURUM = "?v=3a9b4579d3";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
@@ -1845,6 +1965,7 @@ async function basla(){
   bantGrubu("temelbilim");
   noktaGrafik("ogretmenlik", "--b13");
   noktaGrafik("temelbilim", "--b14");
+  noktaDortlu();
   hukukSeri();
 
   // Ilk yuklemede adres cubugunda #bolum varsa tarayici cizelgeler kurulmadan zipliyor
