@@ -489,8 +489,9 @@ footer p{color:var(--ink-3);max-width:76ch}
   tarafında böyle bir tepe yok, 2023'ten sonra kesintisiz daralıyor. Sayfadaki
   &ldquo;sıralar iyileşti&rdquo; bulgularının arkasındaki ilk mekanizma bu makas.</p>
   <p>Satırlar kendi içinde renklendirildi ki hareket sayıya bakmadan da görünsün: koyu
-  hücre o satırın büyük değeri. Renk satır içinde ölçekli, satırlar birbiriyle
-  karşılaştırılamaz.</p>
+  hücre o satırın büyük değeri. <strong>Renk ailesi öbeği ayırıyor</strong>, aday tarafı
+  mavi, lisans mor, önlisans yeşil, toplamlar hardal. Koyuluk satır içinde ölçekli;
+  iki satırın koyuluğu birbiriyle karşılaştırılamaz.</p>
   <div class="tw" id="t-genel"></div>
   <p class="not" id="n-genel"></p>
 </section>
@@ -1241,26 +1242,31 @@ function genelTablo(){
     return x => (x === null || enb === enk) ? 0
       : Math.round((6 + 52 * ((x - enk) / (enb - enk))) * yogun);
   };
-  const sat = (ad, dizi, bicim, sinif) => {
+  // Her obek ayri renk: aday / lisans / onlisans / toplam. Renk obegi ayirir, koyuluk
+  // satir icindeki buyuklugu gosterir. Blok blok renk ayrimi ayni zamanda bir uyari:
+  // renk satir icinde olcekli oldugu icin iki satirin koyulugu karsilastirilamaz,
+  // farkli renkler gozu bu karsilastirmadan alikoyuyor. Degiskenler sayfanin kendi
+  // paletinden, tema degisince renkler de kendiliginden donuyor.
+  const sat = (ad, dizi, bicim, sinif, renk) => {
     const a = isi(dizi);
-    return `<tr class="${sinif || ""}"><th>${ad}</th>`
-      + dizi.map(v => `<td style="background:color-mix(in srgb, var(--vurgu) ${a(v)}%,`
+    return `<tr class="${sinif || ""}" style="--h:var(${renk})"><th>${ad}</th>`
+      + dizi.map(v => `<td style="background:color-mix(in srgb, var(--h) ${a(v)}%,`
           + ` transparent)">${v === null ? "–" : bicim(v)}</td>`).join("") + "</tr>";
   };
   const yuzde = v => "%" + vg(v);
   document.getElementById("t-genel").innerHTML = `<table>${bas}<tbody>`
-    + sat("Sınava giren aday", d.sinava_giren, tr, "ana")
-    + sat("Tercih yapan aday", d.tercih_yapan, tr)
-    + sat("Lisans kontenjanı", d.lisans_kont, tr, "ayrik")
-    + sat("Lisans yerleşen", d.lisans_yer, tr)
-    + sat("Lisans boş kalan", d.lisans_bos, tr)
-    + sat("Lisans doluluğu", d.lisans_doluluk, yuzde)
-    + sat("Önlisans kontenjanı", d.onlisans_kont, tr, "ayrik")
-    + sat("Önlisans yerleşen", d.onlisans_yer, tr)
-    + sat("Önlisans doluluğu", d.onlisans_doluluk, yuzde)
-    + sat("Açıköğretim yerleşen", d.acik_yer, tr, "ayrik")
-    + sat("Toplam yerleşen", d.toplam_yer, tr, "ana ayrik")
-    + sat("Yerleşenin sınava girene oranı", d.yerlesme_orani, yuzde)
+    + sat("Sınava giren aday", d.sinava_giren, tr, "ana", "--b3")
+    + sat("Tercih yapan aday", d.tercih_yapan, tr, "", "--b3")
+    + sat("Lisans kontenjanı", d.lisans_kont, tr, "ayrik", "--vurgu")
+    + sat("Lisans yerleşen", d.lisans_yer, tr, "", "--vurgu")
+    + sat("Lisans boş kalan", d.lisans_bos, tr, "", "--vurgu")
+    + sat("Lisans doluluğu", d.lisans_doluluk, yuzde, "", "--vurgu")
+    + sat("Önlisans kontenjanı", d.onlisans_kont, tr, "ayrik", "--b6")
+    + sat("Önlisans yerleşen", d.onlisans_yer, tr, "", "--b6")
+    + sat("Önlisans doluluğu", d.onlisans_doluluk, yuzde, "", "--b6")
+    + sat("Açıköğretim yerleşen", d.acik_yer, tr, "ayrik", "--b2")
+    + sat("Toplam yerleşen", d.toplam_yer, tr, "ana ayrik", "--b2")
+    + sat("Yerleşenin sınava girene oranı", d.yerlesme_orani, yuzde, "", "--b2")
     + "</tbody></table>";
   const kat = (a) => vg(a[son] / a[0], 2);
   // Zirve veriden bulunuyor: iki ucu yazip gecmek seriyi duz gosteriyordu.
@@ -1278,7 +1284,9 @@ function genelTablo(){
     + "kontenjan program program hesaplanıp toplanıyor. Açıköğretim ve uzaktan öğretim "
     + "örgün satırların dışında, ayrı veriliyor. <strong>Renk satırın kendi içinde "
     + "ölçekli:</strong> her satır kendi en küçüğü ile en büyüğü arasında boyanıyor, koyu "
-    + "= büyük. Satırlar birbiriyle karşılaştırılamaz; buna karşılık az oynayan bir "
+    + "= büyük, <strong>renk öbeği gösteriyor</strong>: mavi aday tarafı, mor lisans, "
+    + "yeşil önlisans, hardal toplam. Satırlar birbiriyle karşılaştırılamaz; buna "
+    + "karşılık az oynayan bir "
     + "satır soluk, çok oynayan koyu çıkıyor, çünkü yoğunluk satırın gerçek "
     + "yayılımıyla da orantılı. 2018-2021 arasındaki düşük doluluğun "
     + "sebebi tercih barajı (TYT 150 / AYT 180), 2022'de kaldırıldı.";
