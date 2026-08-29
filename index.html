@@ -510,6 +510,9 @@ footer p{color:var(--ink-3);max-width:76ch}
   da düştü. Sayılar çizelgenin altında.</p>
   <div class="tw" id="t-dgs"></div>
   <p class="not" id="n-dgs"></p>
+  <p id="y-sifir"></p>
+  <div class="tw" id="t-sifir"></div>
+  <p class="not" id="n-sifir"></p>
 </section>
 
 <section id="ilk100">
@@ -925,8 +928,9 @@ footer p{color:var(--ink-3);max-width:76ch}
   karşılaştırılamaz</strong>; sıra ölçütü bu yüzden kullanılıyor.</p>
   <p><strong>2021 sütunu ayrı okunmalı:</strong> tercih barajının (TYT 150 / AYT 180) son yılıydı,
   doluluk her yerde düşük.</p>
-  <p><strong>Dikey geçiş.</strong> ÖSYM'nin DGS yerleştirme sonuçlarından, 2018-2025.
-  Sayılar program düzeyindeki listeden toplanıyor; devlet ve vakıf ayrımı program
+  <p><strong>Dikey geçiş.</strong> 2018-2025 ÖSYM'nin DGS yerleştirme sonuçlarından,
+  2026 sütunu tercih kılavuzunun Tablo-1'inden (yalnız kontenjan; yerleştirme henüz
+  yapılmadı). Sayılar program düzeyindeki listeden toplanıyor; devlet ve vakıf ayrımı program
   kodunun ilk hanesinden geliyor, ÖSYM'nin özet tablosunda bu ayrım yok. Üç grubun
   (örgün, uzaktan, açıköğretim) toplamı her yıl ÖSYM'nin kendi özetiyle karşılaştırılıyor.
   <strong>İkinci öğretim örgünün içinde</strong>; ÖSYM 2018-2023'te ayrı satırda veriyordu,
@@ -1347,8 +1351,11 @@ function turTablo(){
 }
 
 function dgsTablo(){
-  const d = D.dgs, Y = d.yil, i = d.orgun_kont.findIndex(v => v === null);
-  const s0 = 0, s1 = (i < 0 ? Y.length : i) - 1;   // dolu son yıl
+  const d = D.dgs, Y = d.yil;
+  // Iki ayri "son yil" var: kontenjan 2026 kilavuzundan geliyor, yerlesen yalniz
+  // yerlestirmesi yapilmis yillarda. Cumleler hangisinden konusuyorsa onu kullaniyor.
+  const sk = d.orgun_kont.reduce((a, v, j) => v === null ? a : j, 0);
+  const s0 = 0, s1 = d.orgun_yer.reduce((a, v, j) => v === null ? a : j, 0);
   const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
   const sat = genelSatir();
   const yuzde = v => "%" + vg(v);
@@ -1372,16 +1379,48 @@ function dgsTablo(){
     + `${Y[s1]} yılında ${tr(d.tercih_yapan[s1])}: zirvenin `
     + `${vg(d.tercih_yapan[s1] / enb, 2)} katı. Örgün doluluk `
     + `%${vg(d.orgun_doluluk[s0])} iken %${vg(d.orgun_doluluk[s1])}. `
-    + `<strong>${Y[s1] + 1} sütunu boş:</strong> dikey geçiş yerleştirmesi yükseköğretim `
-    + "yerleştirmesinden sonra yapılıyor, sonuçları henüz yayımlanmadı. "
-    + `Örgün kontenjan ${Y[s0]}'de ${tr(d.orgun_kont[s0])}, ${Y[s1]}'te `
-    + `${tr(d.orgun_kont[s1])}; yerleşen ${tr(d.orgun_yer[s0])}'den `
+    + `<strong>${Y[sk]} sütununda yalnız kontenjan var:</strong> dikey geçiş `
+    + "yerleştirmesi yükseköğretim yerleştirmesinden sonra yapılıyor, sonuçları henüz "
+    + "yayımlanmadı; o sütunun sayısı tercih kılavuzundan. "
+    + `Örgün kontenjan ${Y[s0]}'de ${tr(d.orgun_kont[s0])}, ${Y[sk]}'da `
+    + `${tr(d.orgun_kont[sk])}; yerleşen ${tr(d.orgun_yer[s0])}'den `
     + `${tr(d.orgun_yer[s1])}'e indi. Açıköğretim kontenjanı ${tr(d.acik_kont[s0])}'den `
-    + `${tr(d.acik_kont[s1])}'e, dikey geçişin en büyük kalemi hâlâ orası. `
+    + `${tr(d.acik_kont[sk])}'e, dikey geçişin en büyük kalemi hâlâ orası. `
     + "<strong>İkinci öğretim örgünün içinde sayıldı</strong> (2024'ten sonra ayrı "
     + "kalem olmaktan çıktı, ayrı tutulsa seride yapay bir düşüş olurdu). Sayılar "
     + "ÖSYM'nin program düzeyindeki DGS yerleştirme listesinden; üç grubun toplamı "
     + "her yıl ÖSYM'nin kendi özet tablosuyla karşılaştırılıyor.";
+
+  // 2026 kilavuzunda hic gorunmeyen universiteler. Sifir yazan satir degil, satirin
+  // KENDISI yok: o kurumlarin adi da program kodu da kilavuzda gecmiyor.
+  const sf = d.sifir;
+  document.getElementById("y-sifir").innerHTML =
+    `<strong>${Y[sk]} kılavuzunda ${sf.length} üniversitenin dikey geçiş kontenjanı `
+    + "tamamen kalktı.</strong> Bunlar kılavuzda sıfır yazan satırlar değil; o "
+    + "üniversitelerin adı da program kodu da kılavuzda hiç geçmiyor. Kontenjanı en "
+    + `çok kalkanlar: ${sf.slice(0, 4).map(x => esc(x.universite)).join(", ")}.`;
+  document.getElementById("t-sifir").innerHTML =
+    `<table><thead><tr><th>Üniversite</th><th>${Y[s1]}</th><th>${Y[sk]}</th></tr></thead>`
+    + "<tbody>" + sf.map(x =>
+        `<tr><th>${esc(x.universite)}</th><td>${tr(x.kont_2025)}</td>`
+        + '<td style="color:var(--kotu);font-weight:600">0</td></tr>').join("")
+    + '<tr class="ana ayrik"><th>Toplam</th>'
+    + `<td>${tr(sf.reduce((t, x) => t + x.kont_2025, 0))}</td>`
+    + '<td style="color:var(--kotu);font-weight:600">0</td></tr>'
+    + "</tbody></table>";
+  // Veriden gelen sayiya Turkce ek getirilmiyor: ek son rakamin okunusuna gore degisiyor
+  // (14.196 -> 'ya, 5.440 -> 'a) ve sayi her yil degisiyor. Cumleler eksiz kuruldu.
+  const kayip = sf.reduce((t, x) => t + x.kont_2025, 0);
+  const kesinti = d.orgun_kont[s1] - d.orgun_kont[sk];
+  document.getElementById("n-sifir").innerHTML =
+    `Kaybolan koltuk toplamı ${tr(kayip)}. Örgün dikey geçiş kontenjanı aynı dönemde `
+    + `${tr(d.orgun_kont[s1])} koltuktan ${tr(d.orgun_kont[sk])} koltuğa indi, `
+    + `${tr(kesinti)} koltukluk kesinti. Bunun ${tr(kayip)} koltuğu, kesintinin `
+    + `yaklaşık %${vg(100 * kayip / kesinti, 0)} kadarı, yalnız bu ${sf.length} `
+    + "kurumdan geliyor. "
+    + `Devlet tarafında ${tr(d.devlet_kont[s1])} koltuk ${tr(d.devlet_kont[sk])} oldu, `
+    + `vakıf tarafında ${tr(d.vakif_kont[s1])} koltuk ${tr(d.vakif_kont[sk])}. `
+    + "Karşılaştırma üniversitenin program kodunun ilk dört hanesiyle yapılıyor, adla değil.";
 }
 
 /* ---------- 9-10 · bölüm grubu: kontenjan ve bant dağılımı ---------- */
@@ -1624,7 +1663,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=286dcad18a";
+const SURUM = "?v=ffd037362e";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
