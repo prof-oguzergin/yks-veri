@@ -494,6 +494,22 @@ footer p{color:var(--ink-3);max-width:76ch}
   iki satırın koyuluğu birbiriyle karşılaştırılamaz.</p>
   <div class="tw" id="t-genel"></div>
   <p class="not" id="n-genel"></p>
+
+  <h3>Kontenjan kimde?</h3>
+  <p>Aynı yıllar, aynı hizada. Üstteki çizelgenin daralan kontenjanı tek parça değil:
+  <strong>kesinti devlette, büyüme vakıfta.</strong> Doluluk da onu izliyor.</p>
+  <div class="tw" id="t-tur"></div>
+  <p class="not" id="n-tur"></p>
+
+  <h3>Dikey geçiş</h3>
+  <p>Üniversiteye giren herkes bu sınavdan gelmiyor. Önlisans mezunlarının lisansa geçtiği
+  <strong>dikey geçiş</strong> ayrı bir sınav ve ayrı bir kontenjan; büyüklüğü görünsün diye
+  aynı yıl ekseninde veriliyor.</p>
+  <p><strong>Dikey geçişte talep çöküyor.</strong> Tercih yapan aday sayısı önce yükselip
+  sonra yarıdan fazlasını kaybetti; örgün kontenjan aynı ölçüde daralmadığı için doluluk
+  da düştü. Sayılar çizelgenin altında.</p>
+  <div class="tw" id="t-dgs"></div>
+  <p class="not" id="n-dgs"></p>
 </section>
 
 <section id="ilk100">
@@ -909,6 +925,13 @@ footer p{color:var(--ink-3);max-width:76ch}
   karşılaştırılamaz</strong>; sıra ölçütü bu yüzden kullanılıyor.</p>
   <p><strong>2021 sütunu ayrı okunmalı:</strong> tercih barajının (TYT 150 / AYT 180) son yılıydı,
   doluluk her yerde düşük.</p>
+  <p><strong>Dikey geçiş.</strong> ÖSYM'nin DGS yerleştirme sonuçlarından, 2018-2025.
+  Sayılar program düzeyindeki listeden toplanıyor; devlet ve vakıf ayrımı program
+  kodunun ilk hanesinden geliyor, ÖSYM'nin özet tablosunda bu ayrım yok. Üç grubun
+  (örgün, uzaktan, açıköğretim) toplamı her yıl ÖSYM'nin kendi özetiyle karşılaştırılıyor.
+  <strong>İkinci öğretim örgünün içinde</strong>; ÖSYM 2018-2023'te ayrı satırda veriyordu,
+  2024'ten sonra o kalem kalktı, ayrı tutulsa seride yapay bir düşüş olurdu.
+  2026 yerleştirmesi henüz yapılmadı.</p>
   <p><strong>Mühendislik ve hukuk payları.</strong> Bu iki oran, o yıl örgün
   lisansa yerleşen toplam öğrenciye bölünüyor. Mühendislik, bölüm adında &ldquo;mühendis&rdquo;
   geçen bütün programlar (biyomühendislik ve Sabancı'nın bölünmemiş programı dahil); mimarlık
@@ -1222,18 +1245,9 @@ function kartKur(on, adres){
 }
 
 /* ---------- 1 · genel tablo ---------- */
-function genelTablo(){
-  const d = D.genel, Y = d.yil, son = Y.length - 1;
-  const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
-  // Bos hucre gercek bir bilgi: tercih yapan sayisi 2021'de yayimlanmadi, 2026'da henuz yok.
-  //
-  // ISI RENGI SATIR ICINDE olceklenmis: her satir kendi en kucugu ile en buyugu arasinda
-  // 0-1'e getiriliyor. Amac egilimi gozle okutmak. Iki sonucu var ve ikisi de notta yazili:
-  // (1) satirlar birbiriyle karsilastirilamaz, (2) az oynayan bir satir da bastan sona
-  // dolu bir gecis serigi gosterir. Ikinciyi yumusatmak icin renk yogunlugu satirin
-  // GERCEK yayilimiyla (aralik / en buyuk) da carpiliyor: sinava giren satiri soluk,
-  // kontenjan satiri koyu cikiyor. Tek renk kullaniliyor, yesil-kirmizi degil: "bos kalan"
-  // ile "doluluk" ayni yonde okunamaz, renk iyi-kotu degil BUYUK-KUCUK demek.
+// Uc cizelge de (genel, tur, dikey gecis) ayni satir ureticisini kullaniyor: renk satir
+// icinde olcekli, yogunluk satirin gercek yayilimiyla orantili, renk ailesi obegi ayirir.
+function genelSatir(){
   const isi = dizi => {
     const v = dizi.filter(x => x !== null);
     const enk = Math.min(...v), enb = Math.max(...v);
@@ -1242,17 +1256,24 @@ function genelTablo(){
     return x => (x === null || enb === enk) ? 0
       : Math.round((6 + 52 * ((x - enk) / (enb - enk))) * yogun);
   };
-  // Her obek ayri renk: aday / lisans / onlisans / toplam. Renk obegi ayirir, koyuluk
-  // satir icindeki buyuklugu gosterir. Blok blok renk ayrimi ayni zamanda bir uyari:
-  // renk satir icinde olcekli oldugu icin iki satirin koyulugu karsilastirilamaz,
-  // farkli renkler gozu bu karsilastirmadan alikoyuyor. Degiskenler sayfanin kendi
-  // paletinden, tema degisince renkler de kendiliginden donuyor.
-  const sat = (ad, dizi, bicim, sinif, renk) => {
+  return (ad, dizi, bicim, sinif, renk) => {
     const a = isi(dizi);
     return `<tr class="${sinif || ""}" style="--h:var(${renk})"><th>${ad}</th>`
       + dizi.map(v => `<td style="background:color-mix(in srgb, var(--h) ${a(v)}%,`
           + ` transparent)">${v === null ? "–" : bicim(v)}</td>`).join("") + "</tr>";
   };
+}
+
+function genelTablo(){
+  const d = D.genel, Y = d.yil, son = Y.length - 1;
+  const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+  // Bos hucre gercek bir bilgi: tercih yapan sayisi 2021'de yayimlanmadi, 2026'da henuz yok.
+  // Her obek ayri renk: aday / lisans / onlisans / toplam. Renk obegi ayirir, koyuluk
+  // satir icindeki buyuklugu gosterir. Blok blok renk ayrimi ayni zamanda bir uyari:
+  // renk satir icinde olcekli oldugu icin iki satirin koyulugu karsilastirilamaz,
+  // farkli renkler gozu bu karsilastirmadan alikoyuyor. Degiskenler sayfanin kendi
+  // paletinden, tema degisince renkler de kendiliginden donuyor.
+  const sat = genelSatir();
   const yuzde = v => "%" + vg(v);
   document.getElementById("t-genel").innerHTML = `<table>${bas}<tbody>`
     + sat("Sınava giren aday", d.sinava_giren, tr, "ana", "--b3")
@@ -1290,6 +1311,77 @@ function genelTablo(){
     + "satır soluk, çok oynayan koyu çıkıyor, çünkü yoğunluk satırın gerçek "
     + "yayılımıyla da orantılı. 2018-2021 arasındaki düşük doluluğun "
     + "sebebi tercih barajı (TYT 150 / AYT 180), 2022'de kaldırıldı.";
+}
+
+/* ---------- 1 · devlet-vakıf kırılımı ve dikey geçiş ---------- */
+function turTablo(){
+  const d = D.genel, t = d.tur, Y = d.yil, son = Y.length - 1;
+  const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+  const sat = genelSatir();
+  const yuzde = v => "%" + vg(v);
+  document.getElementById("t-tur").innerHTML = `<table>${bas}<tbody>`
+    + sat("Devlet · lisans", t.lisans_devlet_kont, tr, "ana", "--b6")
+    + sat("Vakıf · lisans", t.lisans_vakif_kont, tr, "ana", "--b1")
+    + sat("KKTC ve yurt dışı · lisans", t.lisans_disi_kont, tr, "", "--b9")
+    + sat("Devlet · önlisans", t.onlisans_devlet_kont, tr, "ayrik", "--b6")
+    + sat("Vakıf · önlisans", t.onlisans_vakif_kont, tr, "", "--b1")
+    + sat("KKTC ve yurt dışı · önlisans", t.onlisans_disi_kont, tr, "", "--b9")
+    + sat("Devlet lisans doluluğu", t.lisans_devlet_doluluk, yuzde, "ayrik", "--b6")
+    + sat("Vakıf lisans doluluğu", t.lisans_vakif_doluluk, yuzde, "", "--b1")
+    + sat("Devlet önlisans doluluğu", t.onlisans_devlet_doluluk, yuzde, "", "--b6")
+    + sat("Vakıf önlisans doluluğu", t.onlisans_vakif_doluluk, yuzde, "", "--b1")
+    + "</tbody></table>";
+  const kat = a => vg(a[son] / a[0], 2);
+  document.getElementById("n-tur").innerHTML =
+    `Devletin lisans kontenjanı ${Y[0]}'de ${tr(t.lisans_devlet_kont[0])} iken `
+    + `${Y[son]}'da ${tr(t.lisans_devlet_kont[son])}: ${kat(t.lisans_devlet_kont)} kat. `
+    + `Vakıfların kontenjanı aynı dönemde ${tr(t.lisans_vakif_kont[0])}'den `
+    + `${tr(t.lisans_vakif_kont[son])}'e çıktı, ${kat(t.lisans_vakif_kont)} kat; ülke `
+    + `payı %${vg(100 * t.lisans_vakif_kont[0] / d.lisans_kont[0])}'ten `
+    + `%${vg(100 * t.lisans_vakif_kont[son] / d.lisans_kont[son])}'e. `
+    + `<strong>Doluluk iki tarafta ayrışıyor:</strong> devlette `
+    + `%${vg(t.lisans_devlet_doluluk[son])}, vakıfta %${vg(t.lisans_vakif_doluluk[son])}. `
+    + "Üniversite türü program kodunun ilk hanesinden okunuyor (1 devlet, 2 vakıf, "
+    + "3 KKTC, 4 yurt dışı); KKTC ile yurt dışı tek satırda toplandı. Açıköğretimin "
+    + "tamamı devlet olduğu için tür kırılımına girmiyor.";
+}
+
+function dgsTablo(){
+  const d = D.dgs, Y = d.yil, i = d.orgun_kont.findIndex(v => v === null);
+  const s0 = 0, s1 = (i < 0 ? Y.length : i) - 1;   // dolu son yıl
+  const bas = "<thead><tr><th>Ölçüt</th>" + Y.map(y => `<th>${y}</th>`).join("") + "</tr></thead>";
+  const sat = genelSatir();
+  const yuzde = v => "%" + vg(v);
+  document.getElementById("t-dgs").innerHTML = `<table>${bas}<tbody>`
+    + sat("Tercih yapan aday", d.tercih_yapan, tr, "ana", "--b3")
+    + sat("Örgün kontenjan", d.orgun_kont, tr, "ayrik", "--vurgu")
+    + sat("Örgün yerleşen", d.orgun_yer, tr, "", "--vurgu")
+    + sat("Örgün doluluğu", d.orgun_doluluk, yuzde, "", "--vurgu")
+    + sat("Devlet · örgün kontenjan", d.devlet_kont, tr, "ayrik", "--b6")
+    + sat("Vakıf · örgün kontenjan", d.vakif_kont, tr, "", "--b1")
+    + sat("Açıköğretim kontenjanı", d.acik_kont, tr, "ayrik", "--b2")
+    + sat("Açıköğretim yerleşen", d.acik_yer, tr, "", "--b2")
+    + sat("Uzaktan öğretim kontenjanı", d.uzaktan_kont, tr, "", "--b2")
+    + "</tbody></table>";
+  // Zirve veriden: tercih yapan aday 2018-2025 arasinda once yukselip sonra dusuyor,
+  // iki ucu yazmak seriyi duz gosterir.
+  const t = d.tercih_yapan.slice(s0, s1 + 1);
+  const enb = Math.max(...t), zi = t.indexOf(enb);
+  document.getElementById("n-dgs").innerHTML =
+    `Tercih yapan aday sayısı ${Y[zi + s0]} yılında ${tr(enb)} ile zirve yaptı, `
+    + `${Y[s1]} yılında ${tr(d.tercih_yapan[s1])}: zirvenin `
+    + `${vg(d.tercih_yapan[s1] / enb, 2)} katı. Örgün doluluk `
+    + `%${vg(d.orgun_doluluk[s0])} iken %${vg(d.orgun_doluluk[s1])}. `
+    + `<strong>${Y[s1] + 1} sütunu boş:</strong> dikey geçiş yerleştirmesi yükseköğretim `
+    + "yerleştirmesinden sonra yapılıyor, sonuçları henüz yayımlanmadı. "
+    + `Örgün kontenjan ${Y[s0]}'de ${tr(d.orgun_kont[s0])}, ${Y[s1]}'te `
+    + `${tr(d.orgun_kont[s1])}; yerleşen ${tr(d.orgun_yer[s0])}'den `
+    + `${tr(d.orgun_yer[s1])}'e indi. Açıköğretim kontenjanı ${tr(d.acik_kont[s0])}'den `
+    + `${tr(d.acik_kont[s1])}'e, dikey geçişin en büyük kalemi hâlâ orası. `
+    + "<strong>İkinci öğretim örgünün içinde sayıldı</strong> (2024'ten sonra ayrı "
+    + "kalem olmaktan çıktı, ayrı tutulsa seride yapay bir düşüş olurdu). Sayılar "
+    + "ÖSYM'nin program düzeyindeki DGS yerleştirme listesinden; üç grubun toplamı "
+    + "her yıl ÖSYM'nin kendi özet tablosuyla karşılaştırılıyor.";
 }
 
 /* ---------- 9-10 · bölüm grubu: kontenjan ve bant dağılımı ---------- */
@@ -1532,7 +1624,7 @@ function haritaCiz(o, on){
 // Veri dosyalarinin surumu. Yayin betigi (yayin_hazirla.py) bu satiri iceriklerin ozetiyle
 // degistiriyor; bir duzeltme yayimlandiginda okurun tarayicisi eski JSON'u onbellekten
 // okumasin. Yerelde bos kaliyor, sunucu zaten taze veriyor.
-const SURUM = "?v=dd412a720e";
+const SURUM = "?v=286dcad18a";
 // Yerelde SURUM bos kaliyor ve tarayici eski JSON'u onbellekten okuyabiliyor; bu, veri
 // bicimi degistiginde sayfayi hataya dusuruyor. Yerelde her yenilemede taze cekiliyor.
 const yerel = ["localhost", "127.0.0.1", ""].includes(location.hostname);
@@ -1582,6 +1674,8 @@ async function basla(){
   ilk20bin();
   yetenek();
   genelTablo();
+  turTablo();
+  dgsTablo();
   bantGrubu("ogretmenlik");
   bantGrubu("temelbilim");
   hukukSeri();
