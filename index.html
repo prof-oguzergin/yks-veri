@@ -227,8 +227,6 @@ svg.nokta circle{fill:var(--h);fill-opacity:.42;stroke:var(--h);stroke-opacity:.
   stroke-width:.6}
 svg.nokta circle:hover{fill-opacity:.95;stroke:var(--ink);stroke-width:1.2}
 svg.nokta .orta{fill:none;stroke:var(--h);stroke-width:2.4;stroke-linejoin:round}
-svg.nokta .kesikli{stroke:var(--rule);stroke-width:1;stroke-dasharray:5 4}
-svg.nokta .bantet{font-size:13px;fill:var(--ink-3)}
 svg.nokta g.seri{--h:var(--k)}
 svg.nokta g.seri circle{fill:var(--k);stroke:var(--k)}
 svg.nokta g.seri .orta{stroke:var(--k)}
@@ -1473,16 +1471,28 @@ function dgsTablo(){
 // Eksen LOG: taban başarı sırası bir bölüm içinde bile iki-üç büyüklük mertebesi
 // değişiyor (tıpta 30 ile 60.000 aynı çizelgede). Doğrusal eksende bütün noktalar
 // dibe yığılıyor. Yukarı = daha iyi sıra.
-const NOKTA_ISARET = [100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000,
-                      100000, 200000, 500000, 1000000, 2000000];
+// Dogrusal eksen icin isaret araligi: 5-8 cizgi verecek en kucuk "guzel" adim.
+// Bolume gore en buyuk sira 130 binden 1,3 milyona kadar degistigi icin adim sabit
+// yazilamiyor, veriden seciliyor.
+const NOKTA_ADIM = [1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000, 100000,
+                    200000, 250000, 500000, 1000000];
+
+function noktaEksen(enb){
+  const adim = NOKTA_ADIM.find(a => enb / a <= 7) || NOKTA_ADIM[NOKTA_ADIM.length - 1];
+  const ust = Math.ceil(enb / adim) * adim;      // eksenin alt ucu (en kötü sıra)
+  const isaret = [];
+  for(let v = adim; v <= ust; v += adim) isaret.push(v);
+  return {ust, isaret};
+}
 
 function noktaCiz(kap, b, uni, Y, renk){
   const G = {en: 1000, boy: 430, sol: 96, sag: 16, ust: 22, alt: 52};
   const hepsi = b.yil.flat();
   if(!hepsi.length){ kap.innerHTML = ""; return; }
-  const enk = Math.min(...hepsi.map(x => x[0])), enb = Math.max(...hepsi.map(x => x[0]));
-  const l0 = Math.log10(Math.max(1, enk)) - 0.08, l1 = Math.log10(enb) + 0.08;
-  const yy = v => G.ust + (Math.log10(v) - l0) / (l1 - l0) * (G.boy - G.ust - G.alt);
+  // Dogrusal eksen, tepesi 0 (en iyi sira). Sifirdan baslamak dogru: sira sayilabilir
+  // bir buyukluk ve 1. sira eksenin tepesi demek.
+  const E = noktaEksen(Math.max(...hepsi.map(x => x[0])));
+  const yy = v => G.ust + (v / E.ust) * (G.boy - G.ust - G.alt);
   const gen = (G.en - G.sol - G.sag) / Y.length;
   const xx = i => G.sol + (i + 0.5) * gen;
   const enKont = Math.max(...hepsi.map(x => x[1])) || 1;
@@ -1491,8 +1501,7 @@ function noktaCiz(kap, b, uni, Y, renk){
   const kay = (j, n) => (((j * 0.6180339887) % 1) - 0.5) * gen * (n > 6 ? 0.74 : 0.34);
 
   let g = "";
-  for(const v of NOKTA_ISARET){
-    if(Math.log10(v) < l0 || Math.log10(v) > l1) continue;
+  for(const v of E.isaret){
     const y = yy(v);
     g += `<line class="izgara" x1="${G.sol}" y1="${y}" x2="${G.en - G.sag}" y2="${y}"/>`
       + `<text class="eks" x="${G.sol - 10}" y="${y}">${tr(v)}</text>`;
@@ -1555,10 +1564,10 @@ function noktaGrafik(anahtar, renk){
       + `${Y[son]} yılında sırası olan ${tr(dolu[son])} program, toplam `
       + `${tr(b.kont[son])} kontenjan. Ortanca taban sırası ${Y[0]} yılında `
       + `${o0 === null ? "yok" : tr(o0)}, ${Y[son]} yılında `
-      + `${o1 === null ? "yok" : tr(o1)}. <strong>Dikey eksen logaritmik</strong>, `
-      + "yukarı çıkmak daha iyi sıra demek; doğrusal eksende bütün noktalar dibe "
-      + "yığılıyordu. Kalın çizgi o yılın ortancası. <strong>Dolmayan programlar "
-      + "grafikte yok</strong>, ÖSYM onlara sıra atamıyor; sayıları yılın altında yazılı.";
+      + `${o1 === null ? "yok" : tr(o1)}. <strong>Dikey eksen doğrusal</strong>, `
+      + "sıfırdan başlıyor ve yukarı çıkmak daha iyi sıra demek. Kalın çizgi o yılın "
+      + "ortancası. <strong>Dolmayan programlar grafikte yok</strong>, ÖSYM onlara sıra "
+      + "atamıyor; sayıları yılın altında yazılı.";
   };
   sec.querySelector("select").onchange = e => ciz(+e.target.value);
   ciz(0);
@@ -1572,19 +1581,13 @@ const DORTLU_RENK = ["--b1", "--b3", "--b6", "--b5"];
 
 function noktaDortlu(){
   const seri = N.karsilastirma, Y = N.yil, uni = N.grup.temelbilim.uni;
-  const G = {en: 1000, boy: 470, sol: 96, sag: 16, ust: 22, alt: 56, bant: 34};
+  const G = {en: 1000, boy: 470, sol: 96, sag: 16, ust: 22, alt: 56};
   const hepsi = seri.flatMap(x => x.yil.flat());
-  const sirali = hepsi.map(x => x[0]).sort((a, c) => a - c);
-  // EKSEN 2. PERSENTILDE KESILIYOR. Noktalarin %3'ü 20.000'den iyi sirada ve eksenin
-  // 2,5 ondalik basamagini tek basina tutuyor; ortadaki yarim 0,37 basamaga siksiyor.
-  // Kesim noktasindan daha iyi siradaki programlar en ustteki ayri bantta toplaniyor,
-  // sayilari notta yazili. Nokta atilmiyor, yalnizca yeri degisiyor.
-  const kesik = sirali[Math.floor(sirali.length * 0.02)];
-  const enb = sirali[sirali.length - 1];
-  const l0 = Math.log10(kesik), l1 = Math.log10(enb) + 0.06;
-  const ustKenar = G.ust + G.bant;
-  const yy = v => v < kesik ? G.ust + 14
-    : ustKenar + (Math.log10(v) - l0) / (l1 - l0) * (G.boy - ustKenar - G.alt);
+  // Dogrusal eksen, tepesi 0. Log eksende bulutlar dibe siksiyordu ve alt uctaki ince
+  // kuyruk (69'a kadar inen 65 program) eksenin ucte birini tek basina tutuyordu;
+  // dogrusal eksende o kuyruk yer kaplamiyor, kesim ya da ayri bant gerekmiyor.
+  const E = noktaEksen(Math.max(...hepsi.map(x => x[0])));
+  const yy = v => G.ust + (v / E.ust) * (G.boy - G.ust - G.alt);
   const gen = (G.en - G.sol - G.sag) / Y.length;
   const xx = i => G.sol + (i + 0.5) * gen;
   const enKont = Math.max(...hepsi.map(x => x[1])) || 1;
@@ -1593,18 +1596,11 @@ function noktaDortlu(){
   const cirp = (j, n) => (((j * 0.6180339887) % 1) - 0.5) * gen * (n > 6 ? 0.17 : 0.08);
 
   let g = "";
-  for(const v of NOKTA_ISARET){
-    if(v < kesik || Math.log10(v) > l1) continue;
+  for(const v of E.isaret){
     const y = yy(v);
     g += `<line class="izgara" x1="${G.sol}" y1="${y}" x2="${G.en - G.sag}" y2="${y}"/>`
       + `<text class="eks" x="${G.sol - 10}" y="${y}">${tr(v)}</text>`;
   }
-  // Bandin alt siniri kesikli cizgi; ustunde kalan noktalarin gercek yeri daha yukarida.
-  g += `<line class="kesikli" x1="${G.sol}" y1="${ustKenar - 4}" x2="${G.en - G.sag}"`
-    + ` y2="${ustKenar - 4}"/>`
-    + `<text class="eks" x="${G.sol - 10}" y="${G.ust + 14}">${tr(kesik)}</text>`
-    + `<text class="bantet" x="${G.sol + 6}" y="${G.ust + 2}">`
-    + `${tr(kesik)} ve daha iyi sıradakiler (ölçek dışı)</text>`;
   Y.forEach((yil, i) =>
     g += `<text class="yil" x="${xx(i)}" y="${G.boy - 30}">${yil}</text>`);
 
@@ -1650,7 +1646,7 @@ function noktaDortlu(){
   };
   const dizi = seri.map(sr => ({ad: sr.ad, ilk: ortanca(sr, 0), son: ortanca(sr, son),
                                 kont: sr.kont[son]}));
-  const bantta = hepsi.filter(x => x[0] < kesik).length;
+
   const iyi = dizi.slice().sort((a, b) => a.son - b.son)[0];
   document.getElementById("n-dortlu").innerHTML =
     `${Y[son]} ortanca taban sıraları: `
@@ -1660,9 +1656,8 @@ function noktaDortlu(){
     + dizi.map(x => `${esc(x.ad)} ${x.ilk === null ? "yok" : tr(x.ilk)}`).join(" · ")
     + `. ${Y[son]} kontenjanları: `
     + dizi.map(x => `${esc(x.ad)} ${tr(x.kont)}`).join(" · ")
-    + `. Eksen ${tr(kesik)}. sırada kesildi: noktaların %${vg(100 * bantta / hepsi.length)} `
-    + `kadarı (${tr(bantta)} program) bundan daha iyi sırada ve eksenin çok büyük bir `
-    + "kısmını tek başına tutuyordu; onlar en üstteki ayrı bantta toplandı, kaldırılmadı. "
+    + ". <strong>Dikey eksen doğrusal ve sıfırdan başlıyor</strong>, yukarı çıkmak daha "
+    + "iyi sıra demek; kesim ya da ölçek dışı bırakılan nokta yok. "
     + "Noktalar yıl içinde bölüme göre yan yana dizildi, dikey konum sırayı veriyor. "
     + "Biyoloji serisi altı ayrı program adını topluyor; matematik yalnız "
     + "&ldquo;Matematik&rdquo;, matematik-bilgisayar programları ayrı bölüm sayıldı.";
